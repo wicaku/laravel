@@ -111,4 +111,5 @@ Route::get('panel/wvs', function () {
 });
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/kategorisasi', 'HomeController@index')->name('kategorisasi');
+Route::get('/kategorisasi-admin', 'AdminController@index')->name('kategorisasi.admin');
