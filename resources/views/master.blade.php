@@ -48,7 +48,8 @@
 				</div>
 			</div>
 			<div class="right menu">
-				<a class="item">Login</a>
+					<a class="item" href="{{ route('login') }}">Login</a>
+					<a class="item" href="{{ route('register') }}">Register</a>
 			</div>
 		</div>
 	</div>
