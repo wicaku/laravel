@@ -14,6 +14,7 @@
 Route::get('/', function () {
     return view('welcome');
 });
+Auth::routes();
 Route::get('/tentang', function () {
     return view('tentang');
 });
@@ -109,7 +110,6 @@ Route::get('panel/wvs', function () {
     // dd($data);
     return view('panel/wvs', compact('data'));
 });
-Auth::routes();
 
 Route::get('/kategorisasi', 'HomeController@index')->name('kategorisasi');
 Route::get('/kategorisasi-admin', 'AdminController@index')->name('kategorisasi.admin');

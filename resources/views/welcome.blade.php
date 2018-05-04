@@ -3,7 +3,7 @@
 HOME
 @endsection
 @section('body')
-    
+
 @endsection
 
 @section('script')

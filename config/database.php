@@ -83,7 +83,7 @@ return [
             'host' => env('DB_HOST', 'localhost'),
             'port' => env('DB_PORT', 27017),
             'database' => env('DB_DATABASE', 'egovbench-test'),
-            'username' => env('DB_USERNAME', ''),
+            'username' => env('DB_USERNAME', 'root'),
             'password' => env('DB_PASSWORD', ''),
             'options' => array(
                 'db' => 'admin' // sets the authentication database required by mongo 3
