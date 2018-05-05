@@ -19,42 +19,13 @@
 	<div class="ui stackable borderless menu">
 		<div class="ui container">
 			<a id="home" class="item" href="{{ url('/') }}">Beranda</a>
-			<a id="about" class="item" href="{{ url('/tentang') }}">About</a>
-			<div id="dropd" class="ui dropdown item" tabindex="0">
-				Peringkat
-				<i class="dropdown icon"></i>
-				<div class="menu transition hidden" tabindex="-1">
-					<a id="web" class="item" href="{{ url('/peringkat/website') }}">Website </a>
-					<a id="socmed" class="item" href="{{ url('/peringkat/sosial-media') }}">Sosial Media</a>
-					<a id="vuln" class="item" href="{{ url('/peringkat/kerentanan') }}">Kerentanan</a>
-				</div>
-			</div>
-			<div id="data" class="ui dropdown item" tabindex="0">
-				Data
-				<i class="dropdown icon"></i>
-				<div class="menu transition hidden" tabindex="-1">
-					<a id="dataweb" class="item" href="{{ url('/data/website') }}">Website</a>
-					<a id="datasocmed" class="item" href="{{ url('/data/sosial-media') }}">Sosial Media</a>
-					<a id="datavuln" class="item" href="{{ url('/data/kerentanan') }}">Kerentanan</a>
-				</div>
-			</div>
-			<div id="dropd" class="ui dropdown item" tabindex="0">
-				Metodologi
-				<i class="dropdown icon"></i>
-				<div class="menu transition hidden" tabindex="-1">
-					<a id="meta1" class="item" href="{{ url('/metodologi/1') }}">EGOV Benchmark V1.0</a>
-					<a id="meta2" class="item" href="{{ url('/metodologi/2') }}">EGOV Benchmark V2.0</a>
-					<a id="meta3" class="item" href="{{ url('/metodologi/3') }}">EGOV Benchmark V3.0</a>
-				</div>
-			</div>
-			<a id="kategorisasi" class="item" href="{{ url('/kategorisasi') }}">Kategorisasi</a>
 			<div class="right menu">
 					<!-- <a class="item" id="login" href="{{ route('login') }}">Login</a>
 					<a class="item" id="register" href="{{ route('register') }}">Register</a> -->
 					<!-- Authentication Links -->
           @guest
-              <a class="item" href="{{ route('login') }}">{{ __('Login') }}</a>
-              <a class="item" href="{{ route('register') }}">{{ __('Register') }}</a>
+              <a class="item" id="login" href="{{ route('login') }}">{{ __('Login') }}</a>
+              <a class="item" id="register" href="{{ route('register') }}">{{ __('Register') }}</a>
           @else
 							<div id="dropd" class="ui dropdown item" tabindex="0">
                   <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

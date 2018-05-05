@@ -1,6 +1,6 @@
-@extends('layouts.app')
+@extends('master')
 
-@section('content')
+@section('body')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -14,10 +14,20 @@
                         </div>
                     @endif
 
-                    You are logged in as an User
+                    You are logged in as an {{ Auth::user()->name }}<br>
+                    Ini ceritanya grafik
                 </div>
             </div>
         </div>
     </div>
 </div>
+@endsection
+@section('script')
+<script>
+	$(document).ready(function () {
+        $('.ui.dropdown').dropdown();
+        $("#kategorisasi").addClass("active");
+    });
+
+</script>
 @endsection

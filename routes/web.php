@@ -111,5 +111,5 @@ Route::get('panel/wvs', function () {
     return view('panel/wvs', compact('data'));
 });
 
-Route::get('/kategorisasi', 'HomeController@index')->name('kategorisasi');
+Route::get('/kategorisasi', 'KategorisasiController@index')->name('kategorisasi');
 Route::get('/kategorisasi-admin', 'AdminController@index')->name('kategorisasi.admin');
