@@ -112,4 +112,7 @@ Route::get('panel/wvs', function () {
 });
 
 Route::get('/kategorisasi', 'KategorisasiController@index')->name('kategorisasi');
-Route::get('/kategorisasi-admin', 'AdminController@index')->name('kategorisasi.admin');
+
+Route::get('/kategorisasi-admin/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');
+Route::post('/kategorisasi-admin/login', 'Auth\AdminLoginController@login')->name('admin.login.submit');
+Route::get('/kategorisasi-admin', 'AdminController@index')->name('admin.dashboard');
