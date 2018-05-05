@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use App\Model\userModel;
+use App\Model\listPemdaModel;
 
 use DB;
 
@@ -64,14 +65,17 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+      dd($data);
         return User::create([
+            'id'  => $data['id'],
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
     }
     public function showRegistrationForm() {
-        $datas = UserModel::all();
+        $datas = listPemdaModel::all();
+        // dd($datas[0]);
         return view ('auth.register', ['datas' => $datas]);
     }
 }
