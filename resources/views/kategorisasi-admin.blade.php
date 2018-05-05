@@ -1,6 +1,6 @@
-@extends('layouts.app')
+@extends('master-admin')
 
-@section('content')
+@section('body')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -20,4 +20,12 @@
         </div>
     </div>
 </div>
+@endsection
+@section('script')
+<script>
+	$(document).ready(function () {
+        $('.ui.dropdown').dropdown();
+    });
+
+</script>
 @endsection
