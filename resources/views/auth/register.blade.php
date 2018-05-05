@@ -17,7 +17,9 @@ Register
           <div class="ui left icon input">
             <select class="ui fluid search dropdown" name="name" id="name">
               <option value="Pemda">Pilih Nama Pemerintah Daerah</option>
-              <option value="Pemda2">Pilih Pemda</option>
+              @foreach ($datas as $data)
+                <option value="{{ $data->id}}">{{$data->name}}</option>
+              @endforeach
             </select>
           </div>
         </div>
