@@ -15,21 +15,16 @@ Register
       <div class="ui left stacked segment">
         <div class="field">
           <div class="ui left icon input">
-            <div class="ui fluid search selection dropdown">
-               <input name="pemda" type="hidden">
+            <div class="ui fluid search dropdown selection">
+               <input name="name" type="hidden">
+              <div class="default text">Masukkan Nama Pemerintah Daerah</div>
                <i class="dropdown icon"></i>
-               <div class="default text">Masukkan nama Pemerintah Daerah</div>
                <div class="menu">
                  @foreach ($datas as $data)
-                 <div class="item" data-value="{{ $data->_id }}">{{ $data->name }}</div>
+                    <div class="item" data-value="{{ $data->name }}">{{ $data->name }}</div>
                  @endforeach
                </div>
             </div>
-            <!-- <select class="ui fluid search dropdown" name="name" id="name" placeholder="masukan nama pemda">
-              @foreach ($datas as $data)
-                <option value="{{ $data->_id }}">{{ $data->name }}</option>
-              @endforeach
-            </select> -->
           </div>
         </div>
 
