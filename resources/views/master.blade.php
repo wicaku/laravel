@@ -47,7 +47,8 @@
 					<a id="meta3" class="item" href="{{ url('/metodologi/3') }}">EGOV Benchmark V3.0</a>
 				</div>
 			</div>
-			<a id="kategorisasi" class="item" href="{{ url('/kategorisasi') }}">Kategorisasi</a>
+			<!-- <a id="kategorisasi" class="item" href="/kategorisasi/{{Auth::user()->_id}}">Kategorisasi</a> -->
+			<a id="kategorisasi" class="item" href="{{ route('kategorisasi', ['id' => Auth::user()->_id]) }}">Kategorisasi</a>
 			<div class="right menu">
 					<!-- <a class="item" id="login" href="{{ route('login') }}">Login</a>
 					<a class="item" id="register" href="{{ route('register') }}">Register</a> -->

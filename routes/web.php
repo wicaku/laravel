@@ -112,9 +112,12 @@ Route::get('panel/wvs', function () {
 });
 
 Route::post('/kategorisasi/logout', 'Auth\LoginController@userLogout')->name('user.logout');
-Route::get('/kategorisasi', 'KategorisasiController@index')->name('kategorisasi');
+Route::get('/kategorisasi/{id}', 'KategorisasiController@index')->name('kategorisasi');
+Route::get('/kategorisasi/{id}/dinas', 'DinasController@index')->name('dinas');
 
 Route::get('/kategorisasi-admin/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');
 Route::post('/kategorisasi-admin/login', 'Auth\AdminLoginController@login')->name('admin.login.submit');
 Route::get('/kategorisasi-admin', 'AdminController@index')->name('admin.dashboard');
 Route::post('/kategorisasi-admin/logout', 'Auth\AdminLoginController@logout')->name('admin.logout');
+
+Route::post('/kategorisasi/{id}/dinas', 'DinasController@store')->name('tambah.dinas');
