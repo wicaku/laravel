@@ -122,4 +122,5 @@ Route::post('/kategorisasi-admin/login', 'Auth\AdminLoginController@login')->nam
 Route::get('/kategorisasi-admin', 'AdminController@index')->name('admin.dashboard');
 Route::post('/kategorisasi-admin/logout', 'Auth\AdminLoginController@logout')->name('admin.logout');
 
-Route::post('/kategorisasi/{id}/dinas', 'DinasController@store')->name('tambah.dinas');
+Route::post('/kategorisasi/{id}/dinas', 'DinasController@store')->name('tambah.dinas.store');
+Route::get('/kategorisasi/tambah_dinas', 'DinasController@showTambahDinas')->name('tambah.dinas');

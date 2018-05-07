@@ -20,7 +20,6 @@
   </thead>
   <tbody>
     @foreach ($dinases as $dinas)
-      @if ($dinas->dinas)
         @foreach ($dinas->dinas as $dinasArray)
           <tr>
             <td>{{$dinasArray['nama_dinas']}}</td>
@@ -36,8 +35,6 @@
             </td>
           </tr>
         @endforeach
-      @else
-        Belum menambahkan dinas
     @endforeach
   </tbody>
   </table>
@@ -50,7 +47,7 @@
     Tambah Dinas
   </div>
   <div class="content">
-    <form class="ui form" action="{{ route('tambah.dinas', ['id' => Auth::user()->_id]) }}" method="post">
+    <form class="ui form" action="{{ route('tambah.dinas.store', ['id' => Auth::user()->_id]) }}" method="post">
       <input name="id_pemda" type="hidden" value="{{Auth::user()->_id}}">
       <div class="field">
         <label>Nama Dinas</label>

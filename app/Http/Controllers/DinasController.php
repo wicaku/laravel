@@ -24,4 +24,8 @@ class DinasController extends Controller
     return view('dinas', ['dinases' => $dinases]);
   }
 
+  public function showTambahDinas() {
+    return view('auth.register_dinas');
+  }
+
 }
