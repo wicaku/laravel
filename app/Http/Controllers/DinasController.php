@@ -15,7 +15,10 @@ class DinasController extends Controller
 
   public function store(Request $request) {
     $dinas = userModel::where('_id', $request->id_pemda)->first();
-    $dinas->push('dinas', ['nama_dinas' => $request->nama_dinas, 'deskripsi_dinas' => $request->deskripsi_dinas, 'keyword' => $request->keyword_dinas]);
+    $idDinas = new \MongoDB\BSON\ObjectID();
+    $newIdDinas = "{$request->id_pemda}_{$idDinas}";
+    // dd($newIdDinas);
+    $dinas->push('dinas', ['id_dinas' => $newIdDinas,'nama_dinas' => $request->nama_dinas, 'deskripsi_dinas' => $request->deskripsi_dinas, 'keyword' => $request->keyword_dinas]);
 
     $dinases = userModel::where('_id', $request->id_pemda)->get();
     return view('dinas', ['dinases' => $dinases]);

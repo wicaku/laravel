@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use App\Model\userModel;
 use App\Model\listPemdaModel;
+use Illuminate\Http\Request;
+use Illuminate\Auth\Events\Registered;
 
 use DB;
 
@@ -71,6 +73,7 @@ class RegisterController extends Controller
             'password' => bcrypt($data['password']),
         ]);
     }
+
     public function showRegistrationForm() {
         $datas = listPemdaModel::all();
         // dd($datas[0]);

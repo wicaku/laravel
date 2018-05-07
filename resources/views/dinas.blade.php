@@ -20,25 +20,30 @@
   </thead>
   <tbody>
     @foreach ($dinases as $dinas)
-    @foreach ($dinas->dinas as $dinasArray)
-    <tr>
-      <td>{{$dinasArray['nama_dinas']}}</td>
-      <td>{{$dinasArray['deskripsi_dinas']}}</td>
-      <td>{{$dinasArray['keyword']}}</td>
-      <td>
-        <button class="ui tiny icon blue button" id="edit-button">
-          <i class="edit icon"></i>
-        </button>
-        <button class="ui tiny icon red button">
-          <i class="delete icon"></i>
-        </button>
-      </td>
-    </tr>
-    @endforeach
+      @if ($dinas->dinas)
+        @foreach ($dinas->dinas as $dinasArray)
+          <tr>
+            <td>{{$dinasArray['nama_dinas']}}</td>
+            <td>{{$dinasArray['deskripsi_dinas']}}</td>
+            <td>{{$dinasArray['keyword']}}</td>
+            <td>
+              <button class="ui tiny icon blue button" id="edit-button">
+                <i class="edit icon"></i>
+              </button>
+              <button class="ui tiny icon red button">
+                <i class="delete icon"></i>
+              </button>
+            </td>
+          </tr>
+        @endforeach
+      @else
+        Belum menambahkan dinas
     @endforeach
   </tbody>
   </table>
+
 </div>
+
 <div class="ui modal" id="tambah-modal">
   <i class="close icon"></i>
   <div class="header">

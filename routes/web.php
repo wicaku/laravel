@@ -14,7 +14,7 @@
 Route::get('/', function () {
     return view('welcome');
 });
-Auth::routes();
+
 Route::get('/tentang', function () {
     return view('tentang');
 });
@@ -111,8 +111,10 @@ Route::get('panel/wvs', function () {
     return view('panel/wvs', compact('data'));
 });
 
+Auth::routes();
+
 Route::post('/kategorisasi/logout', 'Auth\LoginController@userLogout')->name('user.logout');
-Route::get('/kategorisasi/{id}', 'KategorisasiController@index')->name('kategorisasi');
+Route::get('/kategorisasi', 'KategorisasiController@index')->name('kategorisasi');
 Route::get('/kategorisasi/{id}/dinas', 'DinasController@index')->name('dinas');
 
 Route::get('/kategorisasi-admin/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');
