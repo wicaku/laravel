@@ -11,4 +11,8 @@ class userModel extends Eloquent
 
     use SoftDeletes;
     protected $dates = ['deleted_at'];
+
+    public function dinas() {
+      return $this->hasMany('App\Model\dinasModel', 'idUser');
+    }
 }

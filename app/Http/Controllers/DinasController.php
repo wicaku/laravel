@@ -5,27 +5,52 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Model\userModel;
+use App\Model\dinasModel;
 
 class DinasController extends Controller
 {
   public function index($id) {
-    $dinases = userModel::where('_id', $id)->get();
+    $user = userModel::find($id);
+    $dinases = $user->dinas;
     return view('dinas', ['dinases' => $dinases]);
   }
 
   public function store(Request $request) {
-    $dinas = userModel::where('_id', $request->id_pemda)->first();
-    $idDinas = new \MongoDB\BSON\ObjectID();
-    $newIdDinas = "{$request->id_pemda}_{$idDinas}";
-    // dd($newIdDinas);
-    $dinas->push('dinas', ['id_dinas' => $newIdDinas,'nama_dinas' => $request->nama_dinas, 'deskripsi_dinas' => $request->deskripsi_dinas, 'keyword' => $request->keyword_dinas]);
+    $user = userModel::where('_id', $request->id_pemda)->first();
 
-    $dinases = userModel::where('_id', $request->id_pemda)->get();
-    return view('dinas', ['dinases' => $dinases]);
+    $idDinas = new \MongoDB\BSON\ObjectID();
+    $dinas = new dinasModel;
+    $dinas->_id = $idDinas;
+    $dinas->idUser = $user->_id;
+    $dinas->nama_dinas = $request->nama_dinas;
+    $dinas->deskripsi_dinas = $request->deskripsi_dinas;
+    $dinas->keyword = $request->keyword_dinas;
+    $dinas->save();
+    // $user->push('dinas', ['id_dinas' => $idDinas]);
+
+    $dinases = $user->dinas;
+
+    return view('kategorisasi');
   }
 
   public function showTambahDinas() {
     return view('auth.register_dinas');
   }
 
+  public function edit($id, $idDinas) {
+    // $dinases = userModel::where('_id', $id)->first();
+    // // $dinas = userModel::where('dinas.id_dinas', "5aeffdb80e006205640052ff_5af010390e00620564005308")->get();
+    // // $dinas = userModel::where('dinas', 'elemMatch', ['id_dinas' => "5aeffdb80e006205640052ff_5af010390e00620564005308"])->get();
+    // // $dinas = userModel::where({'dinas.id': '$idDinas'}, {'dinas': { $elemMatch: { 'id': $idDinas}}})->get();
+    // // $dinas = userModel::where('dinas' , 'elemMatch', array('_id' => $idDinas))->first();
+    //
+    // // $dinas = dinasModel::where('id', "5aeffdb80e006205640052ff_5af010390e00620564005308")->get();
+    // // $dinas = userModel::first()->dinas->where('dinas.id', $idDinas)->get();
+    // $dinas = $dinases->dinas()->get()->where('id', $idDinas);
+    // // $cariDinas = $dinas->where('dinas.id', $idDinas)->get();
+    // // dd($dinas);
+    $user = userModel::find($id);
+    $dinases = $user->dinas->where('_id', $idDinas);
+    return view('edit_dinas', ['dinases' => $dinases]);
+  }
 }

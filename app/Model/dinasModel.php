@@ -7,8 +7,13 @@ use Jenssegers\Mongodb\Eloquent\SoftDeletes;
 
 class dinasModel extends Eloquent
 {
-    protected $collection = '';
+  protected $collection = 'dinas';
 
-    use SoftDeletes;
-    protected $dates = ['deleted_at'];
+  use SoftDeletes;
+  protected $dates = ['deleted_at'];
+
+  public function user() {
+    return $this->belongsTo('App\Model\userModel');
+  }
+
 }
