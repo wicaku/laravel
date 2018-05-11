@@ -33,6 +33,35 @@ class DinasController extends Controller
     return view('kategorisasi');
   }
 
+  public function update(Request $request, $id) {
+    // dd($request->all());
+    $user = userModel::find($id);
+    // dd($user);
+    $dinases = $user->dinas->where('_id', $request->id_dinas)->first();
+
+    $dinases->nama_dinas = $request->nama_dinas;
+    $dinases->deskripsi_dinas = $request->deskripsi_dinas;
+    $dinases->keyword = $request->keyword_dinas;
+
+    $dinases->save();
+
+    $dinases = $user->dinas;
+
+    return view('dinas', ['dinases' => $dinases]);
+
+  }
+
+public function destroy($id, $idDinas) {
+  $user = userModel::find($id);
+  $dinases = $user->dinas->where('_id'. $idDinas)->first();
+  $dinases->delete();
+
+  $dinases = $user->dinas;
+
+  return view('dinas', ['dinases' => $dinases]);
+}
+
+
   public function showTambahDinas() {
     return view('auth.register_dinas');
   }

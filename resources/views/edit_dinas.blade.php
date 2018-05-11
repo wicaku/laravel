@@ -15,6 +15,7 @@ Register
       <div class="ui left stacked segment">
         <input type="hidden" name="id_pemda" value="{{Auth::user()->_id}}"></input>
         @foreach ($dinases as $dinas)
+        <input type="hidden" name="id_dinas" value="{{$dinas->_id}}"></input>
         <div class="field">
           <label class="ui text container left aligned left aligned grid">Nama Dinas</label>
           <input name="nama_dinas" type="text" value="{{$dinas->nama_dinas}}">
@@ -31,8 +32,9 @@ Register
         </div>
         @endforeach
         <button type="submit" class="ui fluid large teal submit button">
-            {{ __('Register Dinas') }}
+            {{ __('Edit Dinas') }}
         </button>
+        {{ csrf_field() }}
         <div class="ui error message"></div>
       </div>
     </form>

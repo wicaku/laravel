@@ -26,9 +26,7 @@
             <td>{{$dinas['keyword']}}</td>
             <td>
               <a href="{{ route('edit.dinas', ['id' => Auth::user()->_id, 'idDinas' => $dinas['_id']] )}}" class='ui tiny icon blue button' id='edit-button' data-toggle='modal'><i class="edit icon"></i></a>
-              <button class="ui tiny icon red button">
-                <i class="delete icon"></i>
-              </button>
+              <a href="{{ route('delete.dinas', ['id' => Auth::user()->_id, 'idDinas' => $dinas['_id']] )}}" class='ui tiny icon red button' id='delete-button' data-toggle='modal'><i class="delete icon"></i></a>
             </td>
           </tr>
     @endforeach

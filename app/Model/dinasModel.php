@@ -9,6 +9,10 @@ class dinasModel extends Eloquent
 {
   protected $collection = 'dinas';
 
+  protected $fillable = [
+      'nama_dinas', 'deskripsi_dinas', 'keyword',
+  ];
+
   use SoftDeletes;
   protected $dates = ['deleted_at'];
 
