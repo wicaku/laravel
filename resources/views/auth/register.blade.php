@@ -15,7 +15,7 @@ Register
       <div class="ui left stacked segment">
         <div class="field">
           <div class="ui left icon input">
-            <div class="ui fluid search dropdown selection">
+            <div class="ui search dropdown selection">
                <input name="name" type="hidden">
               <div class="default text">Masukkan Nama Pemerintah Daerah</div>
                <i class="dropdown icon"></i>

@@ -25,13 +25,19 @@
             <td>{{$dinas['deskripsi_dinas']}}</td>
             <td>{{$dinas['keyword']}}</td>
             <td>
-              <a href="{{ route('edit.dinas', ['id' => Auth::user()->_id, 'idDinas' => $dinas['_id']] )}}" class='ui tiny icon blue button' id='edit-button' data-toggle='modal'><i class="edit icon"></i></a>
-              <a href="{{ route('delete.dinas', ['id' => Auth::user()->_id, 'idDinas' => $dinas['_id']] )}}" class='ui tiny icon red button' id='delete-button' data-toggle='modal'><i class="delete icon"></i></a>
+              <form action="{{ route('delete.dinas', ['id' => Auth::user()->_id, 'idDinas' => $dinas['_id']] )}}" method="post">
+                {{ method_field('delete')}}
+                {{ csrf_field() }}
+                <a href="{{ route('edit.dinas', ['id' => Auth::user()->_id, 'idDinas' => $dinas['_id']] )}}" class='ui tiny icon blue button' id='edit-button'><i class="edit icon"></i></a>
+                <button class='ui tiny icon red button' type="submit"><i class="delete icon"></i></a>
+                <!-- <a class='ui tiny icon red button delete' data-toggle='modal'><i class="delete icon"></i></a> -->
+              </form>
             </td>
           </tr>
     @endforeach
   </tbody>
   </table>
+
 </div>
 
 <div class="ui modal" id="tambah-modal">
@@ -57,7 +63,7 @@
 
   </div>
   <div class="actions">
-    <button class="ui button cancel">cancel</button>
+    <button type="button" class="ui button cancel">cancel</button>
     <button class="ui button submit ok" type="submit">submit</button>
     {{ csrf_field() }}
     </form>
@@ -74,9 +80,7 @@
         $('#tambah-button').click(function(){
           $('#tambah-modal').modal('show');
         });
-        $('#edit-button').click(function(){
-          $('#edit-modal').modal('show');
-        });
-    });
+
+    })  
 </script>
 @endsection

@@ -30,7 +30,7 @@ class DinasController extends Controller
 
     $dinases = $user->dinas;
 
-    return view('kategorisasi');
+    return view('dinas', ['dinases' => $dinases]);
   }
 
   public function update(Request $request, $id) {
@@ -53,12 +53,11 @@ class DinasController extends Controller
 
 public function destroy($id, $idDinas) {
   $user = userModel::find($id);
-  $dinases = $user->dinas->where('_id'. $idDinas)->first();
+  $dinases = $user->dinas->where('_id', $idDinas)->first();
   $dinases->delete();
-
   $dinases = $user->dinas;
 
-  return view('dinas', ['dinases' => $dinases]);
+  return redirect()->route('dinas', ['user' => $user]);
 }
 
 

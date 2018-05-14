@@ -124,7 +124,8 @@ Route::post('/kategorisasi-admin/logout', 'Auth\AdminLoginController@logout')->n
 
 Route::post('/kategorisasi/{id}/', 'DinasController@store')->name('tambah.dinas.store');
 Route::get('/kategorisasi/tambah_dinas', 'DinasController@showTambahDinas')->name('tambah.dinas');
-Route::post('/kategorisasi/{id}/dinas/', 'DinasController@update')->name('update.dinas');
-Route::get('/kategorisasi/{id}/dinas/{idDinas}', 'DinasController@edit')->name('edit.dinas');
 
-Route::delete('/kategorisasi/{id}/dinas/{idDinas}', 'DinasController@destroy')->name('delete.dinas');
+Route::get('/kategorisasi/{id}/dinas/{idDinas}/edit', 'DinasController@edit')->name('edit.dinas');
+Route::post('/kategorisasi/{id}/dinas/', 'DinasController@update')->name('update.dinas');
+
+Route::delete('/kategorisasi/{id}/dinas/{idDinas}', 'DinasController@destroy')->name('delete.dinas'); 
