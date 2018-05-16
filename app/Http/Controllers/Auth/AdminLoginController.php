@@ -8,6 +8,9 @@ use Auth;
 
 class AdminLoginController extends Controller
 {
+    protected $redirectTo = '/kategorisasi-admin';
+
+
     public function __construct() {
       $this->middleware('guest:admin,', ['except' => ['logout']]);
     }
