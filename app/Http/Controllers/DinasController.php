@@ -12,7 +12,7 @@ class DinasController extends Controller
   public function index($id) {
     $user = userModel::find($id);
     $dinases = $user->dinas;
-    return view('dinas', ['dinases' => $dinases]);
+    return view('dinas', ['dinases' => $dinases, 'user' => $user]);
   }
 
   public function store(Request $request) {
@@ -30,7 +30,7 @@ class DinasController extends Controller
 
     $dinases = $user->dinas;
 
-    return view('dinas', ['dinases' => $dinases]);
+    return view('dinas', ['dinases' => $dinases, 'user' => $user]);
   }
 
   public function update(Request $request, $id) {
@@ -47,7 +47,7 @@ class DinasController extends Controller
 
     $dinases = $user->dinas;
 
-    return view('dinas', ['dinases' => $dinases]);
+    return view('dinas', ['dinases' => $dinases, 'user' => $user]);
 
   }
 
@@ -79,6 +79,6 @@ public function destroy($id, $idDinas) {
     // // dd($dinas);
     $user = userModel::find($id);
     $dinases = $user->dinas->where('_id', $idDinas);
-    return view('edit_dinas', ['dinases' => $dinases]);
+    return view('edit_dinas', ['dinases' => $dinases, 'user' => $user]);
   }
 }

@@ -128,4 +128,11 @@ Route::get('/kategorisasi/tambah_dinas', 'DinasController@showTambahDinas')->nam
 Route::get('/kategorisasi/{id}/dinas/{idDinas}/edit', 'DinasController@edit')->name('edit.dinas');
 Route::post('/kategorisasi/{id}/dinas/', 'DinasController@update')->name('update.dinas');
 
-Route::delete('/kategorisasi/{id}/dinas/{idDinas}', 'DinasController@destroy')->name('delete.dinas'); 
+Route::delete('/kategorisasi/{id}/dinas/{idDinas}', 'DinasController@destroy')->name('delete.dinas');
+
+Route::get('/kategorisasi-admin/pemda', 'PemdaController@index')->name('pemda');
+
+Route::get('/kategorisasi-admin/pemda/{id}/edit', 'PemdaController@edit')->name('edit.pemda');
+Route::post('/kategorisasi-admin/pemda/{id}/', 'PemdaController@update')->name('update.pemda');
+
+Route::get('/kategorisasi-admin/pemda/{id}/dinas', 'DinasController@index')->name('pemda.dinas');

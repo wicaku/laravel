@@ -23,6 +23,6 @@ class AdminController extends Controller
      */
     public function index()
     {
-        return view('kategorisasi-admin');
+        return view('admin/kategorisasi-admin');
     }
 }
