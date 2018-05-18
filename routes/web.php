@@ -135,4 +135,4 @@ Route::get('/kategorisasi-admin/pemda', 'PemdaController@index')->name('pemda');
 Route::get('/kategorisasi-admin/pemda/{id}/edit', 'PemdaController@edit')->name('edit.pemda');
 Route::post('/kategorisasi-admin/pemda/{id}/', 'PemdaController@update')->name('update.pemda');
 
-Route::get('/kategorisasi-admin/pemda/{id}/dinas', 'DinasController@index')->name('pemda.dinas');
+Route::get('/kategorisasi-admin/pemda/{id}/dinas', 'PemdaController@showDinas')->name('pemda.dinas');

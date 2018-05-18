@@ -54,6 +54,6 @@ class PemdaController extends Controller
   public function showDinas($id) {
     $user = userModel::find($id);
     $dinases = $user->dinas;
-    return view('dinas', ['dinases' => $dinases]);
+    return view('admin/pemda-dinas', ['dinases' => $dinases, 'user' => $user]);
   }
 }

@@ -1,14 +1,10 @@
-@extends('master')
+@extends('master-admin')
 
 @section('body')
 <div class="ui container">
   <div class="ui grid">
     <div class="two column row">
-      @auth('admin')
       <div class="left floated column"><h5 class="ui header" style="margin-top:10px"><a href="{{ route('pemda') }}"><i class="home icon"></i>Admin / Pemda</a> / {{$user->name}}</h5></div>
-      @else
-      <div class="left floated column"><h5 class="ui header" style="margin-top:10px"><a href="{{ route('kategorisasi', ['id' => Auth::user()->_id]) }}"><i class="home icon"></i>{{Auth::User()->name }}</a><span> / Dinas</span></h5></div>
-      @endauth
       <div class="right floated column"><button class="small ui right floated green button" id="tambah-button"><i class="icon plus"></i>Tambah Dinas</button></div>
     </div>
   </div>
@@ -79,7 +75,7 @@
 <script>
 	$(document).ready(function () {
         $('.ui.dropdown').dropdown();
-        $("#kategorisasi").addClass("active");
+        $("#kategorisasi-admin").addClass("active");
         $('#tambah-button').click(function(){
           $('#tambah-modal').modal('show');
         });
