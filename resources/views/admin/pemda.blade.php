@@ -6,7 +6,7 @@
     <div class="two column row">
       <div class="left floated column"><h5 class="ui header" style="margin-top:10px"><a href="{{ route('admin.dashboard') }}"><i class="home icon"></i>Admin</a><span> / Pemda</span></h5></div>
       <div class="two column row">
-        <div class="right floated column"><a href="{{ route('register')}}" class="small ui right floated green button"><i class="icon plus"></i>Tambah Pemda</a></div>
+        <div class="right floated column"><a href="{{ route('admin.register.pemda')}}" class="small ui right floated green button"><i class="icon plus"></i>Tambah Pemda</a></div>
         <div class="right floated column"><a href="{{ route('pemda.deleted')}}" class="small ui right floated red button"><i class="icon trash"></i>Deleted Pemda</a></div>
       </div>
     </div>

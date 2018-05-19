@@ -22,13 +22,13 @@ Register
         <div class="ui left stacked segment">
           <div class="field">
             <div class="ui left icon input">
-              <div class="ui fluid search normal dropdown selection">
-                 <input name="name" type="hidden">
+              <div class="ui disabled fluid search normal dropdown selection">
+                 <input name="name" type="hidden" value="{{ $user->name }}">
                  <i class="dropdown icon"></i>
                  <div class="text">{{ $user->name}}</div>
                  <div class="menu">
                    @foreach ($pemdas as $pemda)
-                      <div class="item" data-value="{{ $pemda->name }}">{{ $pemda->name }}</div>
+                      <div class="item" data-value="{{ $user->name }}">{{ $user->name }}</div>
                    @endforeach
                  </div>
               </div>
@@ -42,6 +42,19 @@ Register
               @if ($errors->has('email'))
                   <span class="invalid-feedback">
                       <strong>{{ $errors->first('email') }}</strong>
+                  </span>
+              @endif
+            </div>
+          </div>
+
+          <div class="field">
+            <div class="ui left icon input">
+              <i class="lock icon"></i>
+              <input id="password" name="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" placeholder="Password" value="{{ $user->password}}" required>
+
+              @if ($errors->has('password'))
+                  <span class="invalid-feedback">
+                      <strong>{{ $errors->first('password') }}</strong>
                   </span>
               @endif
             </div>

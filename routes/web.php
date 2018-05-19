@@ -122,6 +122,9 @@ Route::post('/kategorisasi-admin/login', 'Auth\AdminLoginController@login')->nam
 Route::get('/kategorisasi-admin', 'AdminController@index')->name('admin.dashboard');
 Route::post('/kategorisasi-admin/logout', 'Auth\AdminLoginController@logout')->name('admin.logout');
 
+Route::get('/kategorisasi-admin/register-pemda', 'Auth\AdminRegisterController@showRegistrationForm')->name('admin.register.pemda');
+Route::post('/kategorisasi-admin/register-pemda', 'Auth\AdminRegisterController@register')->name('admin.register.pemda.register');
+
 Route::post('/kategorisasi/{id}/', 'DinasController@store')->name('tambah.dinas.store');
 Route::get('/kategorisasi/tambah_dinas', 'DinasController@showTambahDinas')->name('tambah.dinas');
 
