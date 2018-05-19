@@ -25,10 +25,10 @@
             <td>{{$dinas['deskripsi_dinas']}}</td>
             <td>{{$dinas['keyword']}}</td>
             <td>
-              <form action="{{ route('delete.dinas', ['id' => $user->id, 'idDinas' => $dinas['_id']] )}}" method="post">
+              <form action="{{ route('pemda.delete.dinas', ['id' => $user->id, 'idDinas' => $dinas['_id']] )}}" method="post">
                 {{ method_field('delete')}}
                 {{ csrf_field() }}
-                <a href="{{ route('edit.dinas', ['id' => $user->id, 'idDinas' => $dinas['_id']] )}}" class='ui tiny icon blue button' id='edit-button'><i class="edit icon"></i></a>
+                <a href="{{ route('pemda.edit.dinas', ['id' => $user->id, 'idDinas' => $dinas['_id']] )}}" class='ui tiny icon blue button' id='edit-button'><i class="edit icon"></i></a>
                 <button class='ui tiny icon red button' type="submit"><i class="delete icon"></i></a>
               </form>
             </td>
@@ -45,7 +45,7 @@
     Tambah Dinas
   </div>
   <div class="content">
-    <form class="ui form" action="{{ route('tambah.dinas.store', ['id' => $user->id]) }}" method="post">
+    <form class="ui form" action="{{ route('pemda.tambah.dinas.store', ['id' => $user->id]) }}" method="post">
       <input name="id_pemda" type="hidden" value="{{$user->id}}">
       <div class="field">
         <label>Nama Dinas</label>

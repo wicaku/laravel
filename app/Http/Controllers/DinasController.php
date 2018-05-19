@@ -26,7 +26,6 @@ class DinasController extends Controller
     $dinas->deskripsi_dinas = $request->deskripsi_dinas;
     $dinas->keyword = $request->keyword_dinas;
     $dinas->save();
-    // $user->push('dinas', ['id_dinas' => $idDinas]);
 
     $dinases = $user->dinas;
 
@@ -34,9 +33,7 @@ class DinasController extends Controller
   }
 
   public function update(Request $request, $id) {
-    // dd($request->all());
     $user = userModel::find($id);
-    // dd($user);
     $dinases = $user->dinas->where('_id', $request->id_dinas)->first();
 
     $dinases->nama_dinas = $request->nama_dinas;
@@ -48,7 +45,6 @@ class DinasController extends Controller
     $dinases = $user->dinas;
 
     return view('dinas', ['dinases' => $dinases, 'user' => $user]);
-
   }
 
 public function destroy($id, $idDinas) {
@@ -66,17 +62,6 @@ public function destroy($id, $idDinas) {
   }
 
   public function edit($id, $idDinas) {
-    // $dinases = userModel::where('_id', $id)->first();
-    // // $dinas = userModel::where('dinas.id_dinas', "5aeffdb80e006205640052ff_5af010390e00620564005308")->get();
-    // // $dinas = userModel::where('dinas', 'elemMatch', ['id_dinas' => "5aeffdb80e006205640052ff_5af010390e00620564005308"])->get();
-    // // $dinas = userModel::where({'dinas.id': '$idDinas'}, {'dinas': { $elemMatch: { 'id': $idDinas}}})->get();
-    // // $dinas = userModel::where('dinas' , 'elemMatch', array('_id' => $idDinas))->first();
-    //
-    // // $dinas = dinasModel::where('id', "5aeffdb80e006205640052ff_5af010390e00620564005308")->get();
-    // // $dinas = userModel::first()->dinas->where('dinas.id', $idDinas)->get();
-    // $dinas = $dinases->dinas()->get()->where('id', $idDinas);
-    // // $cariDinas = $dinas->where('dinas.id', $idDinas)->get();
-    // // dd($dinas);
     $user = userModel::find($id);
     $dinases = $user->dinas->where('_id', $idDinas);
     return view('edit_dinas', ['dinases' => $dinases, 'user' => $user]);

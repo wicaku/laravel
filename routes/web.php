@@ -131,8 +131,20 @@ Route::post('/kategorisasi/{id}/dinas/', 'DinasController@update')->name('update
 Route::delete('/kategorisasi/{id}/dinas/{idDinas}', 'DinasController@destroy')->name('delete.dinas');
 
 Route::get('/kategorisasi-admin/pemda', 'PemdaController@index')->name('pemda');
+Route::get('/kategorisasi-admin/pemda/deleted', 'PemdaController@showDeleted')->name('pemda.deleted');
+
+Route::get('/kategorisasi-admin/pemda/deleted/{id}/restore', 'PemdaController@restore')->name('pemda.deleted.restore');
+Route::get('/kategorisasi-admin/pemda/deleted/{id}/forceDelete', 'PemdaController@forceDeleted')->name('pemda.deleted.forceDelete');
 
 Route::get('/kategorisasi-admin/pemda/{id}/edit', 'PemdaController@edit')->name('edit.pemda');
 Route::post('/kategorisasi-admin/pemda/{id}/', 'PemdaController@update')->name('update.pemda');
 
 Route::get('/kategorisasi-admin/pemda/{id}/dinas', 'PemdaController@showDinas')->name('pemda.dinas');
+Route::post('/kategorisasi-admin/pemda/{id}/dinas/store', 'PemdaController@store')->name('pemda.tambah.dinas.store');
+
+Route::get('/kategorisasi-admin/pemda/{id}/dinas/{idDinas}/edit', 'PemdaController@editDinas')->name('pemda.edit.dinas');
+Route::post('/kategorisasi-admin/pemda/{id}/dinas/', 'PemdaController@updateDinas')->name('pemda.update.dinas');
+
+Route::delete('/kategorisasi-admin/pemda/{id}/dinas/{idDinas}', 'PemdaController@destroyDinas')->name('pemda.delete.dinas');
+
+Route::delete('/kategorisasi-admin/pemda/{id}', 'PemdaController@destroy')->name('pemda.delete');
