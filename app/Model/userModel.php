@@ -15,4 +15,8 @@ class userModel extends Eloquent
     public function dinas() {
       return $this->hasMany('App\Model\dinasModel', 'idUser');
     }
+
+    public function pemda() {
+      return $this->belongsTo('App\Model\listPemdaModel');
+    }
 }

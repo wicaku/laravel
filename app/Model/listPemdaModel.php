@@ -11,4 +11,8 @@ class listPemdaModel extends Eloquent
 
     use SoftDeletes;
     protected $dates = ['deleted_at'];
+
+    public function user() {
+      return $this->hasMany('App\Model\userModel', 'idUser');
+    }
 }
