@@ -48,9 +48,9 @@
 				</div>
 			</div>
 			@guest
-				<a id="kategorisasi" class="item" href="{{ route('kategorisasi') }}">Kategorisasi</a>
+				<a id="kategorisasi" class="item" href="{{ route('kategorisasi.not.login') }}">Kategorisasi</a>
 			@else
-				<a id="kategorisasi" class="item" href="{{ route('kategorisasi', ['id' => Auth::user()->_id] ) }}">Kategorisasi</a>
+				<a id="kategorisasi" class="item" href="{{ route('kategorisasi', ['id' => Auth::user()->idPemda] ) }}">Kategorisasi</a>
 			@endguest
 			<div class="right menu">
 					<!-- <a class="item" id="login" href="{{ route('login') }}">Login</a>
@@ -62,7 +62,7 @@
           @else
 					<div id="dropd" class="ui dropdown item" tabindex="0">
 							<a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-									{{ Auth::user()->name }} <span class="caret"></span>
+									{{ Auth::user()->email }} <span class="caret"></span>
 							</a>
 							<i class="dropdown icon"></i>
 							<div class="menu transition hidden" tabindex="-1">

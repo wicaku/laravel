@@ -6,17 +6,19 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Model\userModel;
 use App\Model\dinasModel;
+use App\Model\listPemdaModel;
 
 class DinasController extends Controller
 {
   public function index($id) {
-    $user = userModel::find($id);
+    $user = userModel::where('idPemda', $id)->first();
     $dinases = $user->dinas;
-    return view('dinas', ['dinases' => $dinases, 'user' => $user]);
+    $pemda = listPemdaModel::where('_id', (int)$id)->first();
+    return view('dinas', ['dinases' => $dinases, 'user' => $user, 'pemda' => $pemda]);
   }
 
   public function store(Request $request) {
-    $user = userModel::where('_id', $request->id_pemda)->first();
+    $user = userModel::where('idPemda', $request->id_pemda)->first();
 
     $idDinas = new \MongoDB\BSON\ObjectID();
     $dinas = new dinasModel;
@@ -28,12 +30,12 @@ class DinasController extends Controller
     $dinas->save();
 
     $dinases = $user->dinas;
-
-    return view('dinas', ['dinases' => $dinases, 'user' => $user]);
+    $pemda = listPemdaModel::where('_id', (int)$request->id_pemda)->first();
+    return view('dinas', ['dinases' => $dinases, 'user' => $user, 'pemda' => $pemda]);
   }
 
   public function update(Request $request, $id) {
-    $user = userModel::find($id);
+    $user = userModel::where('idPemda', $id)->first();
     $dinases = $user->dinas->where('_id', $request->id_dinas)->first();
 
     $dinases->nama_dinas = $request->nama_dinas;
@@ -43,17 +45,19 @@ class DinasController extends Controller
     $dinases->save();
 
     $dinases = $user->dinas;
+    $pemda = listPemdaModel::where('_id', (int)$id)->first();
 
-    return view('dinas', ['dinases' => $dinases, 'user' => $user]);
+    return view('dinas', ['dinases' => $dinases, 'user' => $user, 'pemda' => $pemda]);
   }
 
 public function destroy($id, $idDinas) {
-  $user = userModel::find($id);
+  $user = userModel::where('idPemda', $id)->first();
   $dinases = $user->dinas->where('_id', $idDinas)->first();
   $dinases->delete();
   $dinases = $user->dinas;
+  $pemda = listPemdaModel::where('_id', (int)$id)->first();
 
-  return redirect()->route('dinas', ['user' => $user]);
+  return redirect()->route('dinas', ['id' => $user->idPemda]);
 }
 
 
@@ -62,7 +66,7 @@ public function destroy($id, $idDinas) {
   }
 
   public function edit($id, $idDinas) {
-    $user = userModel::find($id);
+    $user = userModel::where('idPemda', $id)->first();
     $dinases = $user->dinas->where('_id', $idDinas);
     return view('edit_dinas', ['dinases' => $dinases, 'user' => $user]);
   }

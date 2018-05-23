@@ -114,7 +114,8 @@ Route::get('panel/wvs', function () {
 Auth::routes();
 
 Route::post('/kategorisasi/logout', 'Auth\LoginController@userLogout')->name('user.logout');
-Route::get('/kategorisasi', 'KategorisasiController@index')->name('kategorisasi');
+Route::get('/kategorisasi/', 'Auth\LoginController@showLoginForm')->name('kategorisasi.not.login');
+Route::get('/kategorisasi/{id}', 'KategorisasiController@index')->name('kategorisasi');
 Route::get('/kategorisasi/{id}/dinas', 'DinasController@index')->name('dinas');
 
 Route::get('/kategorisasi-admin/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');

@@ -69,18 +69,19 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-      // dd($data);
+        $uploadedFile = $data['file'];
+        $path = $uploadedFile->store('public/files');
         return User::create([
             'idPemda'  => $data['idPemda'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
-            'file' => $data['file'],
+            'file' => $path,
+            'verified' => false,
         ]);
     }
 
     public function showRegistrationForm() {
         $datas = listPemdaModel::all();
-        // dd($datas[0]);
         return view ('auth.register', ['datas' => $datas]);
     }
 }

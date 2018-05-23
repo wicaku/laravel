@@ -6,11 +6,11 @@
     <div class="card">
       <div class="content">
         <div class="header">
-          {{ Auth::user()->name }}
+          {{ $pemda->name }}
         </div>
       </div>
       <div class="extra content">
-        <a href="{{ route('dinas', ['id' => Auth::user()->_id]) }}">Lihat Dinas</a>
+        <a href="{{ route('dinas', ['id' => Auth::user()->idPemda]) }}">Lihat Dinas</a>
       </div>
     </div>
   </div>

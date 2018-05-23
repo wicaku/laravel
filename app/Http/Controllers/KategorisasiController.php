@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Model\listPemdaModel;
 
 class KategorisasiController extends Controller
 {
@@ -21,8 +22,9 @@ class KategorisasiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
-        return view('kategorisasi');
+      $pemda = listPemdaModel::where('_id', (int)$id)->first();
+      return view('kategorisasi', ['pemda' => $pemda]);
     }
 }

@@ -10,7 +10,7 @@ Register
         {{ __('Edit Dinas') }}
       </div>
     </h2>
-    <form class="ui form" action="{{ route('update.dinas', ['id' => $user->id]) }}" method="post">
+    <form class="ui form" action="{{ route('update.dinas', ['id' => $user->idPemda]) }}" method="post">
       @csrf
       <div class="ui left stacked segment">
         <input type="hidden" name="id_pemda" value="{{$user->id}}"></input>
