@@ -56,8 +56,11 @@ class AdminRegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
+          'idPemda' => 'required|string|unique:users',
+          'email' => 'required|string|email|max:255|unique:users',
+          'password' => 'required|string|min:6|confirmed',
+          'file' => 'required|file|max:2000',
+          'nama-pegawai' => 'required|string',
         ]);
     }
 
@@ -69,15 +72,21 @@ class AdminRegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $uploadedFile = $data['file'];
+        $path = $uploadedFile->store('public/files');
         return User::create([
-            'name'  => $data['name'],
+            'idPemda'  => $data['idPemda'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
+            'file' => $path,
+            'nama-pegawai' => $data['nama-pegawai'],
+            'verified' => false,
         ]);
     }
 
     public function register(Request $request)
     {
+
         $this->validator($request->all())->validate();
 
         event(new Registered($user = $this->create($request->all())));
@@ -88,7 +97,6 @@ class AdminRegisterController extends Controller
 
     public function showRegistrationForm() {
         $datas = listPemdaModel::all();
-        // dd($datas[0]);
         return view ('auth.admin-register', ['datas' => $datas]);
     }
 }

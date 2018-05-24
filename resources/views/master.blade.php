@@ -50,7 +50,11 @@
 			@guest
 				<a id="kategorisasi" class="item" href="{{ route('kategorisasi.not.login') }}">Kategorisasi</a>
 			@else
-				<a id="kategorisasi" class="item" href="{{ route('kategorisasi', ['id' => Auth::user()->idPemda] ) }}">Kategorisasi</a>
+				@if (Auth::user()->verified)
+					<a id="kategorisasi" class="item" href="{{ route('kategorisasi', ['id' => Auth::user()->idPemda] ) }}">Kategorisasi</a>
+				@else
+					<a id="kategorisasi" class="item" href="{{ route('validasi.pemda') }}">Kategorisasi</a>
+				@endif
 			@endguest
 			<div class="right menu">
 					<!-- <a class="item" id="login" href="{{ route('login') }}">Login</a>

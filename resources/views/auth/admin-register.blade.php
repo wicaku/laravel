@@ -10,22 +10,27 @@ Register
         {{ __('Register') }}
       </div>
     </h2>
-    <form class="ui large form"method="POST" action="{{ route('admin.register.pemda.register') }}">
+    <form class="ui large form"method="POST" action="{{ route('admin.register.pemda.register') }}" enctype="multipart/form-data">
       @csrf
       <div class="ui left stacked segment">
         <div class="field">
           <div class="ui left icon input">
             <div class="ui fluid search dropdown selection">
-               <input name="name" type="hidden">
+               <input name="idPemda" type="hidden">
               <div class="default text">Masukkan Nama Pemerintah Daerah</div>
                <i class="dropdown icon"></i>
                <div class="menu">
                  @foreach ($datas as $data)
-                    <div class="item" data-value="{{ $data->name }}">{{ $data->name }}</div>
+                    <div class="item" data-value="{{ $data->_id }}">{{ $data->name }}</div>
                  @endforeach
                </div>
             </div>
           </div>
+          @if ($errors->has('idPemda'))
+              <span class="invalid-feedback">
+                  <strong>{{ $errors->first('idPemda') }}</strong>
+              </span>
+          @endif
         </div>
 
         <div class="field">
@@ -60,6 +65,30 @@ Register
           </div>
         </div>
 
+        <div class="field">
+          <label style="text-align: left">Upload Surat Tugas</label>
+          <div class="ui center icon input">
+            <input type="file" name="file">
+          </div>
+          @if ($errors->has('file'))
+              <span class="invalid-feedback">
+                  <strong>{{ $errors->first('file') }}</strong>
+              </span>
+          @endif
+        </div>
+
+        <div class="field">
+          <div class="ui left icon input">
+            <i class="address card icon"></i>
+            <input id="nama-pegawai" name="nama-pegawai" class="form-control{{ $errors->has('nama-pegawai') ? ' is-invalid' : '' }}" name="nama-pegawai" value="{{ old('nama-pegawai') }}" placeholder="Nama Pegawai" required>
+          </div>
+          @if ($errors->has('nama-pegawai'))
+              <span class="invalid-feedback">
+                  <strong>{{ $errors->first('nama-pegawai') }}</strong>
+              </span>
+          @endif
+        </div>
+
         <button type="submit" class="ui fluid large teal submit button">
             {{ __('Register') }}
         </button>
@@ -87,63 +116,5 @@ Register
     $('#search-select')
       .dropdown()
     ;
-
-    $('.ui.form')
-    .form({
-      fields: {
-        name: {
-          identifier: 'name',
-          rules: [
-            {
-              type   : 'empty',
-              prompt : 'Please enter your name'
-            }
-          ]
-        },
-        email: {
-          identifier: 'email',
-          rules: [
-            {
-              type   : 'empty',
-              prompt : 'Please enter an email'
-            },
-            {
-              type   : 'email',
-              prompt : 'Please enter a valid email'
-            },
-          ]
-        },
-        password: {
-          identifier: 'password',
-          rules: [
-            {
-              type   : 'empty',
-              prompt : 'Please enter a password'
-            },
-            {
-              type   : 'minLength[6]',
-              prompt : 'Your password must be at least {ruleValue} characters'
-            }
-          ]
-        },
-        password_confirmation: {
-          identifier: 'password_confirmation',
-          rules: [
-            {
-              type   : 'empty',
-              prompt : 'Please enter a password'
-            },
-            {
-              type   : 'minLength[6]',
-              prompt : 'Your password must be at least {ruleValue} characters'
-            },
-            {
-              type   : 'match[password]',
-              prompt : 'Your password is not match'
-            },
-          ]
-        },
-      }
-    });
 </script>
 @endsection

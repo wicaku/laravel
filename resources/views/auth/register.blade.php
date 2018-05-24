@@ -69,7 +69,25 @@ Register
           <div class="ui center icon input">
             <input type="file" name="file">
           </div>
+          @if ($errors->has('file'))
+              <span class="invalid-feedback">
+                  <strong>{{ $errors->first('file') }}</strong>
+              </span>
+          @endif
         </div>
+
+        <div class="field">
+          <div class="ui left icon input">
+            <i class="address card icon"></i>
+            <input id="nama-pegawai" name="nama-pegawai" class="form-control{{ $errors->has('nama-pegawai') ? ' is-invalid' : '' }}" name="nama-pegawai" value="{{ old('nama-pegawai') }}" placeholder="Nama Pegawai" required>
+          </div>
+          @if ($errors->has('nama-pegawai'))
+              <span class="invalid-feedback">
+                  <strong>{{ $errors->first('nama-pegawai') }}</strong>
+              </span>
+          @endif
+        </div>
+
 
         <button type="submit" class="ui fluid large teal submit button">
             {{ __('Register') }}

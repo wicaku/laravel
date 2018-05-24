@@ -23,7 +23,7 @@ class User extends \Jenssegers\Mongodb\Eloquent\Model implements
      * @var array
      */
     protected $fillable = [
-        'idPemda', 'email', 'password', 'file', 'verified',
+        'idPemda', 'email', 'password', 'file', 'nama-pegawai', 'verified',
     ];
 
     /**

@@ -137,6 +137,8 @@ Route::delete('/kategorisasi/{id}/dinas/{idDinas}', 'DinasController@destroy')->
 Route::get('/kategorisasi-admin/pemda', 'PemdaController@index')->name('pemda');
 Route::get('/kategorisasi-admin/pemda/deleted', 'PemdaController@showDeleted')->name('pemda.deleted');
 
+Route::get('/kategorisasi-admin/verifikasi', 'AdminVerificationController@index')->name('admin.verifikasi');
+
 Route::get('/kategorisasi-admin/pemda/deleted/{id}/restore', 'PemdaController@restore')->name('pemda.deleted.restore');
 Route::get('/kategorisasi-admin/pemda/deleted/{id}/forceDelete', 'PemdaController@forceDeleted')->name('pemda.deleted.forceDelete');
 
@@ -152,3 +154,5 @@ Route::post('/kategorisasi-admin/pemda/{id}/dinas/', 'PemdaController@updateDina
 Route::delete('/kategorisasi-admin/pemda/{id}/dinas/{idDinas}', 'PemdaController@destroyDinas')->name('pemda.delete.dinas');
 
 Route::delete('/kategorisasi-admin/pemda/{id}', 'PemdaController@destroy')->name('pemda.delete');
+
+Route::get('validasi', 'ValidationController@index')->name('validasi.pemda');

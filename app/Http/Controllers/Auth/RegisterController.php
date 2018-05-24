@@ -33,7 +33,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = "kategorisasi/tambah_dinas";
+    protected $redirectTo = "validasi";
 
     /**
      * Create a new controller instance.
@@ -58,6 +58,7 @@ class RegisterController extends Controller
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
             'file' => 'required|file|max:2000',
+            'nama-pegawai' => 'required|string',
         ]);
     }
 
@@ -72,10 +73,11 @@ class RegisterController extends Controller
         $uploadedFile = $data['file'];
         $path = $uploadedFile->store('public/files');
         return User::create([
-            'idPemda'  => $data['idPemda'],
+            'idPemda'  => (int)$data['idPemda'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
             'file' => $path,
+            'nama-pegawai' => $data['nama-pegawai'],
             'verified' => false,
         ]);
     }

@@ -13,6 +13,7 @@ class listPemdaModel extends Eloquent
     protected $dates = ['deleted_at'];
 
     public function user() {
-      return $this->hasMany('App\Model\userModel', 'idPemda');
+      return $this->belongsTo('App\Model\userModel', 'idPemda');
     }
+
 }

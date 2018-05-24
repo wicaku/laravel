@@ -10,7 +10,8 @@
         </div>
       </div>
       <div class="extra content">
-        <a href="{{ route('pemda') }}">Lihat Pemda</a>
+        <li><a href="{{ route('pemda') }}">Lihat Pemda</a></li>
+        <li><a href="{{ route('admin.verifikasi') }}">Verifikasi Pemda</a></li>
       </div>
     </div>
   </div>

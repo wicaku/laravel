@@ -17,6 +17,6 @@ class userModel extends Eloquent
     }
 
     public function pemda() {
-      return $this->belongsTo('App\Model\listPemdaModel');
+      return $this->hasOne('App\Model\listPemdaModel', '_id', 'idPemda');
     }
 }
