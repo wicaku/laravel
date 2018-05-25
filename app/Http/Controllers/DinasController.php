@@ -11,14 +11,14 @@ use App\Model\listPemdaModel;
 class DinasController extends Controller
 {
   public function index($id) {
-    $user = userModel::where('idPemda', $id)->first();
+    $user = userModel::where('idPemda', (int)$id)->first();
     $dinases = $user->dinas;
     $pemda = listPemdaModel::where('_id', (int)$id)->first();
     return view('dinas', ['dinases' => $dinases, 'user' => $user, 'pemda' => $pemda]);
   }
 
   public function store(Request $request) {
-    $user = userModel::where('idPemda', $request->id_pemda)->first();
+    $user = userModel::where('idPemda', (int)$request->id_pemda)->first();
 
     $idDinas = new \MongoDB\BSON\ObjectID();
     $dinas = new dinasModel;
@@ -35,7 +35,7 @@ class DinasController extends Controller
   }
 
   public function update(Request $request, $id) {
-    $user = userModel::where('idPemda', $id)->first();
+    $user = userModel::where('idPemda', (int)$id)->first();
     $dinases = $user->dinas->where('_id', $request->id_dinas)->first();
 
     $dinases->nama_dinas = $request->nama_dinas;
@@ -51,7 +51,7 @@ class DinasController extends Controller
   }
 
 public function destroy($id, $idDinas) {
-  $user = userModel::where('idPemda', $id)->first();
+  $user = userModel::where('idPemda', (int)$id)->first();
   $dinases = $user->dinas->where('_id', $idDinas)->first();
   $dinases->delete();
   $dinases = $user->dinas;
@@ -66,7 +66,7 @@ public function destroy($id, $idDinas) {
   }
 
   public function edit($id, $idDinas) {
-    $user = userModel::where('idPemda', $id)->first();
+    $user = userModel::where('idPemda', (int)$id)->first();
     $dinases = $user->dinas->where('_id', $idDinas);
     return view('edit_dinas', ['dinases' => $dinases, 'user' => $user]);
   }

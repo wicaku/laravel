@@ -13,6 +13,7 @@
     <thead>
       <tr>
         <th>Email Pemda</th>
+        <th>Nama Pegawai</th>
         <th>Surat Tugas</th>
         <th>Action</th>
       </tr>
@@ -21,15 +22,11 @@
       @foreach ($users as $user)
             <tr>
               <td>{{$user['email']}}</td>
+              <td>{{$user['nama-pegawai']}}</td>
               <td><a href="{{ Storage::url($user->file) }}"> Download </a></td>
               <td>
-                  <form>
-                  {{ method_field('delete')}}
-                  {{ csrf_field() }}
-                  <a href="" class='ui tiny icon green button' id='view-button'><i class="eye icon"></i></a>
-                  <a href="" class='ui tiny icon blue button' id='edit-button'><i class="edit icon"></i></a>
-                  <button class='ui tiny icon red button' type="submit"><i class="delete icon"></i></a>
-                  </form>
+                <a href="{{ route('admin.verifikasi.verified', ['id' => $user->idPemda] )}}" class='ui tiny icon green button' id='view-button'><i class="check icon"></i></a>
+                <a href="{{ route('admin.verifikasi.rejected', ['id' => $user->idPemda] )}}" class='ui tiny icon red button' id='edit-button'><i class="delete icon"></i></a>
               </td>
             </tr>
       @endforeach

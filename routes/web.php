@@ -138,6 +138,8 @@ Route::get('/kategorisasi-admin/pemda', 'PemdaController@index')->name('pemda');
 Route::get('/kategorisasi-admin/pemda/deleted', 'PemdaController@showDeleted')->name('pemda.deleted');
 
 Route::get('/kategorisasi-admin/verifikasi', 'AdminVerificationController@index')->name('admin.verifikasi');
+Route::get('/kategorisasi-admin/verifikasi/{id}/verified', 'AdminVerificationController@verified')->name('admin.verifikasi.verified');
+Route::get('/kategorisasi-admin/verifikasi/{id}/rejected', 'AdminVerificationController@rejected')->name('admin.verifikasi.rejected');
 
 Route::get('/kategorisasi-admin/pemda/deleted/{id}/restore', 'PemdaController@restore')->name('pemda.deleted.restore');
 Route::get('/kategorisasi-admin/pemda/deleted/{id}/forceDelete', 'PemdaController@forceDeleted')->name('pemda.deleted.forceDelete');

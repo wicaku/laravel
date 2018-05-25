@@ -7,6 +7,10 @@ use App\Model\userModel;
 use App\Model\dinasModel;
 use App\Model\listPemdaModel;
 
+use App\Http\Controllers\Controller;
+use App\Mail\VerifiedEmail;
+use Illuminate\Support\Facades\Mail;
+
 class AdminVerificationController extends Controller
 {
     /**
@@ -26,24 +30,47 @@ class AdminVerificationController extends Controller
      */
     public function index()
     {
-      // $pemdas = listPemdaModel::all();
-      // // dd($pemdas[0]['name']);
-      // foreach($pemdas as $pemda) {
-      //   $users[] = $pemda->user;
-      // }
-      //
-      // dd($pemdas);
-      //
-      // foreach($users as $user) {
-      //   if (!empty($user)) {
-      //     $newUser[] = $user->where('verified', false)->get();
-      //   }
-      // }
+      $users = userModel::where('verified', false)->get();
+
+      return view('admin/verifikasi', ['users' => $users ]);
+    }
+
+    public function verified($id)
+    {
+      $user = userModel::where('idPemda', (int)$id)->first();
+
+      $user->verified = true;
+      $user->save();
+
+      $pemda = listPemdaModel::where('_id', (int)$id)->first();
+
+      $objDemo = new \stdClass();
+      $objDemo->sender = 'Egovbench ADDI ITS';
+      $objDemo->receiver = $pemda->name;
+
+      $objDemo->link = 'http://egovbench.addi.is.its.ac.id/';
+
+      Mail::to($user->email)->send(new VerifiedEmail($objDemo));
 
       $users = userModel::where('verified', false)->get();
 
-      // dd($pemdas);
+      return redirect()->route('validasi.pemda');
+    }
 
-      return view('admin/verifikasi', ['users' => $users ]);
+    public function rejected($id)
+    {
+      $user = userModel::where('idPemda', (int)$id)->first();
+
+      $objDemo = new \stdClass();
+      $objDemo->sender = 'Egovbench ADDI ITS';
+      $objDemo->receiver = $pemda->name;
+
+      $objDemo->link = 'http://egovbench.addi.is.its.ac.id/';
+
+      Mail::to($user->email)->send(new RejectedEmail($objDemo));
+
+      $user->forceDelete();
+
+      return redirect()->route('validasi.pemda');
     }
 }
