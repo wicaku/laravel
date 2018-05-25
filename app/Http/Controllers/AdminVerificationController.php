@@ -11,6 +11,9 @@ use App\Http\Controllers\Controller;
 use App\Mail\VerifiedEmail;
 use Illuminate\Support\Facades\Mail;
 
+use App\Notifications\UserVerified;
+use App\Notifications\UserRejected;
+
 class AdminVerificationController extends Controller
 {
     /**
@@ -50,7 +53,7 @@ class AdminVerificationController extends Controller
 
       $objDemo->link = 'http://egovbench.addi.is.its.ac.id/';
 
-      Mail::to($user->email)->send(new VerifiedEmail($objDemo));
+      $user->notify(new UserVerified($user));
 
       $users = userModel::where('verified', false)->get();
 
@@ -63,11 +66,11 @@ class AdminVerificationController extends Controller
 
       $objDemo = new \stdClass();
       $objDemo->sender = 'Egovbench ADDI ITS';
-      $objDemo->receiver = $pemda->name;
+      
 
       $objDemo->link = 'http://egovbench.addi.is.its.ac.id/';
 
-      Mail::to($user->email)->send(new RejectedEmail($objDemo));
+      $user->notify(new UserRejected($user));
 
       $user->forceDelete();
 

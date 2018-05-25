@@ -11,6 +11,11 @@ Reset Password
         {{ __('Reset Password') }}
       </div>
     </h2>
+    @if (session('status'))
+        <div class="ui message">
+            <p>{{ session('status') }}</p>
+        </div>
+    @endif
     <form class="ui large form" method="POST" action="{{ route('password.email') }}">
       @csrf
       <div class="ui left stacked segment">
