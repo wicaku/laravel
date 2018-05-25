@@ -18,25 +18,24 @@ Login
           <div class="ui left icon input">
             <i class="user icon"></i>
             <input id="email" name="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" placeholder="Email" required>
-            @if ($errors->has('email'))
-                <span class="invalid-feedback">
-                    <strong>{{ $errors->first('email') }}</strong>
-                </span>
-            @endif
           </div>
+          @if ($errors->has('email'))
+              <span class="invalid-feedback">
+                  <strong>{{ $errors->first('email') }}</strong>
+              </span>
+          @endif
         </div>
 
         <div class="field">
           <div class="ui left icon input">
             <i class="lock icon"></i>
             <input id="password" name="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" placeholder="Password" required>
-
-            @if ($errors->has('password'))
-                <span class="invalid-feedback">
-                    <strong>{{ $errors->first('password') }}</strong>
-                </span>
-            @endif
           </div>
+          @if ($errors->has('password'))
+              <span class="invalid-feedback">
+                  <strong>{{ $errors->first('password') }}</strong>
+              </span>
+          @endif
         </div>
 
         <button type="submit" class="ui fluid large teal submit button">
@@ -50,6 +49,9 @@ Login
 
     <div class="ui message">
       Belum Mendaftar? <a href="{{ route('register') }}">Register</a>
+    </div>
+    <div class="ui message">
+      <a href="{{ route('password.request') }}">Lupa Password?</a>
     </div>
   </div>
 </div>

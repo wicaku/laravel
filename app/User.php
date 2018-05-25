@@ -10,6 +10,11 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
+use Jenssegers\Mongodb\Auth\PasswordResetServiceProvider;
+use Jenssegers\Mongodb\Auth\DatabaseTokenRepository;
+
+use App\Notifications\PasswordReset;
+
 class User extends \Jenssegers\Mongodb\Eloquent\Model implements
     AuthenticatableContract,
     AuthorizableContract,
@@ -34,4 +39,9 @@ class User extends \Jenssegers\Mongodb\Eloquent\Model implements
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new PasswordReset($token));
+    }
 }

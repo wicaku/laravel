@@ -1,47 +1,41 @@
-@extends('layouts.app')
+@extends('master-login-register')
+@section('title')
+Reset Password
+@endsection
 
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Reset Password') }}</div>
+@section('body')
+<div class="ui text container middle aligned center aligned grid">
+  <div class="column">
+    <h2 class="ui teal image header">
+      <div class="content">
+        {{ __('Reset Password') }}
+      </div>
+    </h2>
+    <form class="ui large form" method="POST" action="{{ route('password.email') }}">
+      @csrf
+      <div class="ui left stacked segment">
 
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    <form method="POST" action="{{ route('password.email') }}">
-                        @csrf
-
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required>
-
-                                @if ($errors->has('email'))
-                                    <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Send Password Reset Link') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
+        <div class="field">
+          <div class="ui left icon input">
+            <i class="user icon"></i>
+            <input id="email" name="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" placeholder="Email" required>
+          </div>
+          @if ($errors->has('email'))
+              <span class="invalid-feedback">
+                  <strong>{{ $errors->first('email') }}</strong>
+              </span>
+          @endif
         </div>
-    </div>
+
+        <button type="submit" class="ui fluid large teal submit button">
+            {{ __('Send Password Reset Link') }}
+        </button>
+      </div>
+
+      <div class="ui error message"></div>
+
+    </form>
+
+  </div>
 </div>
 @endsection
