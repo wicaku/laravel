@@ -23,7 +23,7 @@
   <tbody>
     @foreach ($users as $user)
           <tr>
-            <td>{{$userName['name']}}</td>
+            <td>{{$user['name']}}</td>
             <td>{{$user['email']}}</td>
             <td>
                 <form action="{{ route('pemda.delete', ['id' => $user->idPemda])}}" method="post">
