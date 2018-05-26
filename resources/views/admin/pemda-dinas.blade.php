@@ -57,7 +57,7 @@
       </div>
       <div class="field">
         <label>Keyword</label>
-        <input name="keyword_dinas" placeholder="Keyword Dinas" type="text">
+        <input class="ui input" name="keyword_dinas" placeholder="Keyword Dinas" type="text" id="tags">
       </div>
 
   </div>
@@ -79,6 +79,9 @@
         $('#tambah-button').click(function(){
           $('#tambah-modal').modal('show');
         });
+
+        var tags = new TIB(document.querySelector('input[name="keyword_dinas"]'));
+
 
     })
 </script>

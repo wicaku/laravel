@@ -19,7 +19,12 @@ class PemdaController extends Controller
 
   public function index() {
     $users = userModel::all();
-    return view('admin/pemda', ['users' => $users]);
+    foreach ($users as $user) {
+        $users[] = $user->pemda;
+    }
+    dd($users);
+
+    return view('admin/pemda', ['users' => $users, 'userName' => $userName]);
   }
 
   public function showDeleted() {

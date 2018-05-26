@@ -12,6 +12,9 @@
 	 crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js" integrity="sha256-Bhi6GMQ/72uYZcJXCJ2LToOIcN3+Cx47AZnq/Bw1f7A="
 	 crossorigin="anonymous"></script>
+
+	 <link href="{{ asset('/css/tags-input-beautifier.css')}}" rel="stylesheet">
+	 <script src="{{ asset('js/tags-input-beautifier.js')}}"></script>
 	 @yield('head')
 </head>
 
