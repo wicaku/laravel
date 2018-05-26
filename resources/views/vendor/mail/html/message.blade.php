@@ -2,7 +2,7 @@
     {{-- Header --}}
     @slot('header')
         @component('mail::header', ['url' => config('app.url')])
-            {{ config('app.name') }}
+            Egovbench ADDI ITS
         @endcomponent
     @endslot
 
@@ -21,7 +21,7 @@
     {{-- Footer --}}
     @slot('footer')
         @component('mail::footer')
-            &copy; {{ date('Y') }} {{ config('app.name') }}. All rights reserved.
+            &copy; {{ date('Y') }} Egovbench ADDI ITS. All rights reserved.
         @endcomponent
     @endslot
 @endcomponent

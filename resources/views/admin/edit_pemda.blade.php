@@ -6,7 +6,7 @@ Register
 <div class="ui container">
   <div class="ui grid">
     <div class="two column row">
-      <div class="left floated column"><h5 class="ui header" style="margin-top:10px"><a href="{{ route('pemda') }}"><i class="home icon"></i>Admin/ Pemda</a><span> / {{ $user->name}}</span></h5></div>
+      <div class="left floated column"><h5 class="ui header" style="margin-top:10px"><a href="{{ route('pemda') }}"><i class="home icon"></i>Admin/ Pemda</a><span> / {{ $userName->name}}</span></h5></div>
     </div>
   </div>
 
@@ -17,15 +17,15 @@ Register
           {{ __('Edit Pemerintah Daerah') }}
         </div>
       </h2>
-      <form class="ui large form"method="POST" action="{{ route('update.pemda', ['id'=> $user->_id]) }}">
+      <form class="ui large form"method="POST" action="{{ route('update.pemda', ['id'=> $user->idPemda]) }}">
         @csrf
         <div class="ui left stacked segment">
           <div class="field">
             <div class="ui left icon input">
               <div class="ui disabled fluid search normal dropdown selection">
-                 <input name="name" type="hidden" value="{{ $user->name }}">
+                 <input name="name" type="hidden" value="{{ $userName->name }}">
                  <i class="dropdown icon"></i>
-                 <div class="text">{{ $user->name}}</div>
+                 <div class="text">{{ $userName->name}}</div>
                  <div class="menu">
                    @foreach ($pemdas as $pemda)
                       <div class="item" data-value="{{ $user->name }}">{{ $user->name }}</div>
@@ -42,19 +42,6 @@ Register
               @if ($errors->has('email'))
                   <span class="invalid-feedback">
                       <strong>{{ $errors->first('email') }}</strong>
-                  </span>
-              @endif
-            </div>
-          </div>
-
-          <div class="field">
-            <div class="ui left icon input">
-              <i class="lock icon"></i>
-              <input id="password" name="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" placeholder="Password" value="{{ $user->password}}" required>
-
-              @if ($errors->has('password'))
-                  <span class="invalid-feedback">
-                      <strong>{{ $errors->first('password') }}</strong>
                   </span>
               @endif
             </div>

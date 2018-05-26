@@ -40,11 +40,9 @@ class PemdaController extends Controller
   }
 
   public function update(Request $request, $id) {
-    $user = userModel::find($id);
+    $user = userModel::where('idPemda', (int)$id)->first();
 
-    $user->name = $request->name;
     $user->email = $request->email;
-    $user->password = bcrypt($request->password);
 
     $user->save();
 
@@ -62,13 +60,15 @@ class PemdaController extends Controller
 
 
   public function edit($id) {
-    $user = userModel::find($id);
+    $user = userModel::where('idPemda', (int)$id)->first();
     $pemdas = listPemdaModel::all();
-    return view('admin/edit_pemda', ['user' => $user, 'pemdas' => $pemdas]);
+    $userName = listPemdaModel::find((int)$id);
+
+    return view('admin/edit_pemda', ['user' => $user, 'pemdas' => $pemdas, 'userName' => $userName]);
   }
 
   public function showDinas($id) {
-    $user = userModel::find($id);
+    $user = userModel::where('idPemda', (int)$id)->first();
     $dinases = $user->dinas;
     return view('admin/pemda-dinas', ['dinases' => $dinases, 'user' => $user]);
   }

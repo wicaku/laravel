@@ -21,6 +21,7 @@ class AdminVerificationController extends Controller
      *
      * @return void
      */
+    protected $redirectTo = '/kategorisasi-admin/verifikasi';
     public function __construct()
     {
         $this->middleware('auth:admin');
@@ -31,6 +32,7 @@ class AdminVerificationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
       $users = userModel::where('verified', false)->get();
@@ -57,7 +59,7 @@ class AdminVerificationController extends Controller
 
       $users = userModel::where('verified', false)->get();
 
-      return redirect()->route('validasi.pemda');
+      return redirect()->route('admin.verifikasi');
     }
 
     public function rejected($id)
@@ -66,7 +68,7 @@ class AdminVerificationController extends Controller
 
       $objDemo = new \stdClass();
       $objDemo->sender = 'Egovbench ADDI ITS';
-      
+
 
       $objDemo->link = 'http://egovbench.addi.is.its.ac.id/';
 
@@ -74,6 +76,6 @@ class AdminVerificationController extends Controller
 
       $user->forceDelete();
 
-      return redirect()->route('validasi.pemda');
+      return redirect()->route('admin.verifikasi');
     }
 }

@@ -29,8 +29,8 @@
                 <form action="{{ route('pemda.delete', ['id' => $user->_id])}}" method="post">
                 {{ method_field('delete')}}
                 {{ csrf_field() }}
-                <a href="{{ route('pemda.dinas', ['id'=> $user['_id']])}}" class='ui tiny icon green button' id='view-button'><i class="eye icon"></i></a>
-                <a href="{{ route('edit.pemda', ['id' => $user['_id']])}}" class='ui tiny icon blue button' id='edit-button'><i class="edit icon"></i></a>
+                <a href="{{ route('pemda.dinas', ['id'=> $user['idPemda']])}}" class='ui tiny icon green button' id='view-button'><i class="eye icon"></i></a>
+                <a href="{{ route('edit.pemda', ['id' => $user['idPemda']])}}" class='ui tiny icon blue button' id='edit-button'><i class="edit icon"></i></a>
                 <button class='ui tiny icon red button' type="submit"><i class="delete icon"></i></a>
                 </form>
             </td>
