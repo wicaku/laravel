@@ -22,8 +22,8 @@
             <td>{{$user['name']}}</td>
             <td>{{$user['email']}}</td>
             <td>
-                <a href="{{ route('pemda.deleted.restore', ['id'=> $user['_id']])}}" class='ui tiny icon green button' id='view-button'><i class="history icon"></i></a>
-                <a href="{{ route('pemda.deleted.forceDelete', ['id'=> $user['_id']])}}" class='ui tiny icon red button' id='view-button'><i class="ban icon"></i></a>
+                <a href="{{ route('pemda.deleted.restore', ['id'=> $user['idPemda']])}}" class='ui tiny icon green button' id='view-button'><i class="history icon"></i></a>
+                <a href="{{ route('pemda.deleted.forceDelete', ['id'=> $user['idPemda']])}}" class='ui tiny icon red button' id='view-button'><i class="ban icon"></i></a>
             </td>
           </tr>
     @endforeach

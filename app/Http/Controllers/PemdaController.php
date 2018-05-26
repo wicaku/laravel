@@ -28,13 +28,13 @@ class PemdaController extends Controller
   }
 
   public function restore($id) {
-    $users = userModel::onlyTrashed()->where('_id', $id)->restore();
+    $users = userModel::onlyTrashed()->where('idPemda', (int)$id)->restore();
     $users = userModel::onlyTrashed()->get();
     return view('admin/pemda-deleted', ['users' => $users]);
   }
 
   public function forceDeleted($id) {
-    $users = userModel::onlyTrashed()->where('_id', $id)->forceDelete();
+    $users = userModel::onlyTrashed()->where('idPemda', (int)$id)->forceDelete();
     $users = userModel::onlyTrashed()->get();
     return view('admin/pemda-deleted', ['users' => $users]);
   }
@@ -52,7 +52,7 @@ class PemdaController extends Controller
   }
 
   public function destroy($id) {
-    $user = userModel::find($id);
+    $user = userModel::where('idPemda', (int)$id);
     $user->delete();
 
     return redirect()->route('pemda');
@@ -69,12 +69,13 @@ class PemdaController extends Controller
 
   public function showDinas($id) {
     $user = userModel::where('idPemda', (int)$id)->first();
+    $userName = listPemdaModel::find((int)$id);
     $dinases = $user->dinas;
-    return view('admin/pemda-dinas', ['dinases' => $dinases, 'user' => $user]);
+    return view('admin/pemda-dinas', ['dinases' => $dinases, 'user' => $user, 'userName' => $userName]);
   }
 
   public function store(Request $request) {
-    $user = userModel::where('_id', $request->id_pemda)->first();
+    $user = userModel::where('idPemda', (int)$request->id_pemda)->first();
 
     $idDinas = new \MongoDB\BSON\ObjectID();
     $dinas = new dinasModel;
@@ -86,12 +87,14 @@ class PemdaController extends Controller
     $dinas->save();
 
     $dinases = $user->dinas;
+    $userName = listPemdaModel::find((int)$request->id_pemda);
 
-    return view('admin/pemda-dinas', ['dinases' => $dinases, 'user' => $user]);
+    return view('admin/pemda-dinas', ['dinases' => $dinases, 'user' => $user, 'userName' => $userName]);
   }
 
   public function updateDinas(Request $request, $id) {
-    $user = userModel::find($id);
+
+    $user = userModel::where('idPemda', (int)$request->id_pemda)->first();
     $dinases = $user->dinas->where('_id', $request->id_dinas)->first();
 
     $dinases->nama_dinas = $request->nama_dinas;
@@ -101,22 +104,23 @@ class PemdaController extends Controller
     $dinases->save();
 
     $dinases = $user->dinas;
+    $userName = listPemdaModel::find((int)$request->id_pemda);
 
-    return view('admin/pemda-dinas', ['dinases' => $dinases, 'user' => $user]);
+    return view('admin/pemda-dinas', ['dinases' => $dinases, 'user' => $user, 'userName' => $userName]);
   }
 
   public function editDinas($id, $idDinas) {
-    $user = userModel::find($id);
+    $user = userModel::where('idPemda', (int)$id)->first();
     $dinases = $user->dinas->where('_id', $idDinas);
     return view('admin/pemda_edit_dinas', ['dinases' => $dinases, 'user' => $user]);
   }
 
   public function destroyDinas($id, $idDinas) {
-    $user = userModel::find($id);
+    $user = userModel::where('idPemda', (int)$id)->first();
     $dinases = $user->dinas->where('_id', $idDinas)->first();
     $dinases->delete();
     $dinases = $user->dinas;
 
-    return redirect()->route('pemda.dinas', ['user' => $user]);
+    return redirect()->route('pemda.dinas', ['id' => $user->idPemda]);
   }
 }

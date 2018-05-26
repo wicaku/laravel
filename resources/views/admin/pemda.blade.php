@@ -26,7 +26,7 @@
             <td>{{$user['name']}}</td>
             <td>{{$user['email']}}</td>
             <td>
-                <form action="{{ route('pemda.delete', ['id' => $user->_id])}}" method="post">
+                <form action="{{ route('pemda.delete', ['id' => $user->idPemda])}}" method="post">
                 {{ method_field('delete')}}
                 {{ csrf_field() }}
                 <a href="{{ route('pemda.dinas', ['id'=> $user['idPemda']])}}" class='ui tiny icon green button' id='view-button'><i class="eye icon"></i></a>
