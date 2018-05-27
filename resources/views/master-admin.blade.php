@@ -15,6 +15,15 @@
 
 	 <link href="{{ asset('/css/tags-input-beautifier.css')}}" rel="stylesheet">
 	 <script src="{{ asset('js/tags-input-beautifier.js')}}"></script>
+
+	 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.semanticui.min.css"/>
+	 <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.1/css/responsive.semanticui.min.css"/>
+
+	 <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+	 <script src="https://cdn.datatables.net/1.10.16/js/dataTables.semanticui.min.js"></script>
+	 <script src="https://cdn.datatables.net/responsive/2.2.1/js/dataTables.responsive.min.js"></script>
+	 <script src="https://cdn.datatables.net/responsive/2.2.1/js/responsive.semanticui.min.js"></script>
+
 	 @yield('head')
 </head>
 

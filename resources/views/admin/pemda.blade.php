@@ -12,11 +12,13 @@
     </div>
   </div>
 
-  <table class="ui celled table">
+  <table id="pemda" class="ui celled table responsive nowrap">
   <thead>
     <tr>
       <th>Nama Pemda</th>
       <th>Email Pemda</th>
+      <th>Nama Petugas</th>
+      <th>Surat Tugas</th>
       <th>Action</th>
     </tr>
   </thead>
@@ -25,6 +27,8 @@
           <tr>
             <td>{{$user->pemda->name}}</td>
             <td>{{$user['email']}}</td>
+            <td>{{$user['nama-pegawai']}}</td>
+            <td><a href="{{ Storage::url($user->file) }}"> Download </a></td>
             <td>
                 <form action="{{ route('pemda.delete', ['id' => $user->idPemda])}}" method="post">
                 {{ method_field('delete')}}
@@ -47,6 +51,7 @@
 <script>
 	$(document).ready(function () {
         $('.ui.dropdown').dropdown();
+        $('#pemda').DataTable();
         $('#tambah-button').click(function(){
           $('#tambah-modal').modal('show');
         });

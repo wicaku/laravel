@@ -13,10 +13,17 @@
 	 crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js" integrity="sha256-Bhi6GMQ/72uYZcJXCJ2LToOIcN3+Cx47AZnq/Bw1f7A="
 	 crossorigin="anonymous"></script>
-	 <script src="jquery.tagsinput.js"></script>
 
 	 <link href="{{ asset('/css/tags-input-beautifier.css')}}" rel="stylesheet">
 	 <script src="{{ asset('js/tags-input-beautifier.js')}}"></script>
+
+	 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.semanticui.min.css"/>
+	 <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.1/css/responsive.semanticui.min.css"/>
+
+	 <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+	 <script src="https://cdn.datatables.net/1.10.16/js/dataTables.semanticui.min.js"></script>
+	 <script src="https://cdn.datatables.net/responsive/2.2.1/js/dataTables.responsive.min.js"></script>
+	 <script src="https://cdn.datatables.net/responsive/2.2.1/js/responsive.semanticui.min.js"></script>
 
 	 @yield('head')
 </head>

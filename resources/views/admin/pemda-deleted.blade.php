@@ -8,7 +8,7 @@
     </div>
   </div>
 
-  <table class="ui celled table">
+  <table id="deleted-pemda" class="ui celled table responsive nowrap">
   <thead>
     <tr>
       <th>Nama Pemda</th>
@@ -38,6 +38,7 @@
 <script>
 	$(document).ready(function () {
         $('.ui.dropdown').dropdown();
+        $('#deleted-pemda').DataTable();
         $('#tambah-button').click(function(){
           $('#tambah-modal').modal('show');
         });

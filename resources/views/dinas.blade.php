@@ -5,7 +5,7 @@
   <div class="ui grid">
     <div class="two column row">
       @auth('admin')
-      <div class="left floated column"><h5 class="ui header" style="margin-top:10px"><a href="{{ route('pemda') }}"><i class="home icon"></i>Admin / Pemda</a> / {{$user->name}}</h5></div>
+      <div class="left floated column"><h5 class="ui header" style="margin-top:10px"><a href="{{ route('pemda') }}"><i class="home icon"></i>Admin / Pemda</a> / {{$pemda->name}}</h5></div>
       @else
       <div class="left floated column"><h5 class="ui header" style="margin-top:10px"><a href="{{ route('kategorisasi', ['id' => $user->idPemda]) }}"><i class="home icon"></i>{{$pemda->name }}</a><span> / Dinas</span></h5></div>
       @endauth
@@ -13,7 +13,7 @@
     </div>
   </div>
 
-  <table class="ui celled table">
+  <table id="dinas" class="ui celled table responsive nowrap">
   <thead>
     <tr>
       <th>Nama Dinas</th>
@@ -83,6 +83,7 @@
 <script>
 	$(document).ready(function () {
         $('.ui.dropdown').dropdown();
+        $('#dinas').DataTable();
         $("#kategorisasi").addClass("active");
         $('.modal').modal({
     			onApprove : function() {

@@ -4,12 +4,12 @@
 <div class="ui container">
   <div class="ui grid">
     <div class="two column row">
-      <div class="left floated column"><h5 class="ui header" style="margin-top:10px"><a href="{{ route('pemda') }}"><i class="home icon"></i>Admin / Pemda</a> / {{$userName->name}}</h5></div>
+      <div class="left floated column"><h5 class="ui header" style="margin-top:10px"><a href="{{ route('pemda') }}"><i class="home icon"></i>Admin / Pemda</a> / {{$pemda->name}}</h5></div>
       <div class="right floated column"><button class="small ui right floated green button" id="tambah-button"><i class="icon plus"></i>Tambah Dinas</button></div>
     </div>
   </div>
 
-  <table class="ui celled table">
+  <table id="dinas" class="ui celled table responsive nowrap">
   <thead>
     <tr>
       <th>Nama Dinas</th>
@@ -79,6 +79,7 @@
 <script>
 	$(document).ready(function () {
         $('.ui.dropdown').dropdown();
+        $('#dinas').DataTable();
         $("#kategorisasi-admin").addClass("active");
         $('#tambah-button').click(function(){
           $('#tambah-modal').modal('show');
