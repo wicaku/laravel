@@ -158,3 +158,12 @@ Route::delete('/kategorisasi-admin/pemda/{id}/dinas/{idDinas}', 'PemdaController
 Route::delete('/kategorisasi-admin/pemda/{id}', 'PemdaController@destroy')->name('pemda.delete');
 
 Route::get('validasi', 'ValidationController@index')->name('validasi.pemda');
+
+Route::get('/kategorisasi-admin/sosmed', 'SosialMediaPemdaController@index')->name('sosmed.pemda');
+Route::get('/kategorisasi-admin/sosmed/{id}', 'SosialMediaPemdaController@edit')->name('sosmed.pemda.edit');
+Route::post('/kategorisasi-admin/sosmed/{id}/update', 'SosialMediaPemdaController@update')->name('sosmed.pemda.update');
+Route::delete('/kategorisasi-admin/sosmed/{id}/delete', 'SosialMediaPemdaController@destroy')->name('sosmed.pemda.destroy');
+Route::post('/kategorisasi-admin/sosmed/store', 'SosialMediaPemdaController@store')->name('sosmed.pemda.store');
+
+Route::get('kategorisasi/{id}/sosmed/edit', 'UserSosialMediaPemdaController@index')->name('user.sosmed.pemda.edit');
+Route::post('kategorisasi/{id}/sosmed/update', 'UserSosialMediaPemdaController@update')->name('user.sosmed.pemda.update');

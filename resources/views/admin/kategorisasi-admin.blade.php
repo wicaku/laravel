@@ -12,6 +12,7 @@
       <div class="extra content">
         <li><a href="{{ route('pemda') }}">Lihat Pemda</a></li>
         <li><a href="{{ route('admin.verifikasi') }}">Verifikasi Pemda</a></li>
+        <li><a href="{{ route('sosmed.pemda') }}">Lihat Sosial Media Pemda</a></li>
       </div>
     </div>
   </div>

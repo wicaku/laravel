@@ -9,7 +9,7 @@
       </div>
     </div>
 
-    <table class="ui celled table">
+    <table id="pemda" class="ui celled table responsive nowrap">
     <thead>
       <tr>
         <th>Email Pemda</th>
@@ -40,6 +40,7 @@
 <script>
 	$(document).ready(function () {
         $('.ui.dropdown').dropdown();
+        $('#pemda').DataTable();
         $("#kategorisasi-admin").addClass("active");
     });
 

@@ -8,9 +8,16 @@
         <div class="header">
           {{ $pemda->name }}
         </div>
+        <div class="description">
+          <strong>Facebook</strong> : {{$pemda->facebook_resmi}} <br>
+          <strong>Twitter</strong> : {{$pemda->twitter_resmi}} <br>
+          <strong>Youtube</strong> : {{$pemda->youtube_resmi}} <br>
+        </div>
       </div>
+
       <div class="extra content">
-        <a href="{{ route('dinas', ['id' => Auth::user()->idPemda]) }}">Lihat Dinas</a>
+        <li><a href="{{ route('dinas', ['id' => Auth::user()->idPemda]) }}">Lihat Dinas</a>
+        <li><a href="{{ route('user.sosmed.pemda.edit', ['id' => Auth::user()->idPemda]) }}">Edit Sosial Media</a>
       </div>
     </div>
   </div>
