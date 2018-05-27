@@ -1,4 +1,4 @@
-@extends('master-login-register')
+@extends('master')
 @section('title')
 Register
 @endsection
@@ -31,11 +31,12 @@ Register
           <input name="keyword_dinas" placeholder="Masukkan satu keyword untuk dinas" type="text" value="{{$dinas->keyword}}">
         </div>
         @endforeach
+        <div class="ui error message"></div>
         <button type="submit" class="ui fluid large teal submit button">
             {{ __('Edit Dinas') }}
         </button>
         {{ csrf_field() }}
-        <div class="ui error message"></div>
+
       </div>
     </form>
   </div>
@@ -46,69 +47,53 @@ Register
 <script>
 	$(document).ready(function () {
         $('.ui.dropdown').dropdown();
-        $("#register").addClass("active");
+        $("#kategorisasi").addClass("active");
     });
 
     $('#search-select')
       .dropdown()
     ;
+    var tags = new TIB(document.querySelector('input[name="keyword_dinas"]'));
+    var formValidationRules =
+    {
+      nama_dinas: {
+        identifier : 'nama_dinas',
+        rules: [
+        {
+          type   : 'empty',
+          prompt : 'Masukkan nama dinas'
+        }
+        ]
+      },
+      deskripsi_dinas: {
+        identifier : 'deskripsi_dinas',
+        rules: [
+        {
+          type   : 'empty',
+          prompt : 'Masukkan deksripsi dinas'
+        }
+        ]
+      },
+      keyword_dinas: {
+        identifier : 'keyword_dinas',
+        rules: [
+        {
+          type   : 'empty',
+          prompt : 'Masukkan keyword dinas'
+        }
+        ]
+      },
+    }
 
-    $('.ui.form')
-    .form({
-      fields: {
-        name: {
-          identifier: 'name',
-          rules: [
-            {
-              type   : 'empty',
-              prompt : 'Please enter your name'
-            }
-          ]
-        },
-        email: {
-          identifier: 'email',
-          rules: [
-            {
-              type   : 'empty',
-              prompt : 'Please enter an email'
-            },
-            {
-              type   : 'email',
-              prompt : 'Please enter a valid email'
-            },
-          ]
-        },
-        password: {
-          identifier: 'password',
-          rules: [
-            {
-              type   : 'empty',
-              prompt : 'Please enter a password'
-            },
-            {
-              type   : 'minLength[6]',
-              prompt : 'Your password must be at least {ruleValue} characters'
-            }
-          ]
-        },
-        password_confirmation: {
-          identifier: 'password_confirmation',
-          rules: [
-            {
-              type   : 'empty',
-              prompt : 'Please enter a password'
-            },
-            {
-              type   : 'minLength[6]',
-              prompt : 'Your password must be at least {ruleValue} characters'
-            },
-            {
-              type   : 'match[password]',
-              prompt : 'Your password is not match'
-            },
-          ]
-        },
-      }
-    });
+    var formSettings =
+    {
+      onSuccess : function()
+      {
+        //Hides modal on validation success
+        $('.modal').modal('hide');
+      },
+    }
+
+    $('.ui.form').form(formValidationRules, formSettings);
 </script>
 @endsection

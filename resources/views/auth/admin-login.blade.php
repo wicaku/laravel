@@ -47,10 +47,6 @@ Login
       <div class="ui error message"></div>
 
     </form>
-
-    <div class="ui message">
-      Belum Mendaftar? <a href="{{ route('register') }}">Register</a>
-    </div>
   </div>
 </div>
 

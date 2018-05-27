@@ -15,6 +15,9 @@
 	 crossorigin="anonymous"></script>
 	 <script src="jquery.tagsinput.js"></script>
 
+	 <link href="{{ asset('/css/tags-input-beautifier.css')}}" rel="stylesheet">
+	 <script src="{{ asset('js/tags-input-beautifier.js')}}"></script>
+
 	 @yield('head')
 </head>
 

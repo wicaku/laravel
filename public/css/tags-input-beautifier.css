@@ -2,7 +2,7 @@
   font:inherit;
   font-weight:normal;
   font-style:normal;
-  color:#fff;
+  color:#000;
   border: 1px solid rgba(34, 36, 38, 0.15);
   border-radius: 0.28571429rem;
   display:block;
@@ -15,10 +15,11 @@
   display:block;
   float:left;
   position:relative;
+  
 }
 .tags .tag,
 .tags-input {
-  background:#00b5ad;
+  background:#cacbcd;
   margin:0 .25em .25em 0;
   padding:.25em .5em;
   min-height:1.25em;

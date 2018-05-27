@@ -57,8 +57,12 @@
       </div>
       <div class="field">
         <label>Keyword</label>
+        <div class="ui tiny message">
+          <p>Jika lebih dari satu kata, pisahkan dengan koma</p>
+        </div>
         <input class="ui input" name="keyword_dinas" placeholder="Keyword Dinas" type="text" id="tags">
       </div>
+      <div class="ui error message"></div>
 
   </div>
   <div class="actions">

@@ -51,18 +51,22 @@
   <div class="content">
     <form class="ui form" action="{{ route('tambah.dinas.store', ['id' => $user->idPemda]) }}" method="post">
       <input name="id_pemda" type="hidden" value="{{$user->idPemda}}">
-      <div class="field">
+      <div class="field required">
         <label>Nama Dinas</label>
         <input name="nama_dinas" placeholder="Nama Dinas" type="text">
       </div>
-      <div class="field">
+      <div class="field required">
         <label>Deskripsi Dinas</label>
         <textarea name="deskripsi_dinas" placeholder="Deskripsi Dinas"></textarea>
       </div>
       <div class="field">
         <label>Keyword</label>
+        <div class="ui tiny message">
+          <p>Jika lebih dari satu kata, pisahkan dengan koma</p>
+        </div>
         <input name="keyword_dinas" placeholder="Keyword Dinas" type="text">
       </div>
+      <div class="ui error message"></div>
 
   </div>
   <div class="actions">
@@ -80,9 +84,61 @@
 	$(document).ready(function () {
         $('.ui.dropdown').dropdown();
         $("#kategorisasi").addClass("active");
+        $('.modal').modal({
+    			onApprove : function() {
+    			  //Submits the semantic ui form
+    			  //And pass the handling responsibilities to the form handlers, e.g. on form validation success
+    			  $('.ui.form').submit();
+    			  //Return false as to not close modal dialog
+    			  return false;
+    			},
+    		});
         $('#tambah-button').click(function(){
           $('#tambah-modal').modal('show');
         });
+
+        var tags = new TIB(document.querySelector('input[name="keyword_dinas"]'));
+        var formValidationRules =
+        {
+        	nama_dinas: {
+        	  identifier : 'nama_dinas',
+        	  rules: [
+        		{
+        		  type   : 'empty',
+        		  prompt : 'Masukkan nama dinas'
+        		}
+        	  ]
+        	},
+        	deskripsi_dinas: {
+        	  identifier : 'deskripsi_dinas',
+        	  rules: [
+        		{
+        		  type   : 'empty',
+        		  prompt : 'Masukkan deksripsi dinas'
+        		}
+        	  ]
+        	},
+          keyword_dinas: {
+        	  identifier : 'keyword_dinas',
+        	  rules: [
+        		{
+        		  type   : 'empty',
+        		  prompt : 'Masukkan keyword dinas'
+        		}
+        	  ]
+        	},
+        }
+
+        var formSettings =
+        {
+        	onSuccess : function()
+        	{
+        	  //Hides modal on validation success
+        	  $('.modal').modal('hide');
+        	},
+        }
+
+        $('.ui.form').form(formValidationRules, formSettings);
 
     })
 </script>
