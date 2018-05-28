@@ -4,7 +4,7 @@
 <div class="ui container">
   <div class="ui grid">
     <div class="two column row">
-      <div class="left floated column"><h5 class="ui header" style="margin-top:10px"><a href="{{ route('pemda') }}"><i class="home icon"></i>Admin / Pemda</a> / {{$pemda->name}}</h5></div>
+      <div class="left floated column"><h5 class="ui header" style="margin-top:10px"><a href="{{ route('pemda') }}"><i class="home icon"></i>Admin / Pemda</a> / {{$user->pemda->name}}</h5></div>
       <div class="right floated column"><button class="small ui right floated green button" id="tambah-button"><i class="icon plus"></i>Tambah Dinas</button></div>
     </div>
   </div>

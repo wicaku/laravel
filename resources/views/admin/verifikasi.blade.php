@@ -12,6 +12,7 @@
     <table id="pemda" class="ui celled table responsive nowrap">
     <thead>
       <tr>
+        <th>Nama Pemda</th>
         <th>Email Pemda</th>
         <th>Nama Pegawai</th>
         <th>Surat Tugas</th>
@@ -21,6 +22,7 @@
     <tbody>
       @foreach ($users as $user)
             <tr>
+              <td>{{$user->pemda->name}}</td>
               <td>{{$user['email']}}</td>
               <td>{{$user['nama-pegawai']}}</td>
               <td><a href="{{ Storage::url($user->file) }}"> Download </a></td>
