@@ -19,7 +19,7 @@
   <tbody>
     @foreach ($users as $user)
           <tr>
-            <td>{{$user['name']}}</td>
+            <td>{{$user->pemda->name}}</td>
             <td>{{$user['email']}}</td>
             <td>
                 <a href="{{ route('pemda.deleted.restore', ['id'=> $user['idPemda']])}}" class='ui tiny icon green button' id='view-button'><i class="history icon"></i></a>
