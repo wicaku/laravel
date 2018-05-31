@@ -59,7 +59,7 @@
         <label>Deskripsi Dinas</label>
         <textarea name="deskripsi_dinas" placeholder="Deskripsi Dinas"></textarea>
       </div>
-      <div class="field">
+      <div class="field required">
         <label>Keyword</label>
         <div class="ui tiny message">
           <p>Jika lebih dari satu kata, pisahkan dengan koma</p>

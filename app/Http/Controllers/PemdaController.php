@@ -20,6 +20,7 @@ class PemdaController extends Controller
   public function index() {
     $users = userModel::all();
 
+
     return view('admin/pemda', ['users' => $users]);
   }
 
@@ -81,7 +82,7 @@ class PemdaController extends Controller
     $idDinas = new \MongoDB\BSON\ObjectID();
     $dinas = new dinasModel;
     $dinas->_id = $idDinas;
-    $dinas->idUser = $user->_id;
+    $dinas->idUser = $user->idPemda;
     $dinas->nama_dinas = $request->nama_dinas;
     $dinas->deskripsi_dinas = $request->deskripsi_dinas;
     $dinas->keyword = $request->keyword_dinas;
@@ -119,7 +120,7 @@ class PemdaController extends Controller
   public function destroyDinas($id, $idDinas) {
     $user = userModel::where('idPemda', (int)$id)->first();
     $dinases = $user->dinas->where('_id', $idDinas)->first();
-    $dinases->delete();
+    $dinases->forceDelete();
     $dinases = $user->dinas;
 
     return redirect()->route('pemda.dinas', ['id' => $user->idPemda]);

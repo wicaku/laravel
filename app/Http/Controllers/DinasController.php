@@ -23,7 +23,7 @@ class DinasController extends Controller
     $idDinas = new \MongoDB\BSON\ObjectID();
     $dinas = new dinasModel;
     $dinas->_id = $idDinas;
-    $dinas->idUser = $user->_id;
+    $dinas->idUser = $user->idPemda;
     $dinas->nama_dinas = $request->nama_dinas;
     $dinas->deskripsi_dinas = $request->deskripsi_dinas;
     $dinas->keyword = $request->keyword_dinas;
@@ -53,7 +53,7 @@ class DinasController extends Controller
 public function destroy($id, $idDinas) {
   $user = userModel::where('idPemda', (int)$id)->first();
   $dinases = $user->dinas->where('_id', $idDinas)->first();
-  $dinases->delete();
+  $dinases->forceDelete();
   $dinases = $user->dinas;
   $pemda = listPemdaModel::where('_id', (int)$id)->first();
 

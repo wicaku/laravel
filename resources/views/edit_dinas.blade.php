@@ -16,17 +16,17 @@ Register
         <input type="hidden" name="id_pemda" value="{{$user->id}}"></input>
         @foreach ($dinases as $dinas)
         <input type="hidden" name="id_dinas" value="{{$dinas->_id}}"></input>
-        <div class="field">
+        <div class="field required">
           <label class="ui text container left aligned left aligned grid">Nama Dinas</label>
           <input name="nama_dinas" type="text" value="{{$dinas->nama_dinas}}">
         </div>
 
-        <div class="field">
+        <div class="field required">
           <label class="ui text container left aligned left aligned grid">Deskripsi Dinas</label>
           <textarea name="deskripsi_dinas" placeholder="Masukkan Deskripsi Untuk Dinas">{{$dinas->deskripsi_dinas}}</textarea>
         </div>
 
-        <div class="field">
+        <div class="field required">
           <label class="ui text container left aligned left aligned grid">Keyword</label>
           <input name="keyword_dinas" placeholder="Masukkan satu keyword untuk dinas" type="text" value="{{$dinas->keyword}}">
         </div>
