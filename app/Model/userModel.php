@@ -17,7 +17,7 @@ class userModel extends Eloquent
     protected $dates = ['deleted_at'];
 
     public function dinas() {
-      return $this->hasMany('App\Model\dinasModel', 'idUser', 'idPemda');
+      return $this->hasMany('App\Model\dinasModel', 'idPemda', 'idPemda');
     }
 
     public function pemda() {

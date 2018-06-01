@@ -18,7 +18,7 @@ Edit Dinas
         <input type="hidden" name="id_dinas" value="{{$dinas->_id}}"></input>
         <div class="field required">
           <label class="ui text container left aligned left aligned grid">Nama Dinas</label>
-          <input name="nama_dinas" type="text" value="{{$dinas->nama_dinas}}">
+          <input name="nama_dinas" type="text" value="{{$dinas->nama_dinas}}" placeholder="Masukkan nama Dinas">
         </div>
 
         <div class="field required">

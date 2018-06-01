@@ -62,7 +62,7 @@
       <div class="field required">
         <label>Keyword</label>
         <div class="ui tiny message">
-          <p>Jika lebih dari satu kata, pisahkan dengan koma</p>
+          <p>Masukkan satu kata kunci untuk dinas ini. Contoh : jalan</p>
         </div>
         <input name="keyword_dinas" placeholder="Keyword Dinas" type="text">
       </div>

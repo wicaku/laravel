@@ -9,9 +9,17 @@
           {{ $pemda->name }}
         </div>
         <div class="description">
-          <strong>Facebook</strong> : {{$pemda->facebook_resmi}} <br>
-          <strong>Twitter</strong> : {{$pemda->twitter_resmi}} <br>
-          <strong>Youtube</strong> : {{$pemda->youtube_resmi}} <br>
+
+            @if (($pemda->facebook_resmi))
+            <a class="ui icon facebook button" target="_blank" href="http://facebook.com/{{$pemda->facebook_resmi}}"><i class="facebook icon"></i></a>
+            @endif
+            @if (($pemda->twitter_resmi))
+            <a class="ui icon twitter button" target="_blank" href="http://twitter.com/{{$pemda->twitter_resmi}}"><i class="twitter icon"></i></a>
+            @endif
+            @if (($pemda->youtube_resmi))
+            <a class="ui icon youtube button" target="_blank" href="http://youtube.com/channel/{{$pemda->youtube_resmi}}"><i class="youtube icon"></i></a>
+            @endif
+
         </div>
       </div>
 
