@@ -25,6 +25,7 @@
 
       <div class="extra content">
         <li><a href="{{ route('dinas', ['id' => Auth::user()->idPemda]) }}">Lihat Dinas</a>
+        <li><a href="{{ route('rekomendasi', ['id' => Auth::user()->idPemda]) }}">Rekomendasi Keyword</a>
         <li><a href="{{ route('user.sosmed.pemda.edit', ['id' => Auth::user()->idPemda]) }}">Edit Sosial Media</a>
       </div>
     </div>

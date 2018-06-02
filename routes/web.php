@@ -117,6 +117,10 @@ Route::post('/kategorisasi/logout', 'Auth\LoginController@userLogout')->name('us
 Route::get('/kategorisasi/', 'Auth\LoginController@showLoginForm')->name('kategorisasi.not.login');
 Route::get('/kategorisasi/{id}', 'KategorisasiController@index')->name('kategorisasi');
 Route::get('/kategorisasi/{id}/dinas', 'DinasController@index')->name('dinas');
+Route::get('/kategorisasi/{id}/rekomendasi', 'RekomendasiController@index')->name('rekomendasi');
+
+Route::get('/kategorisasi/{id}/rekomendasi/{idDinas}/store', 'RekomendasiController@tambahRekomendasi')->name('rekomendasi.tambah');
+Route::get('/kategorisasi/{id}/rekomendasi/{idDinas}/delete', 'RekomendasiController@hapusRekomendasi')->name('rekomendasi.hapus');
 
 Route::get('/kategorisasi-admin/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');
 Route::post('/kategorisasi-admin/login', 'Auth\AdminLoginController@login')->name('admin.login.submit');
