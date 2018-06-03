@@ -68,4 +68,21 @@ class SosialMediaPemdaController extends Controller
 
       return redirect()->route('sosmed.pemda');
     }
+
+    public function showDeleted() {
+      $pemdas = listPemdaModel::onlyTrashed()->get();
+      return view('admin/sosmed-deleted', ['pemdas' => $pemdas]);
+    }
+
+    public function restore($id) {
+      $pemdas = listPemdaModel::onlyTrashed()->where('_id', (int)$id)->restore();
+      $pemdas = listPemdaModel::onlyTrashed()->get();
+      return view('admin/sosmed-deleted', ['pemdas' => $pemdas]);
+    }
+
+    public function forceDeleted($id) {
+      $users = listPemdaModel::onlyTrashed()->where('_id', (int)$id)->forceDelete();
+      $users = listPemdaModel::onlyTrashed()->get();
+      return view('admin/sosmed-deleted', ['pemdas' => $pemdas]);
+    }
 }

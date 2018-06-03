@@ -29,7 +29,9 @@
         <li><a href="{{ route('user.sosmed.pemda.edit', ['id' => Auth::user()->idPemda]) }}">Edit Sosial Media</a>
       </div>
     </div>
+    <div id="container" style="width:100%; height:400px;"></div>
   </div>
+
 </div>
 @endsection
 @section('script')
@@ -37,6 +39,8 @@
 	$(document).ready(function () {
         $('.ui.dropdown').dropdown();
         $("#kategorisasi").addClass("active");
+
+        $('#container').highcharts( <?php  echo json_encode($chartArray) ?>);
     });
 
 </script>
