@@ -2,8 +2,8 @@
 
 @section('body')
 <div class="ui container">
-  <div class="ui cards">
-    <div class="card">
+  <div class="ui cards grid">
+    <div class="card three wide column">
       <div class="content">
         <div class="header">
           {{ $pemda->name }}
@@ -29,7 +29,7 @@
         <li><a href="{{ route('user.sosmed.pemda.edit', ['id' => Auth::user()->idPemda]) }}">Edit Sosial Media</a>
       </div>
     </div>
-    <div id="container" style="width:100%; height:400px;"></div>
+    <div class="twelve wide column" id="container" style="width:100%; height:400px;"></div>
   </div>
 
 </div>

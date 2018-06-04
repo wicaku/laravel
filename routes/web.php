@@ -11,9 +11,11 @@
 |
 */
 ///* HOME *///
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+Route::get('/', 'welcomeController@index');
 
 Route::get('/tentang', function () {
     return view('tentang');

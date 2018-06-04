@@ -1,7 +1,7 @@
 @extends('master')
 @section('title')
 Tentang
-@endsection 
+@endsection
 @section('body')
 <div class="ui container">
 	<h1>About Us</h1>
@@ -9,7 +9,7 @@ Tentang
 		E-Gov Benchmarking merupakan produk riset dari Nur Aini Rakhmawati. S.Kom, M.Sc.Eng, PhD yang dikembangkan di Laboratorium
 		Akuisisi Data dan Diseminasi Informasi Jurusan Sistem Informasi Institut Teknologi Sepuluh Nopember Surabaya yang berfokus
 		pada data dan informasi. Produk ini dikembangkan bersama mahasiswa berikut Biondi Hasbi Handoko, Aditya Mayapada, Muhammad
-		Zuhri, Abi Nubli, Mochammad Rizki dan Fajara.
+		Zuhri, Abi Nubli, Mochammad Rizki, Fajara, Dyaksa Hanindito, Guntur Kondang Prakoso, Muhammad Fikry Hazmi, Nody Risky Pratomo, dan Tubagus Hendro Pramono.
 		<br>
 		<br> Data dan Informasi merupakan salah satu elemen vital dalam aspek kehidupan bermasyarakat. Oleh karena itu, penguasaan
 		teknologi untuk data dan informasi sangat penting bagi kesejahteraan dan kedaulatan bangsa. Terdapat tiga elemen penting
@@ -40,7 +40,7 @@ Tentang
 		</ul>
 	</p>
 </div>
-@endsection 
+@endsection
 @section('script')
 <script>
 	$(document).ready(function () {
