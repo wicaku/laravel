@@ -42,6 +42,16 @@
 					<a id="web" class="item" href="{{ url('/peringkat/website') }}">Website </a>
 					<a id="socmed" class="item" href="{{ url('/peringkat/sosial-media') }}">Sosial Media</a>
 					<a id="vuln" class="item" href="{{ url('/peringkat/kerentanan') }}">Kerentanan</a>
+					@guest
+						<a id="kategorisasi" class="item" href="{{ route('kategorisasi.not.login') }}">Engagement Index</a>
+					@else
+						@if (Auth::user()->verified)
+							<a id="engagement" class="item" href="{{ route('peringkat.engagement', ['id' => Auth::user()->idPemda]) }}">Engagement Index</a>
+						@else
+							<a id="kategorisasi" class="item" href="{{ route('validasi.pemda') }}">Engagement Index</a>
+						@endif
+					@endguest
+
 				</div>
 			</div>
 			<div id="data" class="ui dropdown item" tabindex="0">

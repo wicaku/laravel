@@ -23,7 +23,7 @@ class welcomeController extends Controller
       $komentarDuplicate = facebookCommentsModel::where('category', "duplicate")->count() + twitter_replyModel::where('category',"duplicate")->count() + youtubeCommentsModel::where('category', "duplicate")->count();
       $rataKomentar = round($semuaKomentar / $pemda,2);
 
-      for($i = 10; $i >= 1; $i --) {
+      for($i = 9; $i >= 0; $i --) {
         $tanggal[] = date('Y-m-d', strtotime('-'.$i.' days',  strtotime(date("Y-m-d"))));
       }
 
@@ -38,7 +38,7 @@ class welcomeController extends Controller
           "type" => "line"
       );
       $chartArray ["title"] = array (
-          "text" => "Jumlah Komentar yang Masuk"
+          "text" => "Jumlah Komentar yang Masuk 10 hari terakhir"
       );
       $chartArray ["credits"] = array (
           "enabled" => true
