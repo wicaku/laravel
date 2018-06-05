@@ -41,6 +41,22 @@ HOME
       punya dito
     </div>
   </div>
+
+  <div class="ui cards grid">
+    <div class="sixteen wide column">
+      <div class="content">
+        timeline pos
+      </div>
+    </div>
+  </div>
+
+  <div class="ui cards grid">
+    <div class="card sixteen wide column">
+      <div class="content">
+        <div id="container"></div>
+      </div>
+    </div>
+  </div>
 </div>
 
 @endsection
@@ -50,6 +66,7 @@ HOME
     $(document).ready(function () {
         $('.ui.dropdown').dropdown();
         $("#home").addClass("active");
+        $('#container').highcharts( <?php  echo json_encode($chartArray) ?>);
     });
 </script>
 @endsection

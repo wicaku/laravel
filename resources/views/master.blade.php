@@ -62,15 +62,26 @@
 					<a id="meta3" class="item" href="{{ url('/metodologi/3') }}">EGOV Benchmark V3.0</a>
 				</div>
 			</div>
-			@guest
-				<a id="kategorisasi" class="item" href="{{ route('kategorisasi.not.login') }}">Kategorisasi</a>
-			@else
-				@if (Auth::user()->verified)
-					<a id="kategorisasi" class="item" href="{{ route('kategorisasi', ['id' => Auth::user()->idPemda] ) }}">Kategorisasi</a>
-				@else
-					<a id="kategorisasi" class="item" href="{{ route('validasi.pemda') }}">Kategorisasi</a>
-				@endif
-			@endguest
+			<div id="komentar" class="ui dropdown item" tabindex="0">
+				Komentar
+				<i class="dropdown icon"></i>
+				<div class="menu transition hidden" tabindex="-1">
+
+					@guest
+						<a id="kategorisasi" class="item" href="{{ route('kategorisasi.not.login') }}">Klasifikasi</a>
+						<a id="kategorisasi" class="item" href="{{ route('kategorisasi.not.login') }}">Kategorisasi</a>
+					@else
+						@if (Auth::user()->verified)
+							<a id="klasifikasiKomentar" class="item" href="{{ route('klasifikasi.komentar', ['id' => Auth::user()->idPemda]) }}">Klasifikasi</a>
+							<a id="kategorisasi" class="item" href="{{ route('kategorisasi', ['id' => Auth::user()->idPemda] ) }}">Kategorisasi</a>
+						@else
+							<a id="kategorisasi" class="item" href="{{ route('validasi.pemda') }}">Klasifikasi</a>
+							<a id="kategorisasi" class="item" href="{{ route('validasi.pemda') }}">Kategorisasi</a>
+						@endif
+					@endguest
+				</div>
+			</div>
+
 			<div class="right menu">
 					<!-- <a class="item" id="login" href="{{ route('login') }}">Login</a>
 					<a class="item" id="register" href="{{ route('register') }}">Register</a> -->
@@ -101,7 +112,7 @@
 		</div>
 	</div>
 	@yield('body')
-	<div style="position:fixed; bottom:0; width:100%; margin-bottom:0px" class="ui footer segment">
+	<div class="ui footer segment">
 		<div class="ui center aligned container">
 			<p>E-Gov Benchmark Departemen Sistem Informasi @php
 				echo date('Y');

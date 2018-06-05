@@ -49,7 +49,7 @@
 		</div>
 	</div>
 	@yield('body')
-	<div style="position:fixed; bottom:0; width:100%; margin-bottom:0px" class="ui footer segment">
+	<div class="ui footer segment">
 		<div class="ui center aligned container">
 			<p>E-Gov Benchmark Departemen Sistem Informasi @php
 				echo date('Y');

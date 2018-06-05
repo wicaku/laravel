@@ -121,6 +121,8 @@ Route::get('/kategorisasi/{id}', 'KategorisasiController@index')->name('kategori
 Route::get('/kategorisasi/{id}/dinas', 'DinasController@index')->name('dinas');
 Route::get('/kategorisasi/{id}/rekomendasi', 'RekomendasiController@index')->name('rekomendasi');
 
+Route::get('/klasifikasi-komentar/{id}', 'KlasifikasiKomentarController@index')->name('klasifikasi.komentar');
+
 Route::get('/kategorisasi/{id}/rekomendasi/{idDinas}/store', 'RekomendasiController@tambahRekomendasi')->name('rekomendasi.tambah');
 Route::get('/kategorisasi/{id}/rekomendasi/{idDinas}/delete', 'RekomendasiController@hapusRekomendasi')->name('rekomendasi.hapus');
 

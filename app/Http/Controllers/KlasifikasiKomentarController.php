@@ -9,87 +9,73 @@ use App\Model\twitter_replyModel;
 use App\Model\facebookCommentsModel;
 use App\Model\youtubeCommentsModel;
 
-class KategorisasiController extends Controller
+class KlasifikasiKomentarController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         $this->middleware('auth');
     }
-
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index($id)
-    {
+    public function index($id) {
       $pemda = listPemdaModel::where('_id', (int)$id)->first();
       $dinases = dinasModel::where('idPemda', (int)$id)->get();
+
+      $labelKlasifikasi = ['Berbagi Informasi', 'Meminta Informasi', 'Mengemukakan Pendapat', 'Apresiasi', 'Komplain Pelayanan'];
 
       //facebook resmi
       $komentarFacebookResmi = facebookCommentsModel::where('page_id', $pemda->facebook_resmi)->get();
 
-      foreach($dinases as $dinas) {
-        $namaDinas[] = $dinas['nama_dinas'];
-      }
-
-      foreach($dinases as $dinas) {
-        $jumlahKomentarFacebookResmi[] = $komentarFacebookResmi->where('category', $dinas['nama_dinas'])->count();
+      foreach($labelKlasifikasi as $lk) {
+        $jumlahKomentarFacebookResmi[] = $komentarFacebookResmi->where('class', $lk)->count();
       }
 
       //facebook influencer
       $komentarFacebookInfluencer = facebookCommentsModel::where('page_id', $pemda->facebook_influencer)->get();
 
-      foreach($dinases as $dinas) {
-        $jumlahKomentarFacebookInfluencer[] = $komentarFacebookInfluencer->where('category', $dinas['nama_dinas'])->count();
+      foreach($labelKlasifikasi as $lk) {
+        $jumlahKomentarFacebookInfluencer[] = $komentarFacebookInfluencer->where('class', $lk)->count();
       }
 
       //twitter resmi
       $komentarTwitterResmi = twitter_replyModel::where('account_id', $pemda->twitter_resmi)->get();
 
-      foreach($dinases as $dinas) {
-        $jumlahKomentarTwitterResmi[] = $komentarTwitterResmi->where('category', $dinas['nama_dinas'])->count();
+      foreach($labelKlasifikasi as $lk) {
+        $jumlahKomentarTwitterResmi[] = $komentarTwitterResmi->where('class', $lk)->count();
       }
 
       //twitter influencer
       $komentarTwitterInfluencer = twitter_replyModel::where('account_id', $pemda->twitter_influencer)->get();
 
-      foreach($dinases as $dinas) {
-        $jumlahKomentarTwitterInfluencer[] = $komentarTwitterInfluencer->where('category', $dinas['nama_dinas'])->count();
+      foreach($labelKlasifikasi as $lk) {
+        $jumlahKomentarTwitterInfluencer[] = $komentarTwitterInfluencer->where('class', $lk)->count();
       }
 
       //youtube resmi
       $komentarYoutubeResmi = youtubeCommentsModel::where('channel_id', $pemda->youtube_resmi)->get();
 
-      foreach($dinases as $dinas) {
-        $jumlahKomentarYoutubeResmi[] = $komentarYoutubeResmi->where('category', $dinas['nama_dinas'])->count();
+      foreach($labelKlasifikasi as $lk) {
+        $jumlahKomentarYoutubeResmi[] = $komentarYoutubeResmi->where('class', $lk)->count();
       }
 
       //youtube influencer
       $komentarYoutubeInfluencer = youtubeCommentsModel::where('channel_id', $pemda->youtube_influencer)->get();
 
-      foreach($dinases as $dinas) {
-        $jumlahKomentarYoutubeInfluencer[] = $komentarYoutubeInfluencer->where('category', $dinas['nama_dinas'])->count();
+      foreach($labelKlasifikasi as $lk) {
+        $jumlahKomentarYoutubeInfluencer[] = $komentarYoutubeInfluencer->where('class', $lk)->count();
       }
 
       $chartArray ["chart"] = array (
           "type" => "column"
       );
       $chartArray ["title"] = array (
-          "text" => "Jumlah Kategorisasi Komentar"
+          "text" => "Jumlah Klasifikasi Komentar"
       );
       $chartArray ["credits"] = array (
           "enabled" => true
       );
 
-      for($i = 0; $i < count ( $namaDinas ); $i++) {
+      for($i = 0; $i < count ( $labelKlasifikasi ); $i++) {
         $chartArray ["xAxis"][] = array (
-               "categories" => $namaDinas
+               "categories" => $labelKlasifikasi
         );
       }
 
@@ -149,6 +135,6 @@ class KategorisasiController extends Controller
             "stack" => 'youtube'
 	   );
 
-      return view('kategorisasi', ['pemda' => $pemda, 'dinases' => $dinases])->withChartArray($chartArray);
+      return view('klasifikasiKomentar',['pemda' => $pemda, 'dinases' => $dinases])->withChartArray($chartArray);
     }
 }
