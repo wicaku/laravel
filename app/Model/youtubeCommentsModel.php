@@ -7,7 +7,7 @@ use Jenssegers\Mongodb\Eloquent\SoftDeletes;
 
 class youtubeCommentsModel extends Eloquent
 {
-    protected $collection = 'youtube_comment';
+    protected $collection = 'youtube_comments';
 
     use SoftDeletes;
     protected $dates = ['deleted_at'];

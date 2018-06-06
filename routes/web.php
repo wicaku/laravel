@@ -184,5 +184,3 @@ Route::post('/kategorisasi-admin/sosmed/store', 'SosialMediaPemdaController@stor
 
 Route::get('kategorisasi/{id}/sosmed/edit', 'UserSosialMediaPemdaController@index')->name('user.sosmed.pemda.edit');
 Route::post('kategorisasi/{id}/sosmed/update', 'UserSosialMediaPemdaController@update')->name('user.sosmed.pemda.update');
-
-Route::get('opendata', 'OpendataController@index');

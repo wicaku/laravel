@@ -33,49 +33,44 @@ class KategorisasiController extends Controller
 
       //facebook resmi
       $komentarFacebookResmi = facebookCommentsModel::where('page_id', $pemda->facebook_resmi)->get();
-
-      foreach($dinases as $dinas) {
-        $namaDinas[] = $dinas['nama_dinas'];
-      }
-
-      foreach($dinases as $dinas) {
-        $jumlahKomentarFacebookResmi[] = $komentarFacebookResmi->where('category', $dinas['nama_dinas'])->count();
-      }
-
       //facebook influencer
       $komentarFacebookInfluencer = facebookCommentsModel::where('page_id', $pemda->facebook_influencer)->get();
-
-      foreach($dinases as $dinas) {
-        $jumlahKomentarFacebookInfluencer[] = $komentarFacebookInfluencer->where('category', $dinas['nama_dinas'])->count();
-      }
-
       //twitter resmi
       $komentarTwitterResmi = twitter_replyModel::where('account_id', $pemda->twitter_resmi)->get();
-
-      foreach($dinases as $dinas) {
-        $jumlahKomentarTwitterResmi[] = $komentarTwitterResmi->where('category', $dinas['nama_dinas'])->count();
-      }
-
       //twitter influencer
       $komentarTwitterInfluencer = twitter_replyModel::where('account_id', $pemda->twitter_influencer)->get();
-
-      foreach($dinases as $dinas) {
-        $jumlahKomentarTwitterInfluencer[] = $komentarTwitterInfluencer->where('category', $dinas['nama_dinas'])->count();
-      }
-
       //youtube resmi
       $komentarYoutubeResmi = youtubeCommentsModel::where('channel_id', $pemda->youtube_resmi)->get();
-
-      foreach($dinases as $dinas) {
-        $jumlahKomentarYoutubeResmi[] = $komentarYoutubeResmi->where('category', $dinas['nama_dinas'])->count();
-      }
-
       //youtube influencer
       $komentarYoutubeInfluencer = youtubeCommentsModel::where('channel_id', $pemda->youtube_influencer)->get();
 
+
+
+
+
       foreach($dinases as $dinas) {
-        $jumlahKomentarYoutubeInfluencer[] = $komentarYoutubeInfluencer->where('category', $dinas['nama_dinas'])->count();
+        $namaDinas[] = $dinas['nama_dinas'];
+        $dinas['facebook_resmi'] = $komentarFacebookResmi->where('category', $dinas['nama_dinas'])->count();
+        $dinas['facebook_influencer'] = $komentarFacebookInfluencer->where('category', $dinas['nama_dinas'])->count();
+        $dinas['twitter_resmi'] = $komentarTwitterResmi->where('category', $dinas['nama_dinas'])->count();
+        $dinas['twitter_influencer'] = $komentarTwitterInfluencer->where('category', $dinas['nama_dinas'])->count();
+        $dinas['youtube_resmi'] = $komentarYoutubeResmi->where('category', $dinas['nama_dinas'])->count();
+        $dinas['youtube_influencer'] = $komentarYoutubeInfluencer->where('category', $dinas['nama_dinas'])->count();
+        $dinas['total_komentar'] = $dinas['facebook_resmi'] + $dinas['facebook_influencer'] + $dinas['twitter_resmi'] + $dinas['twitter_influencer'] + $dinas['youtube_resmi'] + $dinas['youtube_influencer'];
       }
+
+      $top5dinas = $dinases->sortByDesc('total_komentar')->take(5);
+
+      foreach($top5dinas as $td) {
+        $namaDinas[] = $td['nama_dinas'];
+        $jumlahKomentarFacebookResmi[] = $komentarFacebookResmi->where('category', $td['nama_dinas'])->count();
+        $jumlahKomentarFacebookInfluencer[] = $komentarFacebookInfluencer->where('category', $td['nama_dinas'])->count();
+        $jumlahKomentarTwitterResmi[] = $komentarTwitterResmi->where('category', $td['nama_dinas'])->count();
+        $jumlahKomentarTwitterInfluencer[] = $komentarTwitterInfluencer->where('category', $td['nama_dinas'])->count();
+        $jumlahKomentarYoutubeResmi[] = $komentarYoutubeResmi->where('category', $td['nama_dinas'])->count();
+        $jumlahKomentarYoutubeInfluencer[] = $komentarYoutubeInfluencer->where('category', $td['nama_dinas'])->count();
+      }
+
 
       $chartArray ["chart"] = array (
           "type" => "column"
@@ -148,6 +143,7 @@ class KategorisasiController extends Controller
 			      "data" => $jumlahKomentarYoutubeInfluencer,
             "stack" => 'youtube'
 	   );
+
 
       return view('kategorisasi', ['pemda' => $pemda, 'dinases' => $dinases])->withChartArray($chartArray);
     }

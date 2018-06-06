@@ -7,7 +7,7 @@ use Jenssegers\Mongodb\Eloquent\SoftDeletes;
 
 class twitter_replyModel extends Eloquent
 {
-    protected $collection = 'twitter_reply';
+    protected $collection = 'twitter_comments';
 
     use SoftDeletes;
     protected $dates = ['deleted_at'];

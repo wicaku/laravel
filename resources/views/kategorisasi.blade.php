@@ -27,16 +27,53 @@
       </div>
     </div>
   </div>
-  
+
   <div class="ui cards grid">
     <div class="card twenty wide column">
       <div class="content">
           <div class="twelve wide column" id="container" style="width:100%; height:400px;"></div>
+          <table id="dinas" class="ui celled table responsive nowrap">
+          <thead>
+            <tr>
+              <th>Nama Dinas</th>
+              <th>Facebook Resmi</th>
+              <th>Facebook Influencer</th>
+              <th>Twitter Resmi</th>
+              <th>Twitter Influencer</th>
+              <th>Youtube Resmi</th>
+              <th>Youtube Influencer</th>
+              <th>Total Komentar</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            @foreach ($dinases as $dinas)
+                  <tr>
+                    <td>{{$dinas['nama_dinas']}}</td>
+                    <td>{{$dinas['facebook_resmi']}}</td>
+                    <td>{{$dinas['facebook_influencer']}}</td>
+                    <td>{{$dinas['twitter_resmi']}}</td>
+                    <td>{{$dinas['twitter_influencer']}}</td>
+                    <td>{{$dinas['youtube_resmi']}}</td>
+                    <td>{{$dinas['youtube_influencer']}}</td>
+                    <td>{{$dinas['facebook_resmi']+$dinas['facebook_influencer']+$dinas['twitter_resmi']+$dinas['twitter_influencer']+$dinas['youtube_resmi']+$dinas['youtube_influencer']}}</td>
+                    <td>Click Here</td>
+                  </tr>
+            @endforeach
+          </tbody>
+          </table>
       </div>
-
     </div>
-
   </div>
+
+  <div class="ui cards grid">
+    <div class="card twenty wide column">
+      <div class="content">
+
+      </div>
+    </div>
+  </div>
+
 </div>
 @endsection
 @section('script')
@@ -44,7 +81,7 @@
 	$(document).ready(function () {
         $('.ui.dropdown').dropdown();
         $("#kategorisasi").addClass("active");
-
+        $('#dinas').DataTable();
         $('#container').highcharts( <?php  echo json_encode($chartArray) ?>);
     });
 

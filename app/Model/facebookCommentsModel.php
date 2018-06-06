@@ -7,7 +7,7 @@ use Jenssegers\Mongodb\Eloquent\SoftDeletes;
 
 class facebookCommentsModel extends Eloquent
 {
-    protected $collection = 'facebook_comment';
+    protected $collection = 'facebook_comments';
 
     use SoftDeletes;
     protected $dates = ['deleted_at'];
