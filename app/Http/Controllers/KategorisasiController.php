@@ -44,10 +44,6 @@ class KategorisasiController extends Controller
       //youtube influencer
       $komentarYoutubeInfluencer = youtubeCommentsModel::where('channel_id', $pemda->youtube_influencer)->get();
 
-
-
-
-
       foreach($dinases as $dinas) {
         $namaDinas[] = $dinas['nama_dinas'];
         $dinas['facebook_resmi'] = $komentarFacebookResmi->where('category', $dinas['nama_dinas'])->count();

@@ -26,7 +26,7 @@ HOME
         <p class="daily-stats">Total Facebook Resmi<span style="float:right">{{$facebook_resmi}}</span></p>
         <p class="daily-stats">Total Twitter Resmi<span style="float:right">{{$twitter_resmi}}</span></p>
         <p class="daily-stats">Total Youtube Resmi<span style="float:right">{{$youtube_resmi}}</span></p>
-        <p class="daily-stats">Total Post Masuk<span style="float:right">belom</span></p>
+        <p class="daily-stats">Total Post Masuk<span style="float:right">{{$post}}</span></p>
         <p class="daily-stats">Total Komentar Masuk<span style="float:right">{{$komentar}}</span></p>
         <p class="daily-stats">Total Post Terklasifikasi<span style="float:right">belom</span></p>
         <p class="daily-stats">Total Komentar Terklasifikasi<span style="float:right">{{$komentar}}</span></p>
@@ -43,9 +43,9 @@ HOME
   </div>
 
   <div class="ui cards grid">
-    <div class="sixteen wide column">
+    <div class="card sixteen wide column">
       <div class="content">
-        timeline pos
+        <div id="container-post"></div>
       </div>
     </div>
   </div>
@@ -53,10 +53,35 @@ HOME
   <div class="ui cards grid">
     <div class="card sixteen wide column">
       <div class="content">
-        <div id="container"></div>
+        <div id="container-komen"></div>
       </div>
     </div>
   </div>
+
+  <div class="ui cards grid">
+    <div class="card sixteen wide column">
+      <div class="content">
+        <div id="container-engagement"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ui cards grid">
+    <div class="card sixteen wide column">
+      <div class="content">
+        <div id="container-emoji"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ui cards grid">
+    <div class="card sixteen wide column">
+      <div class="content">
+        <div id="container-rating"></div>
+      </div>
+    </div>
+  </div>
+
 </div>
 
 @endsection
@@ -66,7 +91,11 @@ HOME
     $(document).ready(function () {
         $('.ui.dropdown').dropdown();
         $("#home").addClass("active");
-        $('#container').highcharts( <?php  echo json_encode($chartArray) ?>);
+        $('#container-komen').highcharts( <?php  echo json_encode($chartArray) ?>);
+        $('#container-post').highcharts( <?php  echo json_encode($chartArrayPost) ?>);
+        $('#container-engagement').highcharts( <?php  echo json_encode($chartArrayEngagement) ?>);
+        $('#container-emoji').highcharts( <?php  echo json_encode($chartArrayEmoji) ?>);
+        $('#container-rating').highcharts( <?php  echo json_encode($chartArrayRating) ?>);
     });
 </script>
 @endsection
