@@ -15,6 +15,9 @@ use App\Model\facebookAccountsResultModel;
 use App\Model\twitterAccountsResultModel;
 use App\Model\youtubeAccountsResultModel;
 
+use App\Model\facebookPostTypeResultModel;
+use App\Model\twitterPostTypeResultModel;
+
 class welcomeController extends Controller
 {
     public function index() {
@@ -175,13 +178,26 @@ class welcomeController extends Controller
 
       }
 
+      $facebookPostTypeResult = facebookPostTypeResultModel::all();
+      foreach ($facebookPostTypeResult as $fptr) {
+        $namaPostTypeFacebook[] = $fptr['post_type'];
+        $engagementScorePostTypeFacebook[] = $fptr['result.statistics.postCount'];
+      }
+
+
+      $twitterPostTypeResult = twitterPostTypeResultModel::all();
+      foreach ($twitterPostTypeResult as $tptr) {
+        $namaPostTypeTwitter[] = $tptr['tweet_type'];
+        $engagementScorePostTypeTwitter[] = $tptr['result.statistics.tweetCount'];
+      }
+
       $top10pemdaEngagement = $listPemda->sortByDesc('total')->take(10);
       $top10pemdaEmoji = $listPemda->sortByDesc('emoji')->take(10);
       $top10pemdaRating = $listPemda->sortByDesc('rating')->take(30);
 
 
       foreach ($top10pemdaEngagement as $tp) {
-        $namaPemda[] = $tp['name'];
+        $namaPemdaEngagement[] = $tp['name'];
         $engagementScoreFB[] = $tp['engagementScoreFB'];
         $engagementScoreTW[] = $tp['engagementScoreTW'];
         $engagementScoreYT[] = $tp['engagementScoreYT'];
@@ -207,9 +223,9 @@ class welcomeController extends Controller
         "enabled" => true
       );
 
-      for($i = 0; $i < count ( $namaPemda ); $i++) {
+      for($i = 0; $i < count ( $top10pemdaEngagement ); $i++) {
       $chartArrayEngagement ["xAxis"][] = array (
-      	   "categories" => $namaPemda
+      	   "categories" => $namaPemdaEngagement
       );
       }
 
@@ -340,6 +356,92 @@ class welcomeController extends Controller
       	"data" => $ratingScore,
       );
 
-    return view('welcome', ['pemda' => $pemda, 'facebook_resmi' => $facebook_resmi, 'twitter_resmi' => $twitter_resmi, 'youtube_resmi' => $youtube_resmi, 'komentar' => $komentar, 'komentarCategory' => $komentarCategory, 'komentarTidakCategory' => $komentarTidakCategory, 'komentarDuplicate' => $komentarDuplicate, 'rataKomentar' => $rataKomentar, 'post' => $post])->withChartArray($chartArray)->withChartArrayPost($chartArrayPost)->withChartArrayEngagement($chartArrayEngagement)->withChartArrayEmoji($chartArrayEmoji)->withChartArrayRating($chartArrayRating);
+      $chartArrayPostType ["chart"] = array (
+        "type" => "pie",
+  		  "plotBackgroundColor" => null,
+  		  "plotBorderWidth" => null,
+  		  "plotShadow" => false,
+      );
+      $chartArrayPostType ["title"] = array (
+        "text" => "Jenis Pos Facebook"
+      );
+      $chartArrayPostType ["credits"] = array (
+        "enabled" => true
+      );
+
+      $chartArrayPostType ["tooltip"] = array (
+        "pointFormat" => "{series.name}:<b>{point.percentage:.1f}%</b>"
+      );
+
+      $chartArrayPostType ["plotOptions"] = array (
+        "pie" => [
+      		"allowPointSelect" => true,
+              "cursor" => 'pointer',
+      		"dataLabels" => [
+      			"enabled" => true,
+      			"format" => '<b>{point.name}</b>:{point.percentage:.1f} %',
+      			"style" => [
+      				"color" => "black"
+      			]
+      		]
+      	]
+      );
+
+
+      $arrayFB = [];
+      for($i=0; $i< count($namaPostTypeFacebook); $i ++) {
+          $arrayFB[$i] = [$namaPostTypeFacebook[$i], $engagementScorePostTypeFacebook[$i]];
+      }
+
+      $chartArrayPostType ["series"] [] = array (
+      	"name" => 'post type',
+      	"colorByPoint" => true,
+        "data" => $arrayFB,
+      );
+
+      $chartArrayTwitterType ["chart"] = array (
+      	"type" => "pie",
+      	"plotBackgroundColor" => null,
+      	"plotBorderWidth" => null,
+      	"plotShadow" => false,
+      );
+      $chartArrayTwitterType ["title"] = array (
+      	"text" => "Jenis Pos Twitter"
+      );
+      $chartArrayTwitterType ["credits"] = array (
+      	"enabled" => true
+      );
+
+      $chartArrayTwitterType ["tooltip"] = array (
+      	"pointFormat" => "{series.name}:<b>{point.percentage:.1f}%</b>"
+      );
+
+      $chartArrayTwitterType ["plotOptions"] = array (
+      	"pie" => [
+      		"allowPointSelect" => true,
+      		  "cursor" => 'pointer',
+      		"dataLabels" => [
+      			"enabled" => true,
+      			"format" => '<b>{point.name}</b>:{point.percentage:.1f} %',
+      			"style" => [
+      				"color" => "black"
+      			]
+      		]
+      	]
+      );
+
+
+      $arrayTW = [];
+      for($i=0; $i< count($namaPostTypeTwitter); $i ++) {
+        $arrayTW[$i] = [$namaPostTypeTwitter[$i], $engagementScorePostTypeTwitter[$i]];
+      }
+
+      $chartArrayTwitterType ["series"] [] = array (
+      	"name" => 'post type',
+      	"colorByPoint" => true,
+      	"data" => $arrayTW,
+      );
+
+    return view('welcome', ['pemda' => $pemda, 'facebook_resmi' => $facebook_resmi, 'twitter_resmi' => $twitter_resmi, 'youtube_resmi' => $youtube_resmi, 'komentar' => $komentar, 'komentarCategory' => $komentarCategory, 'komentarTidakCategory' => $komentarTidakCategory, 'komentarDuplicate' => $komentarDuplicate, 'rataKomentar' => $rataKomentar, 'post' => $post, 'engagement' => $top10pemdaEngagement ])->withChartArray($chartArray)->withChartArrayPost($chartArrayPost)->withChartArrayEngagement($chartArrayEngagement)->withChartArrayEmoji($chartArrayEmoji)->withChartArrayRating($chartArrayRating)->withChartArrayPostType($chartArrayPostType)->withChartArrayTwitterType($chartArrayTwitterType);
     }
 }

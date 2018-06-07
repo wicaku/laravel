@@ -30,6 +30,13 @@ class KategorisasiController extends Controller
     {
       $pemda = listPemdaModel::where('_id', (int)$id)->first();
       $dinases = dinasModel::where('idPemda', (int)$id)->get();
+      $namaDinas[] = [];
+      $jumlahKomentarFacebookResmi[] = [];
+      $jumlahKomentarFacebookInfluencer[] = [];
+      $jumlahKomentarTwitterResmi[] = [];
+      $jumlahKomentarTwitterInfluencer[] = [];
+      $jumlahKomentarYoutubeResmi[] = [];
+      $jumlahKomentarYoutubeInfluencer[] = [];
 
       //facebook resmi
       $komentarFacebookResmi = facebookCommentsModel::where('page_id', $pemda->facebook_resmi)->get();
@@ -56,6 +63,8 @@ class KategorisasiController extends Controller
       }
 
       $top5dinas = $dinases->sortByDesc('total_komentar')->take(5);
+
+      // dd($top5dinas);
 
       foreach($top5dinas as $td) {
         $namaDinas[] = $td['nama_dinas'];

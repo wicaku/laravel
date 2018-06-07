@@ -1,0 +1,127 @@
+@extends('master')
+
+@section('body')
+<div class="ui container">
+  <div class="ui grid">
+    <div class="two column row">
+      <div class="left floated column"><h5 class="ui header" style="margin-top:10px"><a href="{{route('peringkat.engagement')}}"><i class="home icon"></i>Engagement Score</a><span> / {{$engagement[0]['name']}}</span></h5></div>
+    </div>
+  </div>
+
+  <div class="ui cards grid">
+    <div class="card sixteen wide column">
+      <div class="content">
+        <div id="container-engagement-fb"></div>
+        <table class="ui celled table responsive nowrap" style="width:100%">
+        <thead>
+          <tr>
+            <th>Jumlah Post</th>
+            <th>Jumlah Like</th>
+            <th>Jumlah Komentar</th>
+            <th>Jumlah Reshare</th>
+            <th>Persentase Post dengan Like</th>
+            <th>Persentase Post dengan Komentar</th>
+            <th>Persentase Post dengan Reshare</th>
+            <th>Engagement Score</th>
+          </tr>
+        </thead>
+        <tbody>
+          @foreach ($engagement as $eg)
+                <tr>
+                  <td>{{$eg['jumlahPostFB']}}</td>
+                  <td>{{$eg['jumlahLikeFB']}}</td>
+                  <td>{{$eg['jumlahKomentarFB']}}</td>
+                  <td>{{$eg['jumlahReshareFB']}}</td>
+                  <td>{{$eg['persentasePosLikeFB']}} %</td>
+                  <td>{{$eg['persentasePosKomentarFB']}} %</td>
+                  <td>{{$eg['persentasePosShareFB']}} %</td>
+                  <td>{{$eg['engagementFB']}}</td>
+                </tr>
+          @endforeach
+        </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="ui cards grid">
+    <div class="card sixteen wide column">
+      <div class="content">
+        <div id="container-engagement-tw"></div>
+        <table class="ui celled table responsive nowrap" style="width:100%">
+        <thead>
+          <tr>
+            <th>Jumlah Tweet</th>
+            <th>Jumlah Favorite</th>
+            <th>Jumlah Reply</th>
+            <th>Jumlah Retweet</th>
+            <th>Persentase Post dengan Favorite</th>
+            <th>Persentase Post dengan Reply</th>
+            <th>Persentase Post dengan Retweet</th>
+            <th>Engagement Score</th>
+          </tr>
+        </thead>
+        <tbody>
+          @foreach ($engagement as $eg)
+                <tr>
+                  <td>{{$eg['jumlahTweetTW']}}</td>
+                  <td>{{$eg['jumlahLikeTW']}}</td>
+                  <td>{{$eg['jumlahKomentarTW']}}</td>
+                  <td>{{$eg['jumlahRetweetTW']}}</td>
+                  <td>{{$eg['persentaseTweetLikeTW']}} %</td>
+                  <td>{{$eg['persentaseTweetKomentarTW']}} %</td>
+                  <td>{{$eg['persentaseTweetRetweetTW']}} %</td>
+                  <td>{{$eg['engagementTW']}}</td>
+                </tr>
+          @endforeach
+        </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="ui cards grid">
+    <div class="card sixteen wide column">
+      <div class="content">
+        <div id="container-engagement-yt"></div>
+        <table class="ui celled table responsive nowrap" style="width:100%">
+        <thead>
+          <tr>
+            <th>Jumlah Video</th>
+            <th>Jumlah Like</th>
+            <th>Jumlah Komentar</th>
+            <th>Persentase Post dengan Like</th>
+            <th>Persentase Post dengan Komentar</th>
+            <th>Engagement Score</th>
+          </tr>
+        </thead>
+        <tbody>
+          @foreach ($engagement as $eg)
+                <tr>
+                  <td>{{$eg['jumlahVideoYT']}}</td>
+                  <td>{{$eg['jumlahLikeYT']}}</td>
+                  <td>{{$eg['jumlahKomentarYT']}}</td>
+                  <td>{{$eg['persentaseVideoLikeYT']}} %</td>
+                  <td>{{$eg['persentaseVideoKomentarYT']}} %</td>
+                  <td>{{$eg['engagementYT']}}</td>
+                </tr>
+          @endforeach
+        </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+@endsection
+@section('script')
+<script>
+	$(document).ready(function () {
+        $('.ui.dropdown').dropdown();
+        $("#klasifikasi").addClass("active");
+        $('#container-engagement-fb').highcharts( <?php  echo json_encode($chartArrayFB) ?>);
+        $('#container-engagement-tw').highcharts( <?php  echo json_encode($chartArrayTW) ?>);
+        $('#container-engagement-yt').highcharts( <?php  echo json_encode($chartArrayYT) ?>);
+    });
+
+</script>
+@endsection

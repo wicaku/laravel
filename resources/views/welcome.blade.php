@@ -62,6 +62,28 @@ HOME
     <div class="card sixteen wide column">
       <div class="content">
         <div id="container-engagement"></div>
+        <table id="engagement" class="ui celled table responsive nowrap" style="width:100%">
+        <thead>
+          <tr>
+            <th>Nama Dinas</th>
+            <th>Facebook Score</th>
+            <th>Twitter Score</th>
+            <th>Youtube Score</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          @foreach ($engagement as $eg)
+                <tr>
+                  <td>{{$eg['name']}}</td>
+                  <td>{{$eg['engagementScoreFB']}}</td>
+                  <td>{{$eg['engagementScoreTW']}}</td>
+                  <td>{{$eg['engagementScoreYT']}}</td>
+                  <td><a href="{{route('peringkat.engagement.pemda', ['id' => $eg['_id']])}}">Detail</a></td>
+                </tr>
+          @endforeach
+        </tbody>
+        </table>
       </div>
     </div>
   </div>
@@ -82,6 +104,22 @@ HOME
     </div>
   </div>
 
+  <div class="ui cards grid">
+    <div class="card sixteen wide column">
+      <div class="content">
+        <div id="container-post_type"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ui cards grid">
+    <div class="card sixteen wide column">
+      <div class="content">
+        <div id="container-tweet_type"></div>
+      </div>
+    </div>
+  </div>
+
 </div>
 
 @endsection
@@ -96,6 +134,8 @@ HOME
         $('#container-engagement').highcharts( <?php  echo json_encode($chartArrayEngagement) ?>);
         $('#container-emoji').highcharts( <?php  echo json_encode($chartArrayEmoji) ?>);
         $('#container-rating').highcharts( <?php  echo json_encode($chartArrayRating) ?>);
+        $('#container-post_type').highcharts( <?php  echo json_encode($chartArrayPostType) ?>);
+        $('#container-tweet_type').highcharts( <?php  echo json_encode($chartArrayTwitterType) ?>);
     });
 </script>
 @endsection

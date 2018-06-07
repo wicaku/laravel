@@ -123,7 +123,8 @@ Route::get('/kategorisasi/{id}/rekomendasi', 'RekomendasiController@index')->nam
 
 Route::get('/klasifikasi-komentar/{id}', 'KlasifikasiKomentarController@index')->name('klasifikasi.komentar');
 
-Route::get('/peringkat/engagement/{id}', 'twitterAccountsResultController@index')->name('peringkat.engagement');
+Route::get('/peringkat/engagement/', 'engagementScoreController@index')->name('peringkat.engagement');
+Route::get('/peringkat/engagement/{id}', 'engagementScoreController@engagementPemda')->name('peringkat.engagement.pemda');
 
 Route::get('/kategorisasi/{id}/rekomendasi/{idDinas}/store', 'RekomendasiController@tambahRekomendasi')->name('rekomendasi.tambah');
 Route::get('/kategorisasi/{id}/rekomendasi/{idDinas}/delete', 'RekomendasiController@hapusRekomendasi')->name('rekomendasi.hapus');

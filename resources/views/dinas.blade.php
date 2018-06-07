@@ -13,7 +13,7 @@
     </div>
   </div>
 
-  <table id="dinas" class="ui celled table responsive nowrap">
+  <table id="dinas" class="ui celled table responsive nowrap" style="width:100%">
   <thead>
     <tr>
       <th>Nama Dinas</th>

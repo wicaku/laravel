@@ -32,7 +32,7 @@
     <div class="card twenty wide column">
       <div class="content">
           <div class="twelve wide column" id="container" style="width:100%; height:400px;"></div>
-          <table id="dinas" class="ui celled table responsive nowrap">
+          <table id="dinas" class="ui celled table responsive nowrap" style="width:100%">
           <thead>
             <tr>
               <th>Nama Dinas</th>
@@ -43,7 +43,6 @@
               <th>Youtube Resmi</th>
               <th>Youtube Influencer</th>
               <th>Total Komentar</th>
-              <th>Action</th>
             </tr>
           </thead>
           <tbody>
@@ -57,7 +56,6 @@
                     <td>{{$dinas['youtube_resmi']}}</td>
                     <td>{{$dinas['youtube_influencer']}}</td>
                     <td>{{$dinas['facebook_resmi']+$dinas['facebook_influencer']+$dinas['twitter_resmi']+$dinas['twitter_influencer']+$dinas['youtube_resmi']+$dinas['youtube_influencer']}}</td>
-                    <td>Click Here</td>
                   </tr>
             @endforeach
           </tbody>
