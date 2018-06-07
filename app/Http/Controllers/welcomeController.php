@@ -24,11 +24,15 @@ class welcomeController extends Controller
       date_default_timezone_set("Asia/Jakarta");
       $pemda = listPemdaModel::all()->count();
       $facebook_resmi = listPemdaModel::where('facebook_resmi', '!=', "")->count();
+      $facebook_influencer = listPemdaModel::where('facebook_influencer', '!=', "")->count();
       $twitter_resmi = listPemdaModel::where('twitter_resmi', '!=', "")->count();
+      $twitter_influencer = listPemdaModel::where('twitter_influencer', '!=', "")->count();
       $youtube_resmi = listPemdaModel::where('youtube_resmi', '!=', "")->count();
+      $youtube_influencer = listPemdaModel::where('youtube_influencer', '!=', "")->count();
       $komentar = facebookCommentsModel::where('comment_createdDate', date("Y-m-d"))->count() + twitter_replyModel::where('tweet_createdDate', date("Y-m-d"))->count() + youtubeCommentsModel::where('comment_createdDate', date("Y-m-d"))->count();
       $post = facebookPostsModel::where('post_createdDate', date("Y-m-d"))->count() + twitterPostsModel::where('tweet_createdDate', date("Y-m-d"))->count() + youtubePostsModel::where('video_createdDate', date("Y-m-d"))->count();
       $semuaKomentar = facebookCommentsModel::all()->count() + twitter_replyModel::all()->count() + youtubeCommentsModel::all()->count();
+      $postKlasifikasi = $post - facebookPostsModel::where('post_message', '')->where('post_createdDate', date("Y-m-d"))->count() + twitterPostsModel::where('tweet_message', '')->where('tweet_createdDate', date("Y-m-d"))->count() + youtubePostsModel::where('video_title', '')->where('video_createdDate', date("Y-m-d"))->count();
       $komentarCategory = facebookCommentsModel::where('category', '!=', "uncategorized")->where('category', '!=', "duplicate")->count() + twitter_replyModel::where('category', '!=', "uncategorized")->where('category', '!=', "duplicate")->count() + youtubeCommentsModel::where('category', '!=', "uncategorized")->where('category', '!=', "duplicate")->count();
       $komentarTidakCategory = facebookCommentsModel::where('category', "uncategorized")->count() + twitter_replyModel::where('category',"uncategorized")->count() + youtubeCommentsModel::where('category', "uncategorized")->count();
       $komentarDuplicate = facebookCommentsModel::where('category', "duplicate")->count() + twitter_replyModel::where('category',"duplicate")->count() + youtubeCommentsModel::where('category', "duplicate")->count();
@@ -442,6 +446,6 @@ class welcomeController extends Controller
       	"data" => $arrayTW,
       );
 
-    return view('welcome', ['pemda' => $pemda, 'facebook_resmi' => $facebook_resmi, 'twitter_resmi' => $twitter_resmi, 'youtube_resmi' => $youtube_resmi, 'komentar' => $komentar, 'komentarCategory' => $komentarCategory, 'komentarTidakCategory' => $komentarTidakCategory, 'komentarDuplicate' => $komentarDuplicate, 'rataKomentar' => $rataKomentar, 'post' => $post, 'engagement' => $top10pemdaEngagement ])->withChartArray($chartArray)->withChartArrayPost($chartArrayPost)->withChartArrayEngagement($chartArrayEngagement)->withChartArrayEmoji($chartArrayEmoji)->withChartArrayRating($chartArrayRating)->withChartArrayPostType($chartArrayPostType)->withChartArrayTwitterType($chartArrayTwitterType);
+    return view('welcome', ['pemda' => $pemda, 'facebook_resmi' => $facebook_resmi, 'facebook_influencer' => $facebook_influencer,'twitter_resmi' => $twitter_resmi, 'twitter_influencer' => $twitter_influencer, 'youtube_resmi' => $youtube_resmi, 'youtube_influencer' => $youtube_influencer, 'komentar' => $komentar, 'komentarCategory' => $komentarCategory, 'komentarTidakCategory' => $komentarTidakCategory, 'komentarDuplicate' => $komentarDuplicate, 'rataKomentar' => $rataKomentar, 'post' => $post, 'postKlasifikasi' => $postKlasifikasi ,'engagement' => $top10pemdaEngagement ])->withChartArray($chartArray)->withChartArrayPost($chartArrayPost)->withChartArrayEngagement($chartArrayEngagement)->withChartArrayEmoji($chartArrayEmoji)->withChartArrayRating($chartArrayRating)->withChartArrayPostType($chartArrayPostType)->withChartArrayTwitterType($chartArrayTwitterType);
     }
 }

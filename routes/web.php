@@ -121,7 +121,9 @@ Route::get('/kategorisasi/{id}', 'KategorisasiController@index')->name('kategori
 Route::get('/kategorisasi/{id}/dinas', 'DinasController@index')->name('dinas');
 Route::get('/kategorisasi/{id}/rekomendasi', 'RekomendasiController@index')->name('rekomendasi');
 
-Route::get('/klasifikasi-komentar/{id}', 'KlasifikasiKomentarController@index')->name('klasifikasi.komentar');
+Route::get('/klasifikasi', 'KlasifikasiController@index')->name('klasifikasi');
+Route::get('/klasifikasi/komentar/{id}', 'KlasifikasiController@klasifikasiKomentarPemda')->name('klasifikasi.komentar');
+Route::get('/klasifikasi/post/{id}', 'KlasifikasiController@klasifikasiPostPemda')->name('klasifikasi.post');
 
 Route::get('/peringkat/engagement/', 'engagementScoreController@index')->name('peringkat.engagement');
 Route::get('/peringkat/engagement/{id}', 'engagementScoreController@engagementPemda')->name('peringkat.engagement.pemda');
