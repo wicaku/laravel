@@ -23,12 +23,12 @@ HOME
 
       <div class="extra content">
         <p class="daily-stats">Total Pemerintah Daerah<span style="float:right">{{$pemda}}</span></p>
-        <p class="daily-stats">Total Facebook Resmi<span style="float:right">{{$facebook_resmi}}</span></p>
-        <p class="daily-stats">Total Twitter Resmi<span style="float:right">{{$twitter_resmi}}</span></p>
-        <p class="daily-stats">Total Youtube Resmi<span style="float:right">{{$youtube_resmi}}</span></p>
+        <p class="daily-stats">Total Facebook Resmi / Influencer<span style="float:right">{{$facebook_resmi}} / {{$facebook_influencer}}</span></p>
+        <p class="daily-stats">Total Twitter Resmi / Influencer<span style="float:right">{{$twitter_resmi}} / {{$twitter_influencer}}</span></p>
+        <p class="daily-stats">Total Youtube Resmi / Influencer<span style="float:right">{{$youtube_resmi}} / {{$youtube_influencer}}</span></p>
         <p class="daily-stats">Total Post Masuk<span style="float:right">{{$post}}</span></p>
         <p class="daily-stats">Total Komentar Masuk<span style="float:right">{{$komentar}}</span></p>
-        <p class="daily-stats">Total Post Terklasifikasi<span style="float:right">belom</span></p>
+        <p class="daily-stats">Total Post Terklasifikasi<span style="float:right">{{$postKlasifikasi}}</span></p>
         <p class="daily-stats">Total Komentar Terklasifikasi<span style="float:right">{{$komentar}}</span></p>
         <p class="daily-stats">Total Komentar Terkategorisasi<span style="float:right">{{$komentarCategory}}</span></p>
         <p class="daily-stats">Total Komentar Tidak Terkategori<span style="float:right">{{$komentarTidakCategory}}</span></p>

@@ -64,25 +64,16 @@
 					<a id="meta3" class="item" href="{{ url('/metodologi/3') }}">EGOV Benchmark V3.0</a>
 				</div>
 			</div>
-			<div id="komentar" class="ui dropdown item" tabindex="0">
-				Komentar
-				<i class="dropdown icon"></i>
-				<div class="menu transition hidden" tabindex="-1">
-
-					@guest
-						<a id="kategorisasi" class="item" href="{{ route('kategorisasi.not.login') }}">Klasifikasi</a>
-						<a id="kategorisasi" class="item" href="{{ route('kategorisasi.not.login') }}">Kategorisasi</a>
-					@else
-						@if (Auth::user()->verified)
-							<a id="klasifikasiKomentar" class="item" href="{{ route('klasifikasi.komentar', ['id' => Auth::user()->idPemda]) }}">Klasifikasi</a>
-							<a id="kategorisasi" class="item" href="{{ route('kategorisasi', ['id' => Auth::user()->idPemda] ) }}">Kategorisasi</a>
-						@else
-							<a id="kategorisasi" class="item" href="{{ route('validasi.pemda') }}">Klasifikasi</a>
-							<a id="kategorisasi" class="item" href="{{ route('validasi.pemda') }}">Kategorisasi</a>
-						@endif
-					@endguest
-				</div>
-			</div>
+			<a id="klasifikasi" class="item" href="{{ route('klasifikasi') }}">Klasifikasi</a>
+			@guest
+				<a id="kategorisasi" class="item" href="{{ route('kategorisasi.not.login') }}">Kategorisasi</a>
+			@else
+				@if (Auth::user()->verified)
+					<a id="kategorisasi" class="item" href="{{ route('kategorisasi', ['id' => Auth::user()->idPemda] ) }}">Kategorisasi</a>
+				@else
+					<a id="kategorisasi" class="item" href="{{ route('validasi.pemda') }}">Kategorisasi</a>
+				@endif
+			@endguest
 
 			<div class="right menu">
 					<!-- <a class="item" id="login" href="{{ route('login') }}">Login</a>

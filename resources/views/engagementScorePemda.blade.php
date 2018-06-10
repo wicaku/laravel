@@ -111,6 +111,83 @@
       </div>
     </div>
   </div>
+
+  <div class="ui cards grid">
+    <div class="card sixteen wide column">
+      <div class="content">
+        <div id="container-post-type-fb"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ui cards grid">
+    <div class="card sixteen wide column">
+      <div class="content">
+        <div id="container-post-type-tw"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ui cards grid">
+    <div class="card sixteen wide column">
+      <div class="content">
+        <div id="container-post-reaction-fb"></div>
+        <table class="ui celled table responsive nowrap" style="width:100%">
+        <thead>
+          <tr>
+            <th>Haha</th>
+            <th>Love</th>
+            <th>Like</th>
+            <th>Sad</th>
+            <th>Wow</th>
+            <th>Angry</th>
+            <th>Facebook Reaction Score</th>
+          </tr>
+        </thead>
+        <tbody>
+          @foreach ($engagement as $eg)
+                <tr>
+                  <td>{{$eg['haha']}}</td>
+                  <td>{{$eg['love']}}</td>
+                  <td>{{$eg['like']}}</td>
+                  <td>{{$eg['sad']}}</td>
+                  <td>{{$eg['wow']}}</td>
+                  <td>{{$eg['angry']}}</td>
+                  <td>{{$eg['totalScoreReaction']}}</td>
+                </tr>
+          @endforeach
+        </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="ui cards grid">
+    <div class="card sixteen wide column">
+      <div class="content">
+        <div id="container-rating-score-yt"></div>
+        <table class="ui celled table responsive nowrap" style="width:100%">
+        <thead>
+          <tr>
+            <th>Jumlah Like</th>
+            <th>Jumlah Dislike</th>
+            <th>Rating Score</th>
+          </tr>
+        </thead>
+        <tbody>
+          @foreach ($engagement as $eg)
+                <tr>
+                  <td>{{$eg['likeCountYT']}}</td>
+                  <td>{{$eg['dislikeCountYT']}}</td>
+                  <td>{{$eg['ratingScoreYT']}}</td>
+                </tr>
+          @endforeach
+        </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
 </div>
 @endsection
 @section('script')
@@ -121,6 +198,10 @@
         $('#container-engagement-fb').highcharts( <?php  echo json_encode($chartArrayFB) ?>);
         $('#container-engagement-tw').highcharts( <?php  echo json_encode($chartArrayTW) ?>);
         $('#container-engagement-yt').highcharts( <?php  echo json_encode($chartArrayYT) ?>);
+        $('#container-post-type-fb').highcharts( <?php  echo json_encode($chartArrayPostFB) ?>);
+        $('#container-post-type-tw').highcharts( <?php  echo json_encode($chartArrayPostTW) ?>);
+        $('#container-post-reaction-fb').highcharts( <?php  echo json_encode($chartArrayReactionPost) ?>);
+        $('#container-rating-score-yt').highcharts( <?php  echo json_encode($chartArrayRatingYoutube) ?>);
     });
 
 </script>

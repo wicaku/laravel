@@ -49,7 +49,10 @@ class engagementScoreController extends Controller
 
         $lp['rating'] = round($engagementScoreYT['result.scores.rating_score'],5);
 
+
+
         }
+
       return view('engagementScore', ['engagement' => $listPemda]);
     }
 
@@ -67,6 +70,14 @@ class engagementScoreController extends Controller
         $lp['persentasePosKomentarFB'] = round($postFB['result.scores.commitment_commentScore.commitment_commentScore_1'],4) * 100;
         $lp['persentasePosShareFB'] = round($postFB['result.scores.virality_shareScore.virality_shareScore_1'],4) * 100;
         $lp['engagementFB'] = round($postFB['result.scores.engagement_index_score'],2);
+        $lp['haha'] = round($postFB['result.statistics.reactions.haha'],2);
+        $lp['love'] = round($postFB['result.statistics.reactions.love'],2);
+        $lp['like'] = round($postFB['result.statistics.reactions.like'],2);
+        $lp['sad'] = round($postFB['result.statistics.reactions.sad'],2);
+        $lp['wow'] = round($postFB['result.statistics.reactions.wow'],2);
+        $lp['angry'] = round($postFB['result.statistics.reactions.angry'],2);
+        $lp['totalScoreReaction'] = round($postFB['result.scores.reaction_score.total'],2);
+
 
         $twitterResmiLower = strtolower($lp['twitter_resmi']);
         $postTW = twitterAccountsResultModel::orderBy('result_createdDate', 'desc')->where('account_id', $twitterResmiLower)->first();
@@ -87,22 +98,40 @@ class engagementScoreController extends Controller
         $lp['persentaseVideoLikeYT'] = round($postYT['result.scores.popularity_likeScore.popularity_likeScore_1'],4) * 100;
         $lp['persentaseVideoKomentarYT'] = round($postYT['result.scores.commitment_commentScore.commitment_commentScore_1'],4) * 100;
         $lp['engagementYT'] = round($postYT['result.scores.engagement_index_score'],2);
+        $lp['likeCountYT'] = $postYT['result.statistics.likeCount'];
+        $lp['dislikeCountYT'] = $postYT['result.statistics.dislikeCount'];
+        $lp['ratingScoreYT'] = $postYT['result.scores.rating_score'];
       }
+
 
       $sortFB = facebookAccountsResultModel::orderBy('result_createdDate')->where('page_id', strtolower($listPemda[0]['facebook_resmi']))->get();
 
-      $tanggalFacebook[] = [];
-      $engagementScoreFacebook[] = [];
+      $tanggalFacebook = [];
+      $engagementScoreFacebook = [];
+      $postTypeScore = [];
+      $fbReactionTotal = [];
       foreach($sortFB as $sf) {
         $tanggalFacebook[] = $sf['result_createdDate'];
         $engagementScoreFacebook[] = $sf['result.scores.engagement_index_score'];
+        $fbAlbum = round($sf['post_type_result.album.scores.engagement_index_score'],2);
+        $fbLink = round($sf['post_type_result.link.scores.engagement_index_score'],2);
+        $fbNote = round($sf['post_type_result.note.scores.engagement_index_score'],2);
+        $fbPhoto = round($sf['post_type_result.photo.scores.engagement_index_score'],2);
+        $fbStatus = round($sf['post_type_result.status.scores.engagement_index_score'],2);
+        $fbVideo = round($sf['post_type_result.video.scores.engagement_index_score'],2);
+
+        $postTypeScore[] = [$fbAlbum, $fbLink, $fbNote, $fbPhoto, $fbStatus, $fbVideo];
+
+        $fbReactionTotal[] = [round($sf['result.scores.reaction_score.total'],2)];
       }
+
+
 
       $chartArrayFB ["chart"] = array (
                 "type" => "line"
       );
       $chartArrayFB ["title"] = array (
-        "text" => "Engagement Score"
+        "text" => "Engagement Score Facebook"
       );
       $chartArrayFB ["credits"] = array (
         "enabled" => true
@@ -144,18 +173,26 @@ class engagementScoreController extends Controller
 
     $sortTW = twitterAccountsResultModel::orderBy('result_createdDate')->where('account_id', strtolower($listPemda[0]['twitter_resmi']))->get();
 
-    $tanggalTwitter[] = [];
-    $engagementScoreTwitter[] = [];
+    $tanggalTwitter = [];
+    $engagementScoreTwitter = [];
+    $tweetTypeScore = [];
     foreach($sortTW as $st) {
       $tanggalTwitter[] = $st['result_createdDate'];
       $engagementScoreTwitter[] = $st['result.scores.engagement_index_score'];
+
+      $twGif = round($st['post_type_result.animated_gif.scores.engagement_index_score'],2);
+      $twPhoto = round($st['post_type_result.photo.scores.engagement_index_score'],2);
+      $twText = round($st['post_type_result.text.scores.engagement_index_score'],2);
+      $twVideo = round($st['post_type_result.video.scores.engagement_index_score'],2);
+
+      $tweetTypeScore[] = [$twGif, $twPhoto, $twText, $twVideo];
     }
 
     $chartArrayTW ["chart"] = array (
           "type" => "line"
     );
     $chartArrayTW ["title"] = array (
-      "text" => "Engagement Score"
+      "text" => "Engagement Score Twitter"
     );
     $chartArrayTW ["credits"] = array (
       "enabled" => true
@@ -196,19 +233,20 @@ class engagementScoreController extends Controller
     );
 
     $sortYT = youtubeAccountsResultModel::orderBy('result_createdDate')->where('channel_id', strtolower($listPemda[0]['youtube_resmi']))->get();
-
-    $tanggalYoutube[] = [];
-    $engagementScoreYoutube[] = [];
+    $tanggalYoutube = [];
+    $engagementScoreYoutube = [];
+    $ratingScoreYT = [];
     foreach($sortYT as $sy) {
       $tanggalYoutube[] = $sy['result_createdDate'];
       $engagementScoreYoutube[] = $sy['result.scores.engagement_index_score'];
+      $ratingScoreYT[] = $sy['result.scores.rating_score'];
     }
 
     $chartArrayYT ["chart"] = array (
           "type" => "line"
     );
     $chartArrayYT ["title"] = array (
-      "text" => "Engagement Score"
+      "text" => "Engagement Score Youtube"
     );
     $chartArrayYT ["credits"] = array (
       "enabled" => true
@@ -248,8 +286,185 @@ class engagementScoreController extends Controller
     		  "data" => $engagementScoreYoutube,
     );
 
+    $chartArrayPostFB["chart"] = array (
+          "type" => "column"
+    );
+    $chartArrayPostFB["title"] = array (
+      "text" => "Engagement Score Post Type Facebook"
+    );
+    $chartArrayPostFB["credits"] = array (
+      "enabled" => true
+    );
 
-    return view('engagementScorePemda', ['engagement' => $listPemda])->withChartArrayFB($chartArrayFB)->withChartArrayTW($chartArrayTW)->withChartArrayYT($chartArrayYT);
+    $postType = ['Album', 'Link', 'Note', 'Photo', 'Status', 'Video'];
+
+    for($i = 0; $i < count ( $postType ); $i++) {
+      $chartArrayPostFB["xAxis"][] = array (
+      	   "categories" => $postType
+      );
+    }
+
+    $chartArrayPostFB["tooltip"] = array (
+      "valueSuffix" => " Score"
+    );
+
+    $chartArrayPostFB["plotOptions"] = array (
+      "column" => [
+    	  "dataLabels" => [
+      		'enabled' => true,
+      		'color' => 'black'
+    		]
+    	]
+    );
+
+    $chartArrayPostFB["yAxis"] = array (
+      "min" => 0,
+      "title" => [
+    	  "text" => 'Score'
+      ],
+    );
+
+    for ($i=0; $i< count($postTypeScore); $i++) {
+      $chartArrayPostFB["series"] [] = array (
+        "name" => 'Post Type Facebook',
+        "data" => $postTypeScore[$i],
+      );
+    }
+
+    $chartArrayPostTW["chart"] = array (
+      "type" => "column"
+    );
+    $chartArrayPostTW["title"] = array (
+      "text" => "Engagement Score Post Type Twitter"
+    );
+    $chartArrayPostTW["credits"] = array (
+      "enabled" => true
+    );
+
+    $tweetType = ['Animated GIF', 'Photo', 'Text', 'Video'];
+
+    for($i = 0; $i < count ( $tweetType ); $i++) {
+      $chartArrayPostTW["xAxis"][] = array (
+    	   "categories" => $tweetType
+      );
+    }
+
+    $chartArrayPostTW["tooltip"] = array (
+      "valueSuffix" => " Score"
+    );
+
+    $chartArrayPostTW["plotOptions"] = array (
+      "column" => [
+    	  "dataLabels" => [
+    		'enabled' => true,
+    		'color' => 'black'
+    		]
+    	]
+    );
+
+    $chartArrayPostTW["yAxis"] = array (
+      "min" => 0,
+      "title" => [
+    	  "text" => 'Score'
+      ],
+    );
+
+    for ($i=0; $i< count($tweetTypeScore); $i++) {
+      $chartArrayPostTW["series"] [] = array (
+    	   "name" => 'Post Type Twitter',
+    	    "data" => $tweetTypeScore[$i],
+      );
+    }
+
+    $chartArrayReactionPost["chart"] = array (
+      "type" => "line"
+    );
+    $chartArrayReactionPost["title"] = array (
+    	"text" => "Emoji Score Facebook"
+    );
+    $chartArrayReactionPost["credits"] = array (
+    	"enabled" => true
+    );
+
+    for($i = 0; $i < count ( $tanggalFacebook ); $i++) {
+    	$chartArrayReactionPost["xAxis"][] = array (
+    		"categories" => $tanggalFacebook
+    	);
+    }
+
+    $chartArrayReactionPost["tooltip"] = array (
+    	"valueSuffix" => " Score"
+    );
+
+    $chartArrayReactionPost["plotOptions"] = array (
+    	"line" => [
+    	  "dataLabels" => [
+    		'enabled' => true,
+    		'color' => 'black'
+    		]
+    	]
+    );
+
+    $chartArrayReactionPost["yAxis"] = array (
+    	"min" => 0,
+    	"title" => [
+    	  "text" => 'Score'
+    	],
+    	"stackLabels" => [
+    	  "enabled" => true
+    	]
+    );
+
+    $chartArrayReactionPost["series"] [] = array (
+    	"name" => 'Facebook',
+    	"data" => $fbReactionTotal,
+    );
+
+    $chartArrayRatingYoutube["chart"] = array (
+      "type" => "line"
+    );
+    $chartArrayRatingYoutube["title"] = array (
+    	"text" => "Rating Score Youtube"
+    );
+    $chartArrayRatingYoutube["credits"] = array (
+    	"enabled" => true
+    );
+
+    for($i = 0; $i < count ( $tanggalYoutube ); $i++) {
+    	$chartArrayRatingYoutube["xAxis"][] = array (
+    		"categories" => $tanggalYoutube
+    	);
+    }
+
+    $chartArrayRatingYoutube["tooltip"] = array (
+    	"valueSuffix" => " Score"
+    );
+
+    $chartArrayRatingYoutube["plotOptions"] = array (
+    	"line" => [
+    	  "dataLabels" => [
+    		'enabled' => true,
+    		'color' => 'black'
+    		]
+    	]
+    );
+
+    $chartArrayRatingYoutube["yAxis"] = array (
+    	"min" => 0,
+    	"title" => [
+    	  "text" => 'Score'
+    	],
+    	"stackLabels" => [
+    	  "enabled" => true
+    	]
+    );
+
+    $chartArrayRatingYoutube["series"] [] = array (
+    	"name" => 'Youtube',
+    	"data" => $ratingScoreYT,
+    );
+
+    return view('engagementScorePemda', ['engagement' => $listPemda])->withChartArrayFB($chartArrayFB)->withChartArrayTW($chartArrayTW)->withChartArrayYT($chartArrayYT)->withChartArrayPostFB($chartArrayPostFB)->withChartArrayPostTW($chartArrayPostTW)->withChartArrayReactionPost($chartArrayReactionPost)->withChartArrayRatingYoutube($chartArrayRatingYoutube);
 
     }
 
