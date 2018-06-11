@@ -34,7 +34,63 @@ HOME
       </div>
     </div>
     <div class="ten wide column">
-      Lorem Ipsum
+      <div class="content">
+        <div id="container-top10result"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ui cards grid">
+    <div class="card sixteen wide column">
+      <div class="content">
+        <div id="container-allresult"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ui cards grid">
+    <div class="card sixteen wide column">
+      <div class="content">
+        <table id="top10Result" class="ui celled table responsive nowrap" style="width:100%">
+        <thead>
+          <tr>
+            <th>Nama Pemda</th>
+            <th>BPS Link</th>
+            <th>CKAN Link</th>
+            <th>Open Data Score</th>
+            <th>Detail</th>
+          </tr>
+        </thead>
+        <tbody>
+          @foreach ($top10resultOpendata as $top10)
+                <tr>
+                  <td>{{$top10['nama_pemda']}}</td>
+                  <td><a href="{{$top10['bps_pemda']}}">{{$top10['bps_pemda']}}</a></td>
+                  <td><a href="{{$top10['ckan_pemda']}}">{{$top10['ckan_pemda']}}</a></td>
+                  <td>{{$top10['totalScore']}}</td>
+                  <td><a href="{{route('opendata.detail', ['id' => $top10['id_pemda']])}}">Click Here</a></td>
+                </tr>
+          @endforeach
+        </tbody>
+        </table>
+    </div>
+  </div>
+  
+  <div class="ui cards grid">
+    <div class="five card wide column">
+      <div class="content">
+        <div id="container-provresult"></div>
+      </div>
+    </div>
+    <div class="ten wide column">
+      <div class="content">
+        <div id="container-kabresult"></div>
+      </div>
+    </div>
+    <div class="ten wide column">
+      <div class="content">
+        <div id="container-kotaresult"></div>
+      </div>
     </div>
   </div>
 
@@ -47,6 +103,11 @@ HOME
     $(document).ready(function () {
         $('.ui.dropdown').dropdown();
         $("#home").addClass("active");
+        $('#container-top10result').highcharts( <?php  echo json_encode($chartArrayTop10Result) ?>);
+        $('#container-allresult').highcharts( <?php  echo json_encode($chartArrayAllResult) ?>);
+        $('#container-provresult').highcharts( <?php  echo json_encode($chartArrayProvResult) ?>);
+        $('#container-kabresult').highcharts( <?php  echo json_encode($chartArrayKabResult) ?>);
+        $('#container-kotaresult').highcharts( <?php  echo json_encode($chartArrayKotaResult) ?>);
     });
 </script>
 @endsection
