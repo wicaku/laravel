@@ -30,13 +30,13 @@ class KategorisasiController extends Controller
     {
       $pemda = listPemdaModel::where('_id', (int)$id)->first();
       $dinases = dinasModel::where('idPemda', (int)$id)->get();
-      $namaDinas[] = [];
-      $jumlahKomentarFacebookResmi[] = [];
-      $jumlahKomentarFacebookInfluencer[] = [];
-      $jumlahKomentarTwitterResmi[] = [];
-      $jumlahKomentarTwitterInfluencer[] = [];
-      $jumlahKomentarYoutubeResmi[] = [];
-      $jumlahKomentarYoutubeInfluencer[] = [];
+      $namaDinas = [];
+      $jumlahKomentarFacebookResmi = [];
+      $jumlahKomentarFacebookInfluencer = [];
+      $jumlahKomentarTwitterResmi = [];
+      $jumlahKomentarTwitterInfluencer = [];
+      $jumlahKomentarYoutubeResmi = [];
+      $jumlahKomentarYoutubeInfluencer = [];
 
       //facebook resmi
       $komentarFacebookResmi = facebookCommentsModel::where('page_id', $pemda->facebook_resmi)->get();

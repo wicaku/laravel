@@ -38,7 +38,7 @@
 <script>
 	$(document).ready(function () {
         $('.ui.dropdown').dropdown();
-        $("#klasifikasi").addClass("active");
+        $("#engagement").addClass("active");
         $('#engagementTable').DataTable();
     });
 

@@ -194,7 +194,7 @@
 <script>
 	$(document).ready(function () {
         $('.ui.dropdown').dropdown();
-        $("#klasifikasi").addClass("active");
+        $("#engagement").addClass("active");
         $('#container-engagement-fb').highcharts( <?php  echo json_encode($chartArrayFB) ?>);
         $('#container-engagement-tw').highcharts( <?php  echo json_encode($chartArrayTW) ?>);
         $('#container-engagement-yt').highcharts( <?php  echo json_encode($chartArrayYT) ?>);

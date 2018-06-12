@@ -13,33 +13,34 @@
     </div>
   </div>
 
-  <table id="dinas" class="ui celled table responsive nowrap" style="width:100%">
-  <thead>
-    <tr>
-      <th>Nama Dinas</th>
-      <th>Deskripsi Dinas</th>
-      <th>Keyword</th>
-      <th>Action</th>
-    </tr>
-  </thead>
-  <tbody>
-    @foreach ($dinases as $dinas)
-          <tr>
-            <td>{{$dinas['nama_dinas']}}</td>
-            <td>{{$dinas['deskripsi_dinas']}}</td>
-            <td>{{$dinas['keyword']}}</td>
-            <td>
-              <form action="{{ route('delete.dinas', ['id' => $user->idPemda, 'idDinas' => $dinas['_id']] )}}" method="post">
-                {{ method_field('delete')}}
-                {{ csrf_field() }}
-                <a href="{{ route('edit.dinas', ['id' => $user->idPemda, 'idDinas' => $dinas['_id']] )}}" class='ui tiny icon blue button' id='edit-button'><i class="edit icon"></i></a>
-                <button class='ui tiny icon red button' type="submit"><i class="delete icon"></i></a>
-              </form>
-            </td>
-          </tr>
-    @endforeach
-  </tbody>
-  </table>
+    <table id="dinas" class="ui celled table responsive nowrap" style="width:100%">
+    <thead>
+      <tr>
+        <th>Nama Dinas</th>
+        <th>Deskripsi Dinas</th>
+        <th>Keyword</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      @foreach ($dinases as $dinas)
+            <tr>
+              <td>{{$dinas['nama_dinas']}}</td>
+              <td>{{$dinas['deskripsi_dinas']}}</td>
+              <td>{{$dinas['keyword']}}</td>
+              <td>
+                <form action="{{ route('delete.dinas', ['id' => $user->idPemda, 'idDinas' => $dinas['_id']] )}}" method="post">
+                  {{ method_field('delete')}}
+                  {{ csrf_field() }}
+                  <a href="{{ route('edit.dinas', ['id' => $user->idPemda, 'idDinas' => $dinas['_id']] )}}" class='ui tiny icon blue button' id='edit-button'><i class="edit icon"></i></a>
+                  <button class='ui tiny icon red button' type="submit"><i class="delete icon"></i></a>
+                </form>
+              </td>
+            </tr>
+      @endforeach
+    </tbody>
+    </table>
+
 
 </div>
 
