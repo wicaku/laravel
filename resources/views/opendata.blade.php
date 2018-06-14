@@ -65,7 +65,7 @@ HOME
           @foreach ($top10resultOpendata as $top10)
                 <tr>
                   <td>{{$top10['nama_pemda']}}</td>
-                  <td><a href="{{$top10['bps_pemda']}}">{{$top10['bps_pemda']}}</a></td>
+                  <td><a href="{{$top10['bps_pemda']}}">BPS {{$top10['nama_pemda']}}</a></td>
                   <td><a href="{{$top10['ckan_pemda']}}">{{$top10['ckan_pemda']}}</a></td>
                   <td>{{$top10['totalScore']}}</td>
                   <td><a href="{{route('opendata.detail', ['id' => $top10['id_pemda']])}}">Click Here</a></td>

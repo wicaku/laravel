@@ -36,8 +36,7 @@ class OpendataController extends Controller
             $idPemdaTop10[] = $top10result['id_pemda'];
             $namaPemdaTop10[] = $top10result['nama_pemda'];
             $tipePemdaTop10[] = $top10result['tipe'];
-            $linkBPSTop10[] = $top10result['bps_pemda'];
-            $linkCKANTop10[] = $top10result['ckan_pemda'];
+            $top10result['bps_pemda'] .= "/subject/30/kesehatan.html#subjekViewTab3";
             $totalScoreTop10[] = $top10result['totalScore'];
         }
 
@@ -45,8 +44,6 @@ class OpendataController extends Controller
             $idPemdaAll[] = $allResult['id_pemda'];
             $namaPemdaAll[] = $allResult['nama_pemda'];
             $tipePemdaAll[] = $allResult['tipe'];
-            $linkBPSAll[] = $allResult['bps_pemda'];
-            $linkCKANAll[] = $allResult['ckan_pemda'];
             $totalScoreAll[] = $allResult['totalScore'];
         }
 
@@ -304,7 +301,7 @@ class OpendataController extends Controller
             "type" => "bar"
         );
         $chartArrayKotaResult ["title"] = array (
-            "text" => "Kota denan Open Data Kategori Kesehatan Terbaik"
+            "text" => "Kota dengan Open Data Kategori Kesehatan Terbaik"
         );
         $chartArrayKotaResult ["credits"] = array (
             "enabled" => true
@@ -349,6 +346,182 @@ class OpendataController extends Controller
         );
 
         return view('opendata', ['pemda' => $pemda, 'total_bps_pemda' => $total_bps_pemda, 'active_bps_pemda' => $active_bps_pemda, 'total_scored_bps' => $total_scored_bps, 'total_ckan_pemda' => $total_ckan_pemda, 'active_ckan_pemda' => $active_ckan_pemda, 'total_scored_ckan' => $total_scored_ckan, 'last_result_date' => $last_result_date['date'], 'top10resultOpendata' => $top10resultOpendata])->withchartArrayTop10Result($chartArrayTop10Result)->withchartArrayAllResult($chartArrayAllResult)->withChartArrayProvResult($chartArrayProvResult)->withChartArrayKabResult($chartArrayKabResult)->withChartArrayKotaResult($chartArrayKotaResult);
+    }
+    public function data() {
+        date_default_timezone_set("Asia/Jakarta");
+        $listPemda = pemdaModel::all()->sortBy('id_pemda');
+        foreach ($listPemda as $lp) {
+            
+            $idPemda = $lp['id_pemda'];
+            $lp['bps_pemda'] .= "/subject/30/kesehatan.html#subjekViewTab3";
+            $lp['bps_dataset'] = bpsOpendataModel::where('id_pemda', '=', $idPemda)->whereYear('date', '=', date('Y'))->whereMonth('date', '=', date('m'))->count();
+            $lp['ckan_dataset'] = ckanOpendataModel::where('id_pemda', '=', $idPemda)->whereYear('date', '=', date('Y'))->whereMonth('date', '=', date('m'))->count();
+            $resultScore = resultOpendataModel::select('totalScore')->where('id_pemda', '=', $idPemda)->where('id_kategori', '=', 'D11')->whereYear('date', '=', date('Y'))->whereMonth('date', '=', date('m'))->orderByDesc('date')->first();
+            $lp['totalScore'] = $resultScore['totalScore'];
+        }
+        
+        $countLifeBPS = bpsOpendataModel::where('subkategori', '=', 'Mortality and Survival Rates')->whereYear('date', '=', date('Y'))->whereMonth('date', '=', date('m'))->count();
+        $countAccessBPS = bpsOpendataModel::where('subkategori', '=', 'Level of Access to Health Care')->whereYear('date', '=', date('Y'))->whereMonth('date', '=', date('m'))->count();
+        $countVaccineBPS = bpsOpendataModel::where('subkategori', '=', 'Levels of Vaccination')->whereYear('date', '=', date('Y'))->whereMonth('date', '=', date('m'))->count();
+        $countOutcomesBPS = bpsOpendataModel::where('subkategori', '=', 'Health Care Outcomes')->whereYear('date', '=', date('Y'))->whereMonth('date', '=', date('m'))->count();
+        $countLifeCKAN = ckanOpendataModel::where('subkategori', '=', 'Mortality and Survival Rates')->whereYear('date', '=', date('Y'))->whereMonth('date', '=', date('m'))->count();
+        $countAccessCKAN = ckanOpendataModel::where('subkategori', '=', 'Level of Access to Health Care')->whereYear('date', '=', date('Y'))->whereMonth('date', '=', date('m'))->count();
+        $countVaccineCKAN = ckanOpendataModel::where('subkategori', '=', 'Levels of Vaccination')->whereYear('date', '=', date('Y'))->whereMonth('date', '=', date('m'))->count();
+        $countOutcomesCKAN = ckanOpendataModel::where('subkategori', '=', 'Health Care Outcomes')->whereYear('date', '=', date('Y'))->whereMonth('date', '=', date('m'))->count();
+
+        //Subkategori Dataset Chart
+        $chartArraySubkategori ["chart"] = array (
+            "type" => "pie"
+        );
+        $chartArraySubkategori ["title"] = array (
+            "text" => "Total Dataset berdasarkan Subkategori pada Kategori Kesehatan"
+        );
+        $chartArraySubkategori ["credits"] = array (
+            "enabled" => true
+        );
+
+        $chartArraySubkategori ["tooltip"] = array (
+            "valueSuffix" => " Dataset"
+        );
+
+        $chartArraySubkategori ["plotOptions"] = array (
+            "pie" => [
+                "shadow" => false,
+                "center" => [
+                    '50%',
+                    '50%'
+                ],
+            ]
+        );
+
+        $chartArraySubkategori ["yAxis"] = array (
+
+            "title" => [
+                "text" => 'Julah Dataset'
+            ]
+        );
+
+        $chartArraySubkategori ["series"][] = array (
+            "name" => "Subkategori", "size" => "70%", "data" => [
+                    ["name" => "Mortality and Survival Rates", "y" => $countLifeBPS + $countLifeCKAN, "color" => "Red"], ["name" => "Level of Access to Health Care", "y" => $countAccessBPS + $countAccessCKAN, "color" => "DarkGreen"], ["name" => "Levels of Vaccination", "y" => $countVaccineBPS + $countVaccineCKAN, "color" => "Yellow"], ["name" => "Health Care Outcomes", "y" => $countOutcomesBPS + $countOutcomesCKAN, "color" => "Blue"]], "dataLabels" => ["enabled" => false]
+        );
+        $chartArraySubkategori ["series"][] = array (
+            "name" => "Sources", "size" => "90%", "innerSize" => "70%",  "data" => [
+                ["name" => "Mortality and Survival Rates (BPS)", "y" => $countLifeBPS, "color" => "HotPink"], ["name" => "Mortality and Survival Rates (CKAN)", "y" => $countLifeCKAN, "color" => "Crimson"], ["name" => "Level of Access to Health Care (BPS)", "y" => $countAccessBPS, "color" => "#6F3"], ["name" => "Level of Access to Health Care (CKAN)", "y" => $countAccessCKAN, "color" => "#6F0"], ["name" => "Levels of Vaccination (BPS)", "y" => $countVaccineBPS, "color" => "#FF6"], ["name" => "Levels of Vaccination (CKAN)", "y" => $countVaccineCKAN, "color" => "#FF3"], ["name" => "Health Care Outcomes (BPS)", "y" => $countOutcomesBPS, "color" => "SkyBlue"], ["name" => "Health Care Outcomes (CKAN)", "y" => $countOutcomesCKAN, "color" => "DeepSkyBlue"]]
+            );
+
+        return view('opendataData', ['allData' => $listPemda])->withchartArraySubkategori($chartArraySubkategori);
+    }
+
+    public function detail($id) {
+        date_default_timezone_set("Asia/Jakarta");
+        $pemda = pemdaModel::where('id_pemda', '=', $id)->first();
+        // Ambil 12 Bulan terakhir resultOpendata
+        $resultOpendata = resultOpendataModel::where('id_pemda', $id)->where('id_kategori', 'D11')->orderByDesc('date')->take(12)->get()->all();
+        // Dibalik agar menjadi Ascending urutan Penilaiannya
+        $resultOpendata = array_reverse($resultOpendata);
+        $scoreOpendata = [];
+        $tanggalOpendata = [];
+
+        foreach($resultOpendata as $ro) {
+            $ro['tanggal'] = date("F Y", strtotime(($ro['date'])));
+            $tanggalOpendata[] = $ro['tanggal'];
+            $scoreOpendata[] = $ro['totalScore'];
+        }
+
+        $chartArrayOpendata ["chart"] = array (
+            "type" => "line"
+        );
+        $chartArrayOpendata ["title"] = array (
+            "text" => "Perkembangan Nilai Implementasi Open Data"
+        );
+        $chartArrayOpendata ["credits"] = array (
+            "enabled" => true
+        );
+
+        for($i = 0; $i < count ( $resultOpendata ); $i++) {
+        $chartArrayOpendata ["xAxis"][] = array (
+                "categories" => $tanggalOpendata
+        );
+        }
+
+        $chartArrayOpendata ["tooltip"] = array (
+            "valueSuffix" => ""
+        );
+
+        $chartArrayOpendata ["plotOptions"] = array (
+            "line" => [
+                "dataLabels" => [
+                'enabled' => true,
+                'color' => 'black'
+                ]
+            ]
+        );
+
+        $chartArrayOpendata ["yAxis"] = array (
+            "min" => 0,
+            "max" => 100,
+            "title" => [
+                "text" => 'Total Score'
+            ],
+            "stackLabels" => [
+                "enabled" => true
+            ]
+        );
+
+        $chartArrayOpendata ["series"] [] = array (
+            "name" => 'Kategori Kesehatan',
+            "showInLegends" => false,
+            "data" => $scoreOpendata,
+        );
+
+        $countLifeBPS = bpsOpendataModel::where('id_pemda', '=', $id)->where('subkategori', '=', 'Mortality and Survival Rates')->whereYear('date', '=', date('Y'))->whereMonth('date', '=', date('m'))->count();
+        $countAccessBPS = bpsOpendataModel::where('id_pemda', '=', $id)->where('subkategori', '=', 'Level of Access to Health Care')->whereYear('date', '=', date('Y'))->whereMonth('date', '=', date('m'))->count();
+        $countVaccineBPS = bpsOpendataModel::where('id_pemda', '=', $id)->where('subkategori', '=', 'Levels of Vaccination')->whereYear('date', '=', date('Y'))->whereMonth('date', '=', date('m'))->count();
+        $countOutcomesBPS = bpsOpendataModel::where('id_pemda', '=', $id)->where('subkategori', '=', 'Health Care Outcomes')->whereYear('date', '=', date('Y'))->whereMonth('date', '=', date('m'))->count();
+        $countLifeCKAN = ckanOpendataModel::where('id_pemda', '=', $id)->where('subkategori', '=', 'Mortality and Survival Rates')->whereYear('date', '=', date('Y'))->whereMonth('date', '=', date('m'))->count();
+        $countAccessCKAN = ckanOpendataModel::where('id_pemda', '=', $id)->where('subkategori', '=', 'Level of Access to Health Care')->whereYear('date', '=', date('Y'))->whereMonth('date', '=', date('m'))->count();
+        $countVaccineCKAN = ckanOpendataModel::where('id_pemda', '=', $id)->where('subkategori', '=', 'Levels of Vaccination')->whereYear('date', '=', date('Y'))->whereMonth('date', '=', date('m'))->count();
+        $countOutcomesCKAN = ckanOpendataModel::where('id_pemda', '=', $id)->where('subkategori', '=', 'Health Care Outcomes')->whereYear('date', '=', date('Y'))->whereMonth('date', '=', date('m'))->count();
+
+        $chartArraySubkategori ["chart"] = array (
+            "type" => "pie"
+        );
+        $chartArraySubkategori ["title"] = array (
+            "text" => "Jumlah Dataset berdasarkan Subkategori pada Kategori Kesehatan"
+        );
+        $chartArraySubkategori ["credits"] = array (
+            "enabled" => true
+        );
+
+        $chartArraySubkategori ["tooltip"] = array (
+            "valueSuffix" => " Dataset"
+        );
+
+        $chartArraySubkategori ["plotOptions"] = array (
+            "pie" => [
+                "shadow" => false,
+                "center" => [
+                    '50%',
+                    '50%'
+                ],
+            ]
+        );
+
+        $chartArraySubkategori ["yAxis"] = array (
+
+            "title" => [
+                "text" => 'Julah Dataset'
+            ]
+        );
+
+        $chartArraySubkategori ["series"][] = array (
+            "name" => "Subkategori", "size" => "70%", "data" => [
+                    ["name" => "Mortality and Survival Rates", "y" => $countLifeBPS + $countLifeCKAN, "color" => "Red"], ["name" => "Level of Access to Health Care", "y" => $countAccessBPS + $countAccessCKAN, "color" => "DarkGreen"], ["name" => "Levels of Vaccination", "y" => $countVaccineBPS + $countVaccineCKAN, "color" => "Yellow"], ["name" => "Health Care Outcomes", "y" => $countOutcomesBPS + $countOutcomesCKAN, "color" => "Blue"]]
+        );
+
+        return view('opendataDetail', ['pemda' => $pemda, 'resultOpendata' => $resultOpendata])->withChartArrayOpendata($chartArrayOpendata)->withChartArraySubkategori($chartArraySubkategori);
+        
     }
 
 }
