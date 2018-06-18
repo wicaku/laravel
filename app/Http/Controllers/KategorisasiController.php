@@ -8,6 +8,7 @@ use App\Model\dinasModel;
 use App\Model\twitter_replyModel;
 use App\Model\facebookCommentsModel;
 use App\Model\youtubeCommentsModel;
+use App\Model\userModel;
 
 class KategorisasiController extends Controller
 {
@@ -151,5 +152,25 @@ class KategorisasiController extends Controller
 
 
       return view('kategorisasi', ['pemda' => $pemda, 'dinases' => $dinases])->withChartArray($chartArray);
+    }
+
+    public function editAkun($id) {
+      $user = userModel::where('idPemda', (int)$id)->first();
+      $pemdas = listPemdaModel::all();
+      $userName = listPemdaModel::find((int)$id);
+
+      return view('edit_akun', ['user' => $user, 'pemdas' => $pemdas, 'userName' => $userName]);
+    }
+
+    public function updateAkun(Request $request, $id) {
+      $user = userModel::where('idPemda', (int)$id)->first();
+
+      $user->email = $request->email;
+
+      $user->save();
+
+      $users = userModel::all();
+
+      return redirect()->route('kategorisasi', ['id' => $user->idPemda]);
     }
 }

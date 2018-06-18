@@ -73,28 +73,31 @@ HOME
           @endforeach
         </tbody>
         </table>
-    </div>
-  </div>
-  
-  <div class="ui cards grid">
-    <div class="five card wide column">
-      <div class="content">
-        <div id="container-provresult"></div>
-      </div>
-    </div>
-    <div class="ten wide column">
-      <div class="content">
-        <div id="container-kabresult"></div>
-      </div>
-    </div>
-    <div class="ten wide column">
-      <div class="content">
-        <div id="container-kotaresult"></div>
       </div>
     </div>
   </div>
 
-</div>
+  <div class="ui cards grid">
+    <div class="card five wide column">
+      <div class="content">
+        <div id="container-provresult"></div>
+      </div>
+    </div>
+
+
+    <div class="card five wide column">
+      <div class="content">
+        <div id="container-kabresult"></div>
+      </div>
+    </div>
+
+    <div class="card five wide column">
+      <div class="content">
+          <div id="container-kotaresult"></div>
+      </div>
+    </div>
+
+  </div>
 
 @endsection
 
@@ -102,7 +105,7 @@ HOME
 <script>
     $(document).ready(function () {
         $('.ui.dropdown').dropdown();
-        $("#home").addClass("active");
+        $("#openData").addClass("active");
         $('#container-top10result').highcharts( <?php  echo json_encode($chartArrayTop10Result) ?>);
         $('#container-allresult').highcharts( <?php  echo json_encode($chartArrayAllResult) ?>);
         $('#container-provresult').highcharts( <?php  echo json_encode($chartArrayProvResult) ?>);

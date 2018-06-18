@@ -35,7 +35,7 @@
             <td>{{$pemda['youtube_influencer']}}</td>
             <td>
               <a href="{{ route('sosmed.pemda.deleted.restore', ['id'=> $pemda['_id']])}}" class='ui tiny icon green button' id='view-button'><i class="history icon"></i></a>
-              <a href="{{ route('sosned.pemda.deleted.forceDelete', ['id'=> $pemda['_id']])}}" class='ui tiny icon red button' id='view-button'><i class="ban icon"></i></a>
+              <a href="{{ route('sosmed.pemda.deleted.forceDelete', ['id'=> $pemda['_id']])}}" class='ui tiny icon red button' id='view-button'><i class="ban icon"></i></a>
             </td>
           </tr>
     @endforeach

@@ -53,6 +53,7 @@
 					<a id="dataweb" class="item" href="{{ url('/data/website') }}">Website</a>
 					<a id="datasocmed" class="item" href="{{ url('/data/sosial-media') }}">Sosial Media</a>
 					<a id="datavuln" class="item" href="{{ url('/data/kerentanan') }}">Kerentanan</a>
+					<a id="dataOpenData" class="item" href="{{ route('opendata.data') }}">Open Data</a>
 				</div>
 			</div>
 			<div id="dropd" class="ui dropdown item" tabindex="0">
@@ -74,6 +75,7 @@
 					<a id="kategorisasi" class="item" href="{{ route('validasi.pemda') }}">Kategorisasi</a>
 				@endif
 			@endguest
+			<a id="openData" class="item" href="{{ route('opendata.main') }}">Open Data</a>
 
 			<div class="right menu">
 					<!-- <a class="item" id="login" href="{{ route('login') }}">Login</a>

@@ -12,12 +12,6 @@
   <thead>
     <tr>
       <th>Nama Pemda</th>
-      <th>Facebook Resmi</th>
-      <th>Twitter Resmi</th>
-      <th>Youtube Resmi</th>
-      <th>Facebook Influencer</th>
-      <th>Twitter Influencer</th>
-      <th>Youtube Influencer</th>
       <th>Action</th>
     </tr>
   </thead>
@@ -25,12 +19,6 @@
     @foreach ($pemdas as $pemda)
           <tr>
             <td>{{$pemda['name']}}</td>
-            <td>{{$pemda['facebook_resmi']}}</td>
-            <td>{{$pemda['twitter_resmi']}}</td>
-            <td>{{$pemda['youtube_resmi']}}</td>
-            <td>{{$pemda['facebook_influencer']}}</td>
-            <td>{{$pemda['twitter_influencer']}}</td>
-            <td>{{$pemda['youtube_influencer']}}</td>
             <td>
               <a href="{{ route('klasifikasi.post', ['id' => $pemda->_id]) }}" class='ui tiny icon blue button' id='edit-button'>Detail Post</a>
               <a href="{{ route('klasifikasi.komentar', ['id' => $pemda->_id]) }}" class='ui tiny icon green button' id='edit-button'>Detail Komentar</a>

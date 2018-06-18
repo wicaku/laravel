@@ -57,7 +57,7 @@
 <script>
 	$(document).ready(function () {
         $('.ui.dropdown').dropdown();
-        // $("#klasifikasi").addClass("active");
+        $("#dataOpenData").addClass("active");
         $('#opendataData').DataTable();
         $('#container-subkategori').highcharts( <?php  echo json_encode($chartArraySubkategori) ?>);
     });

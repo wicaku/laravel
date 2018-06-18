@@ -118,6 +118,8 @@ Auth::routes();
 Route::post('/kategorisasi/logout', 'Auth\LoginController@userLogout')->name('user.logout');
 Route::get('/kategorisasi/', 'Auth\LoginController@showLoginForm')->name('kategorisasi.not.login');
 Route::get('/kategorisasi/{id}', 'KategorisasiController@index')->name('kategorisasi');
+Route::get('/kategorisasi/{id}/edit', 'KategorisasiController@editAkun')->name('kategorisasi.edit');
+Route::post('/kategorisasi/{id}/update', 'KategorisasiController@updateAkun')->name('kategorisasi.update');
 Route::get('/kategorisasi/{id}/dinas', 'DinasController@index')->name('dinas');
 Route::get('/kategorisasi/{id}/rekomendasi', 'RekomendasiController@index')->name('rekomendasi');
 
@@ -176,7 +178,7 @@ Route::get('/kategorisasi-admin/sosmed', 'SosialMediaPemdaController@index')->na
 
 Route::get('/kategorisasi-admin/sosmed/deleted', 'SosialMediaPemdaController@showDeleted')->name('sosmed.pemda.deleted');
 Route::get('/kategorisasi-admin/sosmed/deleted/{id}/restore', 'SosialMediaPemdaController@restore')->name('sosmed.pemda.deleted.restore');
-Route::get('/kategorisasi-admin/sosmed/deleted/{id}/restore', 'SosialMediaPemdaController@forceDeleted')->name('sosmed.pemda.deleted.forceDelete');
+Route::get('/kategorisasi-admin/sosmed/deleted/{id}/forceDeleted', 'SosialMediaPemdaController@forceDeleted')->name('sosmed.pemda.deleted.forceDelete');
 
 
 Route::get('/kategorisasi-admin/sosmed/{id}', 'SosialMediaPemdaController@edit')->name('sosmed.pemda.edit');
