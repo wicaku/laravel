@@ -77,6 +77,7 @@ class engagementScoreController extends Controller
         $lp['wow'] = round($postFB['result.statistics.reactions.wow'],2);
         $lp['angry'] = round($postFB['result.statistics.reactions.angry'],2);
         $lp['totalScoreReaction'] = round($postFB['result.scores.reaction_score.total'],2);
+        $lp['page_fanCount'] = $postFB['page_fanCount'];
 
 
         $twitterResmiLower = strtolower($lp['twitter_resmi']);
@@ -89,6 +90,7 @@ class engagementScoreController extends Controller
         $lp['persentaseTweetKomentarTW'] = round($postTW['result.scores.commitment_replyScore.commitment_replyScore_1'],4) * 100;
         $lp['persentaseTweetRetweetTW'] = round($postTW['result.scores.virality_retweetScore.virality_retweetScore_1'],4) * 100;
         $lp['engagementTW'] = round($postTW['result.scores.engagement_index_score'],2);
+        $lp['account_followerCount'] = $postTW['account_followerCount'];
 
         $youtubeResmiLower = strtolower($lp['youtube_resmi']);
         $postYT = youtubeAccountsResultModel::orderBy('result_createdDate', 'desc')->where('channel_id', $youtubeResmiLower)->first();
@@ -101,6 +103,7 @@ class engagementScoreController extends Controller
         $lp['likeCountYT'] = $postYT['result.statistics.likeCount'];
         $lp['dislikeCountYT'] = $postYT['result.statistics.dislikeCount'];
         $lp['ratingScoreYT'] = $postYT['result.scores.rating_score'];
+        $lp['channel_subscriberCount'] = $postYT['channel_subscriberCount'];
       }
 
 

@@ -22,6 +22,7 @@
             <th>Persentase Post dengan Like</th>
             <th>Persentase Post dengan Komentar</th>
             <th>Persentase Post dengan Reshare</th>
+            <th>Jumlah Fans</th>
             <th>Engagement Score</th>
           </tr>
         </thead>
@@ -35,6 +36,7 @@
                   <td>{{$eg['persentasePosLikeFB']}} %</td>
                   <td>{{$eg['persentasePosKomentarFB']}} %</td>
                   <td>{{$eg['persentasePosShareFB']}} %</td>
+                  <td>{{$eg['page_fanCount']}}</td>
                   <td>{{$eg['engagementFB']}}</td>
                 </tr>
           @endforeach
@@ -58,6 +60,7 @@
             <th>Persentase Post dengan Favorite</th>
             <th>Persentase Post dengan Reply</th>
             <th>Persentase Post dengan Retweet</th>
+            <th>Jumlah Follower</th>
             <th>Engagement Score</th>
           </tr>
         </thead>
@@ -71,6 +74,7 @@
                   <td>{{$eg['persentaseTweetLikeTW']}} %</td>
                   <td>{{$eg['persentaseTweetKomentarTW']}} %</td>
                   <td>{{$eg['persentaseTweetRetweetTW']}} %</td>
+                  <td>{{$eg['account_followerCount']}}</td>
                   <td>{{$eg['engagementTW']}}</td>
                 </tr>
           @endforeach
@@ -92,6 +96,7 @@
             <th>Jumlah Komentar</th>
             <th>Persentase Post dengan Like</th>
             <th>Persentase Post dengan Komentar</th>
+            <th>Jumlah Subscriber</th>
             <th>Engagement Score</th>
           </tr>
         </thead>
@@ -103,6 +108,7 @@
                   <td>{{$eg['jumlahKomentarYT']}}</td>
                   <td>{{$eg['persentaseVideoLikeYT']}} %</td>
                   <td>{{$eg['persentaseVideoKomentarYT']}} %</td>
+                  <td>{{$eg['channel_subscriberCount']}}</td>
                   <td>{{$eg['engagementYT']}}</td>
                 </tr>
           @endforeach
