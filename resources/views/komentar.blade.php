@@ -14,6 +14,14 @@ HOME - Komentar
     </div>
   </div>
 
+  <div class="ui cards grid">
+    <div class="card sixteen wide column">
+      <div class="content">
+        <div id="container-komen-pemda"></div>
+      </div>
+    </div>
+  </div>
+
 </div>
 
 @endsection
@@ -24,6 +32,7 @@ HOME - Komentar
         $('.ui.dropdown').dropdown();
         $("#home").addClass("active");
         $('#container-komen').highcharts( <?php  echo json_encode($chartArray) ?>);
+        $('#container-komen-pemda').highcharts( <?php  echo json_encode($chartArrayKomentar) ?>);
     });
 </script>
 @endsection

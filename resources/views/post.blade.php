@@ -14,6 +14,14 @@ HOME - Post
     </div>
   </div>
 
+  <div class="ui cards grid">
+    <div class="card sixteen wide column">
+      <div class="content">
+        <div id="container-post-pemda"></div>
+      </div>
+    </div>
+  </div>
+
 </div>
 
 @endsection
@@ -24,6 +32,7 @@ HOME - Post
         $('.ui.dropdown').dropdown();
         $("#home").addClass("active");
         $('#container-post').highcharts( <?php  echo json_encode($chartArrayPost) ?>);
+        $('#container-post-pemda').highcharts( <?php  echo json_encode($chartArrayHitungPost) ?>);
     });
 </script>
 @endsection
