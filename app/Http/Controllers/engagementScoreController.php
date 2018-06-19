@@ -33,15 +33,15 @@ class engagementScoreController extends Controller
         $namaPemda[] = $lp['name'];
         $facebookResmiLower = strtolower($lp['facebook_resmi']);
         $engagementScoreFB = facebookAccountsResultModel::orderBy('result_createdDate', 'desc')->where('page_id', $facebookResmiLower)->first();
-        $lp['engagementScoreFB'] = round($engagementScoreFB['result.scores.engagement_index_score'],2);
+        $lp['engagementScoreFB'] = round($engagementScoreFB['result.scores.engagement_index_score_normalized'],2);
 
         $twitterResmiLower = strtolower($lp['twitter_resmi']);
         $engagementScoreTW = twitterAccountsResultModel::orderBy('result_createdDate', 'desc')->where('account_id', $twitterResmiLower)->first();
-        $lp['engagementScoreTW'] = round($engagementScoreTW['result.scores.engagement_index_score'],2);
+        $lp['engagementScoreTW'] = round($engagementScoreTW['result.scores.engagement_index_score_normalized'],2);
 
         $youtubeResmiLower = strtolower($lp['youtube_resmi']);
         $engagementScoreYT = youtubeAccountsResultModel::orderBy('result_createdDate', 'desc')->where('channel_id', $youtubeResmiLower)->first();
-        $lp['engagementScoreYT'] = round($engagementScoreYT['result.scores.engagement_index_score'],2);
+        $lp['engagementScoreYT'] = round($engagementScoreYT['result.scores.engagement_index_score_normalized'],2);
 
         $lp['total'] = $lp['engagementScoreFB'] + $lp['engagementScoreTW'] + $lp['engagementScoreYT'];
 

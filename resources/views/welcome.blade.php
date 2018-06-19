@@ -37,31 +37,16 @@ HOME
 
       </div>
     </div>
-    <div class="ten wide column">
-      punya dito
+
+    <div class="card ten wide column">
+      <div id="container-engagement"></div>
     </div>
+
   </div>
 
   <div class="ui cards grid">
     <div class="card sixteen wide column">
       <div class="content">
-        <div id="container-post"></div>
-      </div>
-    </div>
-  </div>
-
-  <div class="ui cards grid">
-    <div class="card sixteen wide column">
-      <div class="content">
-        <div id="container-komen"></div>
-      </div>
-    </div>
-  </div>
-
-  <div class="ui cards grid">
-    <div class="card sixteen wide column">
-      <div class="content">
-        <div id="container-engagement"></div>
         <table id="engagement" class="ui celled table responsive nowrap" style="width:100%">
         <thead>
           <tr>
@@ -91,31 +76,13 @@ HOME
   <div class="ui cards grid">
     <div class="card sixteen wide column">
       <div class="content">
-        <div id="container-emoji"></div>
-      </div>
-    </div>
-  </div>
-
-  <div class="ui cards grid">
-    <div class="card sixteen wide column">
-      <div class="content">
-        <div id="container-rating"></div>
-      </div>
-    </div>
-  </div>
-
-  <div class="ui cards grid">
-    <div class="card sixteen wide column">
-      <div class="content">
-        <div id="container-post_type"></div>
-      </div>
-    </div>
-  </div>
-
-  <div class="ui cards grid">
-    <div class="card sixteen wide column">
-      <div class="content">
-        <div id="container-tweet_type"></div>
+        <div class="five ui buttons">
+          <a href="{{ route('welcome.post') }}" class='ui medium icon blue button'>Post</a>
+          <a href="{{ route('welcome.komentar') }}" class='ui medium icon orange button'>Komentar</a>
+          <a href="{{ route('welcome.facebook') }}" class='ui medium facebook button'><i class="facebook icon"></i>Facebook</a>
+          <a href="{{ route('welcome.twitter') }}" class='ui medium twitter button'><i class="twitter icon"></i>Twitter</a>
+          <a href="{{ route('welcome.youtube') }}" class='ui medium youtube button'><i class="youtube icon"></i>Youtube</a>
+        </div>
       </div>
     </div>
   </div>
@@ -129,13 +96,9 @@ HOME
     $(document).ready(function () {
         $('.ui.dropdown').dropdown();
         $("#home").addClass("active");
-        $('#container-komen').highcharts( <?php  echo json_encode($chartArray) ?>);
-        $('#container-post').highcharts( <?php  echo json_encode($chartArrayPost) ?>);
         $('#container-engagement').highcharts( <?php  echo json_encode($chartArrayEngagement) ?>);
-        $('#container-emoji').highcharts( <?php  echo json_encode($chartArrayEmoji) ?>);
-        $('#container-rating').highcharts( <?php  echo json_encode($chartArrayRating) ?>);
-        $('#container-post_type').highcharts( <?php  echo json_encode($chartArrayPostType) ?>);
-        $('#container-tweet_type').highcharts( <?php  echo json_encode($chartArrayTwitterType) ?>);
+
+
     });
 </script>
 @endsection

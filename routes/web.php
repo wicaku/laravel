@@ -115,8 +115,14 @@ Route::get('panel/wvs', function () {
 
 Auth::routes();
 
+Route::get('/post', 'welcomeController@post')->name('welcome.post');
+Route::get('/komentar', 'welcomeController@komentar')->name('welcome.komentar');
+Route::get('/facebook', 'welcomeController@facebook')->name('welcome.facebook');
+Route::get('/twitter', 'welcomeController@twitter')->name('welcome.twitter');
+Route::get('/youtube', 'welcomeController@youtube')->name('welcome.youtube');
+
 Route::post('/kategorisasi/logout', 'Auth\LoginController@userLogout')->name('user.logout');
-Route::get('/kategorisasi/', 'Auth\LoginController@showLoginForm')->name('kategorisasi.not.login');
+Route::get('/kategorisasi', 'Auth\LoginController@showLoginForm')->name('kategorisasi.not.login');
 Route::get('/kategorisasi/{id}', 'KategorisasiController@index')->name('kategorisasi');
 Route::get('/kategorisasi/{id}/edit', 'KategorisasiController@editAkun')->name('kategorisasi.edit');
 Route::post('/kategorisasi/{id}/update', 'KategorisasiController@updateAkun')->name('kategorisasi.update');
