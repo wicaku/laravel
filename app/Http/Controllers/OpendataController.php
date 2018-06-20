@@ -11,6 +11,37 @@ use App\Model\ckanOpendataModel;
 class OpendataController extends Controller
 {
     //
+    public function Stand_Deviation($arr)
+    {
+        $num_of_elements = count($arr);
+
+        $variance = 0.0;
+
+                // calculating mean using array_sum() method
+        $average = array_sum($arr)/$num_of_elements;
+
+        foreach($arr as $i)
+        {
+            // sum of squares of differences between
+                        // all numbers and means.
+            $variance += pow(($i - $average), 2);
+        }
+
+        return (float)sqrt($variance/$num_of_elements);
+    }
+
+    public function average($arr)
+    {
+      $num_of_elements = count($arr);
+
+      $variance = 0.0;
+
+              // calculating mean using array_sum() method
+      $average = array_sum($arr)/$num_of_elements;
+
+      return round($average,2);
+    }
+
     public function index() {
         date_default_timezone_set("Asia/Jakarta");
         $pemda = pemdaModel::all()->count();
@@ -31,7 +62,7 @@ class OpendataController extends Controller
         $kabResultOpendata = resultOpendataModel::join('pemda', 'result_opendata.id_pemda', '=', 'pemda.id_pemda')->select('pemda.nama_pemda', 'pemda.tipe', 'result_opendata.id_pemda', 'result_opendata.id_kategori', 'result_opendata.totalScore')->where('id_kategori', '=', "D11")->where('tipe', '=', "KAB")->whereYear('date', '=', date('Y'))->whereMonth('date', '=', date('m'))->orderByDesc('totalScore')->orderBy('id_pemda')->take(10)->get();
 
         $kotaResultOpendata = resultOpendataModel::join('pemda', 'result_opendata.id_pemda', '=', 'pemda.id_pemda')->select('pemda.nama_pemda', 'pemda.tipe', 'result_opendata.id_pemda', 'result_opendata.id_kategori', 'result_opendata.totalScore')->where('id_kategori', '=', "D11")->where('tipe', '=', "KOTA")->whereYear('date', '=', date('Y'))->whereMonth('date', '=', date('m'))->orderByDesc('totalScore')->orderBy('id_pemda')->take(10)->get();
-        
+
         foreach ($top10resultOpendata as $top10result) {
             $idPemdaTop10[] = $top10result['id_pemda'];
             $namaPemdaTop10[] = $top10result['nama_pemda'];
@@ -153,7 +184,7 @@ class OpendataController extends Controller
         $chartArrayAllResult ["tooltip"] = array (
             "valueSuffix" => ""
         );
-        
+
         for($i = 0; $i < count($tipePemdaAll); $i++) {
             if ($tipePemdaAll[$i] == "PROV") {
                 $allPemdaColors [] = ("red");
@@ -196,6 +227,124 @@ class OpendataController extends Controller
             "name" => "Skor Total",
             "showInLegend" => false,
             "data" => $totalScoreAll,
+        );
+
+        //All Pemda Chart std
+        $rata = $this->average($totalScoreAll);
+        $std = $this->Stand_Deviation($totalScoreAll);
+
+        $chartArrayAllResultSTD ["chart"] = array (
+            "type" => "column"
+        );
+        $chartArrayAllResultSTD ["title"] = array (
+            "text" => "Hasil Penilaian Open Data Kategori Kesehatan Seluruh Pemerintah Daerah"
+        );
+        $chartArrayAllResultSTD ["credits"] = array (
+            "enabled" => true
+        );
+
+        for($i = 0; $i < count ( $namaPemdaAll ); $i++) {
+        $chartArrayAllResultSTD ["xAxis"] = array (
+                "categories" => $namaPemdaAll
+        );
+        }
+
+        $chartArrayAllResultSTD ["tooltip"] = array (
+            "valueSuffix" => ""
+        );
+
+        for($i = 0; $i < count($tipePemdaAll); $i++) {
+            if ($tipePemdaAll[$i] == "PROV") {
+                $allPemdaColors [] = ("red");
+            }
+            elseif ($tipePemdaAll[$i] == "KOTA") {
+                $allPemdaColors [] = ("blue");
+            }
+            elseif ($tipePemdaAll[$i] == "KAB") {
+                $allPemdaColors [] = ("green");
+            }
+            else{
+                $allPemdaColors [] = ("grey");
+            }
+        }
+
+        $chartArrayAllResultSTD ["plotOptions"] = array (
+            "column" => [
+                "stacking" => 'normal',
+                "dataLabels" => [
+                    'enabled' => false,
+                    'color' => 'white'
+                ],
+                // "colors" => $allPemdaColors,
+                // "colorByPoint" => true
+            ]
+        );
+
+        $chartArrayAllResultSTD ["yAxis"] = array (
+            "min" => 0,
+            "max" => 100,
+            "title" => [
+                "text" => 'Total Score'
+            ],
+            "stackLabels" => [
+                "enabled" => false
+            ],
+            "plotLines" => [array(
+            	"value" => $rata,
+              "color" => 'green',
+              "dashStyle" => 'shortdash',
+              "width" => 2,
+              "label" => [
+                "text" => 'Rata-rata = '.$rata,
+                "align" => 'right',
+                ]
+            )]
+        );
+
+        $chartArrayAllResultSTD ["series"] [] = array (
+            "name" => "Skor Total",
+            "showInLegend" => false,
+            "data" => $totalScoreAll,
+            "zones" => [array(
+              "value" => $rata-$std,
+              "color" => '#002db3'
+            ), array(
+              "value" => $rata+$std,
+            ), array(
+              "value" => $rata + (2*$std),
+              "color" => '#002db3'
+            ), array(
+              "value" => $rata + (3*$std),
+              "color" => '#00ff55'
+            )]
+        );
+
+        $chartArrayAllResultSTD ["series"] [] = array (
+          "name" => '+- 1 SD',
+          "color" => '#80bfff',
+          "data" => [],
+          "marker" => [
+            "symbol" => 'square',
+            "radius" => 12
+            ],
+        );
+        $chartArrayAllResultSTD ["series"] [] = array (
+          "name" => '+- 2 SD',
+          "color" => '#002db3',
+          "data" =>[],
+          "marker" => [
+            "symbol" => 'square',
+            "radius" => 12
+            ],
+        );
+        $chartArrayAllResultSTD ["series"] [] = array (
+          "name" => '+- 3 SD',
+          "color" => '#00ff55',
+          "data" => [],
+          "marker" => [
+            "symbol" => 'square',
+            "radius" => 12
+            ],
         );
 
         //Prov Pemda Chart
@@ -345,13 +494,13 @@ class OpendataController extends Controller
             "data" => $totalScoreKota,
         );
 
-        return view('opendata', ['pemda' => $pemda, 'total_bps_pemda' => $total_bps_pemda, 'active_bps_pemda' => $active_bps_pemda, 'total_scored_bps' => $total_scored_bps, 'total_ckan_pemda' => $total_ckan_pemda, 'active_ckan_pemda' => $active_ckan_pemda, 'total_scored_ckan' => $total_scored_ckan, 'last_result_date' => $last_result_date['date'], 'top10resultOpendata' => $top10resultOpendata])->withchartArrayTop10Result($chartArrayTop10Result)->withchartArrayAllResult($chartArrayAllResult)->withChartArrayProvResult($chartArrayProvResult)->withChartArrayKabResult($chartArrayKabResult)->withChartArrayKotaResult($chartArrayKotaResult);
+        return view('opendata', ['pemda' => $pemda, 'total_bps_pemda' => $total_bps_pemda, 'active_bps_pemda' => $active_bps_pemda, 'total_scored_bps' => $total_scored_bps, 'total_ckan_pemda' => $total_ckan_pemda, 'active_ckan_pemda' => $active_ckan_pemda, 'total_scored_ckan' => $total_scored_ckan, 'last_result_date' => $last_result_date['date'], 'top10resultOpendata' => $top10resultOpendata])->withchartArrayTop10Result($chartArrayTop10Result)->withchartArrayAllResult($chartArrayAllResult)->withchartArrayAllResultSTD($chartArrayAllResultSTD)->withChartArrayProvResult($chartArrayProvResult)->withChartArrayKabResult($chartArrayKabResult)->withChartArrayKotaResult($chartArrayKotaResult);
     }
     public function data() {
         date_default_timezone_set("Asia/Jakarta");
         $listPemda = pemdaModel::all()->sortBy('id_pemda');
         foreach ($listPemda as $lp) {
-            
+
             $idPemda = $lp['id_pemda'];
             $lp['bps_pemda'] .= "/subject/30/kesehatan.html#subjekViewTab3";
             $lp['bps_dataset'] = bpsOpendataModel::where('id_pemda', '=', $idPemda)->whereYear('date', '=', date('Y'))->whereMonth('date', '=', date('m'))->count();
@@ -359,7 +508,7 @@ class OpendataController extends Controller
             $resultScore = resultOpendataModel::select('totalScore')->where('id_pemda', '=', $idPemda)->where('id_kategori', '=', 'D11')->whereYear('date', '=', date('Y'))->whereMonth('date', '=', date('m'))->orderByDesc('date')->first();
             $lp['totalScore'] = $resultScore['totalScore'];
         }
-        
+
         $countLifeBPS = bpsOpendataModel::where('subkategori', '=', 'Mortality and Survival Rates')->whereYear('date', '=', date('Y'))->whereMonth('date', '=', date('m'))->count();
         $countAccessBPS = bpsOpendataModel::where('subkategori', '=', 'Level of Access to Health Care')->whereYear('date', '=', date('Y'))->whereMonth('date', '=', date('m'))->count();
         $countVaccineBPS = bpsOpendataModel::where('subkategori', '=', 'Levels of Vaccination')->whereYear('date', '=', date('Y'))->whereMonth('date', '=', date('m'))->count();
@@ -521,7 +670,7 @@ class OpendataController extends Controller
         );
 
         return view('opendataDetail', ['pemda' => $pemda, 'resultOpendata' => $resultOpendata])->withChartArrayOpendata($chartArrayOpendata)->withChartArraySubkategori($chartArraySubkategori);
-        
+
     }
 
 }

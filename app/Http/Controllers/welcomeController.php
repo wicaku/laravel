@@ -157,6 +157,18 @@ class welcomeController extends Controller
         return (float)sqrt($variance/$num_of_elements);
     }
 
+    public function average($arr)
+    {
+      $num_of_elements = count($arr);
+
+      $variance = 0.0;
+
+              // calculating mean using array_sum() method
+      $average = array_sum($arr)/$num_of_elements;
+
+      return round($average,2);
+    }
+
     public function post() {
       for($i = 9; $i >= 0; $i --) {
         $tanggal[] = date('Y-m-d', strtotime('-'.$i.' days',  strtotime(date("Y-m-d"))));
@@ -248,6 +260,9 @@ class welcomeController extends Controller
         $jumlahPost[] = $spp['totalPost'];
       }
 
+      $rata = $this->average($jumlahPost);
+      $std = $this->Stand_Deviation($jumlahPost);
+
 
 
       $chartArrayHitungPost ["chart"] = array (
@@ -278,7 +293,6 @@ class welcomeController extends Controller
       			'color' => 'white'
       		]
       	]
-
       );
 
       $chartArrayHitungPost ["yAxis"] = array (
@@ -287,16 +301,65 @@ class welcomeController extends Controller
       		"text" => 'Post'
       	],
       	"stackLabels" => [
-      		"enabled" => true
-      	]
+      		"enabled" => false
+      	],
+        "plotLines" => [array(
+        	"value" => $rata,
+          "color" => 'green',
+          "dashStyle" => 'shortdash',
+          "width" => 2,
+          "label" => [
+            "text" => 'Rata-rata = '.$rata,
+            "align" => 'right',
+            ]
+        )]
       );
 
       $chartArrayHitungPost ["series"] [] = array (
       	"showInLegend" => false,
       	"data" => $jumlahPost,
+        "zones" => [array(
+          "value" => $rata-$std,
+          "color" => '#002db3'
+        ), array(
+          "value" => $rata+$std,
+        ), array(
+          "value" => $rata + (2*$std),
+          "color" => '#002db3'
+        ), array(
+          "value" => $rata + (3*$std),
+          "color" => '#00ff55'
+        )]
+      );
+      $chartArrayHitungPost ["series"] [] = array (
+        "name" => '+- 1 SD',
+        "color" => '#80bfff',
+        "data" => [],
+        "marker" => [
+          "symbol" => 'square',
+          "radius" => 12
+          ],
+      );
+      $chartArrayHitungPost ["series"] [] = array (
+        "name" => '+- 2 SD',
+        "color" => '#002db3',
+        "data" =>[],
+        "marker" => [
+          "symbol" => 'square',
+          "radius" => 12
+          ],
+      );
+      $chartArrayHitungPost ["series"] [] = array (
+        "name" => '+- 3 SD',
+        "color" => '#00ff55',
+        "data" => [],
+        "marker" => [
+          "symbol" => 'square',
+          "radius" => 12
+          ],
       );
 
-      print_r($this->Stand_Deviation($jumlahPost));
+
 
 
         return view('post')->withChartArrayPost($chartArrayPost)->withChartArrayHitungPost($chartArrayHitungPost);
@@ -407,9 +470,9 @@ class welcomeController extends Controller
        $jumlahComment[] = $spc['totalComment'];
      }
 
-      $chartArrayKomentar ["chart"] = array (
-		     "type" => "column"
-      );
+     $rata = $this->average($jumlahComment);
+     $std = $this->Stand_Deviation($jumlahComment);
+
       $chartArrayKomentar ["title"] = array (
       	"text" => "Jumlah Komentar Seluruh Pemda"
       );
@@ -444,14 +507,75 @@ class welcomeController extends Controller
       		"text" => 'Komentar'
       	],
       	"stackLabels" => [
-      		"enabled" => true
-      	]
+      		"enabled" => false
+      	],
+        "plotLines" => [array(
+        	"value" => $rata,
+          "color" => 'green',
+          "dashStyle" => 'shortdash',
+          "width" => 2,
+          "label" => [
+            "text" => 'Rata-rata = '.$rata,
+            "align" => 'right',
+            ]
+        )]
       );
 
       $chartArrayKomentar ["series"] [] = array (
+        "type" => "column",
         "showInLegend" => false,
       	"data" => $jumlahComment,
+        "zones" => [array(
+          "value" => $rata-$std,
+          "color" => '#002db3'
+        ), array(
+          "value" => $rata+$std,
+        ), array(
+          "value" => $rata + (2*$std),
+          "color" => '#002db3'
+        ), array(
+          "value" => $rata + (3*$std),
+          "color" => '#00ff55'
+        )]
       );
+      $chartArrayKomentar ["series"] [] = array (
+        "name" => '+- 1 SD',
+        "color" => '#80bfff',
+        "data" => [],
+        "marker" => [
+          "symbol" => 'square',
+          "radius" => 12
+          ],
+      );
+      $chartArrayKomentar ["series"] [] = array (
+        "name" => '+- 2 SD',
+        "color" => '#002db3',
+        "data" =>[],
+        "marker" => [
+          "symbol" => 'square',
+          "radius" => 12
+          ],
+      );
+      $chartArrayKomentar ["series"] [] = array (
+        "name" => '+- 3 SD',
+        "color" => '#00ff55',
+        "data" => [],
+        "marker" => [
+          "symbol" => 'square',
+          "radius" => 12
+          ],
+      );
+      // $chartArrayKomentar ["series"] [] = array (
+      //   "type" => 'spline',
+      //   "name" => 'Rata-Rata',
+      // 	"data" => $rataArray,
+      //   "marker" => [
+      //     "lineWidth" => 2,
+      //     "lineColor" => 'green',
+      //     ]
+      // );
+
+      // dd($chartArrayKomentar);
 
 
      return view('komentar')->withChartArray($chartArray)->withChartArrayKomentar($chartArrayKomentar);

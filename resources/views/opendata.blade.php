@@ -35,15 +35,21 @@ HOME
     </div>
     <div class="ten wide column">
       <div class="content">
-        <div id="container-top10result"></div>
-      </div>
-    </div>
-  </div>
+        <div class="ui top attached tabular menu">
+          <a class="item active" data-tab="first">Nilai Open Data Terbaik</a>
+          <a class="item" data-tab="second">Nilai Open Data Seluruh Pemda</a>
+          <a class="item" data-tab="third">Rata-Rata Open Data</a>
+        </div>
+        <div class="ui bottom attached tab segment active" data-tab="first">
+          <div style="height:500px" id="container-top10result"></div>
+        </div>
+        <div class="ui bottom attached tab segment" data-tab="second">
+          <div style="height:500px" id="container-allresult"></div>
+        </div>
+        <div class="ui bottom attached tab segment" data-tab="third">
+          <div style="height:500px" id="container-allresultSTD"></div>
+        </div>
 
-  <div class="ui cards grid">
-    <div class="card sixteen wide column">
-      <div class="content">
-        <div id="container-allresult"></div>
       </div>
     </div>
   </div>
@@ -108,9 +114,13 @@ HOME
         $("#openData").addClass("active");
         $('#container-top10result').highcharts( <?php  echo json_encode($chartArrayTop10Result) ?>);
         $('#container-allresult').highcharts( <?php  echo json_encode($chartArrayAllResult) ?>);
+        $('#container-allresultSTD').highcharts( <?php  echo json_encode($chartArrayAllResultSTD) ?>);
         $('#container-provresult').highcharts( <?php  echo json_encode($chartArrayProvResult) ?>);
         $('#container-kabresult').highcharts( <?php  echo json_encode($chartArrayKabResult) ?>);
         $('#container-kotaresult').highcharts( <?php  echo json_encode($chartArrayKotaResult) ?>);
+        $('.menu .item')
+          .tab()
+        ;
     });
 </script>
 @endsection
