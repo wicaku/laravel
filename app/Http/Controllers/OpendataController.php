@@ -53,15 +53,23 @@ class OpendataController extends Controller
         $total_scored_ckan = ckanOpenDataModel::whereYear('date', '=', date('Y'))->whereMonth('date', '=', date('m'))->count();
         $last_result_date = resultOpendataModel::select('date')->orderByDesc('date')->first();
 
-        $top10resultOpendata = resultOpendataModel::join('pemda', 'result_opendata.id_pemda', '=', 'pemda.id_pemda')->select('pemda.nama_pemda', 'pemda.tipe', 'pemda.bps_pemda', 'pemda.ckan_pemda', 'result_opendata.id_pemda', 'result_opendata.id_kategori', 'result_opendata.totalScore')->where('id_kategori', '=', "D11")->whereYear('date', '=', date('Y'))->whereMonth('date', '=', date('m'))->orderByDesc('totalScore')->orderBy('id_pemda')->take(10)->get();
+        $highestResultOpendata = resultOpendataModel::select('totalScore')->where('id_kategori', '=', "D11")->whereYear('date', '=', date('Y'))->whereMonth('date', '=', date('m'))->orderByDesc('totalScore')->first();
+        
+        $top10resultOpendata = resultOpendataModel::join('pemda', 'result_opendata.id_pemda', '=', 'pemda.id_pemda')->select('pemda.nama_pemda', 'pemda.tipe', 'pemda.bps_pemda', 'pemda.ckan_pemda', 'result_opendata.id_pemda', 'result_opendata.id_kategori', 'result_opendata.totalScore')->where('id_kategori', '=', "D11")->where('totalScore', '=', $highestResultOpendata['totalScore'])->whereYear('date', '=', date('Y'))->whereMonth('date', '=', date('m'))->orderByDesc('totalScore')->orderBy('id_pemda')->get();
 
         $allResultOpendata = resultOpendataModel::join('pemda', 'result_opendata.id_pemda', '=', 'pemda.id_pemda')->select('pemda.nama_pemda', 'pemda.tipe', 'pemda.bps_pemda', 'pemda.ckan_pemda', 'result_opendata.id_pemda', 'result_opendata.id_kategori', 'result_opendata.totalScore')->where('id_kategori', '=', "D11")->whereYear('date', '=', date('Y'))->whereMonth('date', '=', date('m'))->orderByDesc('totalScore')->orderBy('id_pemda')->get();
 
-        $provResultOpendata = resultOpendataModel::join('pemda', 'result_opendata.id_pemda', '=', 'pemda.id_pemda')->select('pemda.nama_pemda', 'pemda.tipe', 'result_opendata.id_pemda', 'result_opendata.id_kategori', 'result_opendata.totalScore')->where('id_kategori', '=', "D11")->where('tipe', '=', "PROV")->whereYear('date', '=', date('Y'))->whereMonth('date', '=', date('m'))->orderByDesc('totalScore')->orderBy('id_pemda')->take(10)->get();
+        $highestProvResultOpendata = resultOpendataModel::join('pemda', 'result_opendata.id_pemda', '=', 'pemda.id_pemda')->select('totalScore')->where('id_kategori', '=', "D11")->where('tipe', '=', "PROV")->whereYear('date', '=', date('Y'))->whereMonth('date', '=', date('m'))->orderByDesc('totalScore')->first();
 
-        $kabResultOpendata = resultOpendataModel::join('pemda', 'result_opendata.id_pemda', '=', 'pemda.id_pemda')->select('pemda.nama_pemda', 'pemda.tipe', 'result_opendata.id_pemda', 'result_opendata.id_kategori', 'result_opendata.totalScore')->where('id_kategori', '=', "D11")->where('tipe', '=', "KAB")->whereYear('date', '=', date('Y'))->whereMonth('date', '=', date('m'))->orderByDesc('totalScore')->orderBy('id_pemda')->take(10)->get();
+        $provResultOpendata = resultOpendataModel::join('pemda', 'result_opendata.id_pemda', '=', 'pemda.id_pemda')->select('pemda.nama_pemda', 'pemda.tipe', 'result_opendata.id_pemda', 'result_opendata.id_kategori', 'result_opendata.totalScore')->where('id_kategori', '=', "D11")->where('tipe', '=', "PROV")->where('totalScore', '=', $highestProvResultOpendata['totalScore'])->whereYear('date', '=', date('Y'))->whereMonth('date', '=', date('m'))->orderByDesc('totalScore')->orderBy('id_pemda')->get();
 
-        $kotaResultOpendata = resultOpendataModel::join('pemda', 'result_opendata.id_pemda', '=', 'pemda.id_pemda')->select('pemda.nama_pemda', 'pemda.tipe', 'result_opendata.id_pemda', 'result_opendata.id_kategori', 'result_opendata.totalScore')->where('id_kategori', '=', "D11")->where('tipe', '=', "KOTA")->whereYear('date', '=', date('Y'))->whereMonth('date', '=', date('m'))->orderByDesc('totalScore')->orderBy('id_pemda')->take(10)->get();
+        $highestKabResultOpendata = resultOpendataModel::join('pemda', 'result_opendata.id_pemda', '=', 'pemda.id_pemda')->select('totalScore')->where('id_kategori', '=', "D11")->where('tipe', '=', "KAB")->whereYear('date', '=', date('Y'))->whereMonth('date', '=', date('m'))->orderByDesc('totalScore')->first();
+
+        $kabResultOpendata = resultOpendataModel::join('pemda', 'result_opendata.id_pemda', '=', 'pemda.id_pemda')->select('pemda.nama_pemda', 'pemda.tipe', 'result_opendata.id_pemda', 'result_opendata.id_kategori', 'result_opendata.totalScore')->where('id_kategori', '=', "D11")->where('tipe', '=', "KAB")->where('totalScore', '=', $highestKabResultOpendata['totalScore'])->whereYear('date', '=', date('Y'))->whereMonth('date', '=', date('m'))->orderByDesc('totalScore')->orderBy('id_pemda')->get();
+
+        $highestKotaResultOpendata = resultOpendataModel::join('pemda', 'result_opendata.id_pemda', '=', 'pemda.id_pemda')->select('totalScore')->where('id_kategori', '=', "D11")->where('tipe', '=', "KOTA")->whereYear('date', '=', date('Y'))->whereMonth('date', '=', date('m'))->orderByDesc('totalScore')->first();
+
+        $kotaResultOpendata = resultOpendataModel::join('pemda', 'result_opendata.id_pemda', '=', 'pemda.id_pemda')->select('pemda.nama_pemda', 'pemda.tipe', 'result_opendata.id_pemda', 'result_opendata.id_kategori', 'result_opendata.totalScore')->where('id_kategori', '=', "D11")->where('tipe', '=', "KOTA")->where('totalScore', '=', $highestKotaResultOpendata['totalScore'])->whereYear('date', '=', date('Y'))->whereMonth('date', '=', date('m'))->orderByDesc('totalScore')->orderBy('id_pemda')->get();
 
         foreach ($top10resultOpendata as $top10result) {
             $idPemdaTop10[] = $top10result['id_pemda'];
@@ -104,7 +112,7 @@ class OpendataController extends Controller
             "type" => "column"
         );
         $chartArrayTop10Result ["title"] = array (
-            "text" => "10 Hasil Penilaian Open Data Kategori Kesehatan Terbaik milik Pemerintah Daerah"
+            "text" => "Hasil Penilaian Open Data Kategori Kesehatan Terbaik milik Pemerintah Daerah"
         );
         $chartArrayTop10Result ["credits"] = array (
             "enabled" => true
