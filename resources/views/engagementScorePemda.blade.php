@@ -141,12 +141,12 @@
         <table class="ui celled table responsive nowrap" style="width:100%">
         <thead>
           <tr>
-            <th>Haha</th>
-            <th>Love</th>
-            <th>Like</th>
-            <th>Sad</th>
-            <th>Wow</th>
-            <th>Angry</th>
+            <th><img src="{{URL::asset('/img/Haha-500px.gif')}}" height="50" width="50"></th>
+            <th><img src="{{URL::asset('/img/Love-500px.gif')}}" height="50" width="50"></th>
+            <th><img src="{{URL::asset('/img/Like-500px.gif')}}" height="50" width="50"></th>
+            <th><img src="{{URL::asset('/img/Sad-500px.gif')}}" height="50" width="50"></th>
+            <th><img src="{{URL::asset('/img/Wow-500px.gif')}}" height="50" width="50"></th>
+            <th><img src="{{URL::asset('/img/Angry-500px.gif')}}" height="50" width="50"></th>
             <th>Facebook Reaction Score</th>
           </tr>
         </thead>

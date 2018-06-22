@@ -170,6 +170,7 @@ class engagementScoreController extends Controller
       );
 
       $chartArrayFB ["series"] [] = array (
+        "showInLegend" => false,
       	"name" => 'Facebook',
       		  "data" => $engagementScoreFacebook,
       );
@@ -231,6 +232,7 @@ class engagementScoreController extends Controller
     );
 
     $chartArrayTW ["series"] [] = array (
+      "showInLegend" => false,
     	"name" => 'Twitter',
     		  "data" => $engagementScoreTwitter,
     );
@@ -285,6 +287,7 @@ class engagementScoreController extends Controller
     );
 
     $chartArrayYT ["series"] [] = array (
+      "showInLegend" => false,
     	"name" => 'Youtube',
     		  "data" => $engagementScoreYoutube,
     );
@@ -300,6 +303,7 @@ class engagementScoreController extends Controller
     );
 
     $postType = ['Album', 'Link', 'Note', 'Photo', 'Status', 'Video'];
+
 
     for($i = 0; $i < count ( $postType ); $i++) {
       $chartArrayPostFB["xAxis"][] = array (
@@ -327,12 +331,14 @@ class engagementScoreController extends Controller
       ],
     );
 
-    for ($i=0; $i< count($postTypeScore); $i++) {
+
+
       $chartArrayPostFB["series"] [] = array (
+        "showInLegend" => false,
         "name" => 'Post Type Facebook',
-        "data" => $postTypeScore[$i],
+        "data" => end($postTypeScore),
       );
-    }
+
 
     $chartArrayPostTW["chart"] = array (
       "type" => "column"
@@ -372,18 +378,17 @@ class engagementScoreController extends Controller
       ],
     );
 
-    for ($i=0; $i< count($tweetTypeScore); $i++) {
-      $chartArrayPostTW["series"] [] = array (
-    	   "name" => 'Post Type Twitter',
-    	    "data" => $tweetTypeScore[$i],
-      );
-    }
+    $chartArrayPostTW["series"] [] = array (
+      "showInLegend" => false,
+  	   "name" => 'Post Type Twitter',
+  	    "data" => end($tweetTypeScore),
+    );
 
     $chartArrayReactionPost["chart"] = array (
       "type" => "line"
     );
     $chartArrayReactionPost["title"] = array (
-    	"text" => "Emoji Score Facebook"
+    	"text" => "Reaction Score Facebook"
     );
     $chartArrayReactionPost["credits"] = array (
     	"enabled" => true
@@ -419,6 +424,7 @@ class engagementScoreController extends Controller
     );
 
     $chartArrayReactionPost["series"] [] = array (
+      "showInLegend" => false,
     	"name" => 'Facebook',
     	"data" => $fbReactionTotal,
     );
@@ -463,6 +469,7 @@ class engagementScoreController extends Controller
     );
 
     $chartArrayRatingYoutube["series"] [] = array (
+      "showInLegend" => false,
     	"name" => 'Youtube',
     	"data" => $ratingScoreYT,
     );

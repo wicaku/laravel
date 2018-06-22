@@ -10,6 +10,21 @@ HOME
   }
 </style>
 <div class="ui container">
+
+  <div class="ui cards grid">
+    <div class="card sixteen wide column">
+      <div class="content">
+        <div class="five ui buttons">
+          <a href="{{ route('welcome.post') }}" class='ui medium icon blue button'>Post</a>
+          <a href="{{ route('welcome.komentar') }}" class='ui medium icon orange button'>Komentar</a>
+          <a href="{{ route('welcome.facebook') }}" class='ui medium facebook button'><i class="facebook icon"></i>Data Facebook</a>
+          <a href="{{ route('welcome.twitter') }}" class='ui medium twitter button'><i class="twitter icon"></i>Data Twitter</a>
+          <a href="{{ route('welcome.youtube') }}" class='ui medium youtube button'><i class="youtube icon"></i>Data Youtube</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="ui cards grid">
     <div class="card five wide column">
       <div class="content">
@@ -73,19 +88,7 @@ HOME
     </div>
   </div>
 
-  <div class="ui cards grid">
-    <div class="card sixteen wide column">
-      <div class="content">
-        <div class="five ui buttons">
-          <a href="{{ route('welcome.post') }}" class='ui medium icon blue button'>Post</a>
-          <a href="{{ route('welcome.komentar') }}" class='ui medium icon orange button'>Komentar</a>
-          <a href="{{ route('welcome.facebook') }}" class='ui medium facebook button'><i class="facebook icon"></i>Facebook</a>
-          <a href="{{ route('welcome.twitter') }}" class='ui medium twitter button'><i class="twitter icon"></i>Twitter</a>
-          <a href="{{ route('welcome.youtube') }}" class='ui medium youtube button'><i class="youtube icon"></i>Youtube</a>
-        </div>
-      </div>
-    </div>
-  </div>
+
 
 </div>
 

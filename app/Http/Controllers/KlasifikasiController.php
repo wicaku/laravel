@@ -226,19 +226,26 @@ class KlasifikasiController extends Controller
       //facebook resmi
       $postFacebookResmi = facebookPostsModel::where('page_id', $pemda->facebook_resmi)->get();
 
+      //twitter resmi
+      $tweetTwitterResmi = twitter_replyModel::where('account_id', $pemda->twitter_resmi)->get();
+
       foreach($labelKlasifikasiPost as $lk) {
         $jumlahPostFacebookResmi[] = $postFacebookResmi->where('class', $lk)->count();
       }
 
       $namaPostTypeFacebook = ['link', 'photo', 'video', 'status', 'note', 'album'];
+      $namaPostTypeTwitter = ['text', 'video', 'animated_gif', 'photo'];
 
       foreach($namaPostTypeFacebook as $nptf) {
         $jumlahTypePostFacebookResmi[] = $postFacebookResmi->where('post_type', $nptf)->count();
       }
 
+      foreach($namaPostTypeTwitter as $nptt) {
+        $jumlahTypeTweetTwitterResmi[] = $tweetTwitterResmi->where('tweet_type', $nptt)->count();
+      }
 
-      //twitter resmi
-      $tweetTwitterResmi = twitter_replyModel::where('account_id', $pemda->twitter_resmi)->get();
+
+
 
       foreach($labelKlasifikasiPost as $lk) {
         $jumlahTweetTwitterResmi[] = $tweetTwitterResmi->where('class', $lk)->count();
@@ -417,8 +424,51 @@ class KlasifikasiController extends Controller
       	"data" => $arrayFB,
       );
 
+      $chartArrayTweetType ["chart"] = array (
+      	"type" => "pie",
+      	"plotBackgroundColor" => null,
+      	"plotBorderWidth" => null,
+      	"plotShadow" => false,
+      );
+      $chartArrayTweetType ["title"] = array (
+      	"text" => "Jenis Tweet Twitter"
+      );
+      $chartArrayTweetType ["credits"] = array (
+      	"enabled" => true
+      );
+
+      $chartArrayTweetType ["tooltip"] = array (
+      	"pointFormat" => "{series.name}:<b>{point.percentage:.1f}%</b>"
+      );
+
+      $chartArrayTweetType ["plotOptions"] = array (
+      	"pie" => [
+      		"allowPointSelect" => true,
+      		"cursor" => 'pointer',
+      		"dataLabels" => [
+      			"enabled" => true,
+      			"format" => '<b>{point.name}</b>:{point.percentage:.1f} %',
+      			"style" => [
+      			"color" => "black"
+      		]
+      	]
+      ]
+      );
 
 
-      return view('klasifikasiPostPemda',['pemda' => $pemda])->withChartArrayTotalKlasifikasiPost($chartArrayTotalKlasifikasiPost)->withChartArrayTotalPost($chartArrayTotalPost)->withChartArrayPostType($chartArrayPostType);
+      $arrayTW = [];
+      for($i=0; $i< count($namaPostTypeTwitter); $i ++) {
+      	$arrayTW[$i] = [$namaPostTypeTwitter[$i], $jumlahTypeTweetTwitterResmi[$i]];
+      }
+
+      $chartArrayTweetType ["series"] [] = array (
+      	"name" => 'post type',
+      	"colorByPoint" => true,
+      	"data" => $arrayTW,
+      );
+
+
+
+      return view('klasifikasiPostPemda',['pemda' => $pemda])->withChartArrayTotalKlasifikasiPost($chartArrayTotalKlasifikasiPost)->withChartArrayTotalPost($chartArrayTotalPost)->withChartArrayPostType($chartArrayPostType)->withChartArrayTweetType($chartArrayTweetType);
     }
 }

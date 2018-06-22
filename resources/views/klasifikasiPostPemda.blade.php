@@ -9,7 +9,7 @@
     <div class="card twenty wide column">
       <div class="content">
         <div class="header">
-          Klasifikasi Komentar {{ $pemda->name }}
+          Klasifikasi Post {{ $pemda->name }}
           @if (($pemda->facebook_resmi))
           <a class="ui icon facebook button" style="float:right" target="_blank" href="http://facebook.com/{{$pemda->facebook_resmi}}"><i class="facebook icon"></i></a>
           @endif
@@ -51,6 +51,14 @@
     </div>
   </div>
 
+  <div class="ui cards grid">
+    <div class="card twenty wide column">
+      <div class="content">
+        <div class="twenty wide column" id="container-tweet-type" style="width:100%; height:400px;"></div>
+      </div>
+    </div>
+  </div>
+
 
 </div>
 @endsection
@@ -62,6 +70,7 @@
         $('#container-total-klasifikasi-post').highcharts( <?php  echo json_encode($chartArrayTotalKlasifikasiPost) ?>);
         $('#container-total-post').highcharts( <?php  echo json_encode($chartArrayTotalPost) ?>);
         $('#container-post-type').highcharts( <?php  echo json_encode($chartArrayPostType) ?>);
+        $('#container-tweet-type').highcharts( <?php  echo json_encode($chartArrayTweetType) ?>);
 
     });
 

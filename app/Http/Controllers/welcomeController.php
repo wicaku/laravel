@@ -604,6 +604,21 @@ class welcomeController extends Controller
       }
 
       //grafik
+      for($i = 0; $i < count($namaPemdaEmoji); $i++) {
+          if (strpos($namaPemdaEmoji[$i], "PROVINSI") !== false) {
+              $colors [] = ("red");
+          }
+          elseif (strpos($namaPemdaEmoji[$i], "KOTA") !== false) {
+            $colors [] = ("blue");
+          }
+          elseif (strpos($namaPemdaEmoji[$i], "KAB.") !== false) {
+              $colors [] = ("green");
+          }
+          else{
+              $colors [] = ("grey");
+          }
+      }
+
       $chartArrayEmoji ["chart"] = array (
                 "type" => "column"
       );
@@ -630,7 +645,9 @@ class welcomeController extends Controller
       	  "dataLabels" => [
         		'enabled' => false,
         		'color' => 'white'
-      		]
+      		],
+          "colors" => $colors,
+          "colorByPoint" => true
       	]
 
       );
@@ -646,6 +663,7 @@ class welcomeController extends Controller
       );
 
       $chartArrayEmoji ["series"] [] = array (
+        "showInLegend" => false,
       	"name" => 'Facebook',
       	"data" => $emojiScore,
       );
@@ -655,7 +673,8 @@ class welcomeController extends Controller
       $facebookPostTypeResult = facebookPostTypeResultModel::all();
       foreach ($facebookPostTypeResult as $fptr) {
         $namaPostTypeFacebook[] = $fptr['post_type'];
-        $engagementScorePostTypeFacebook[] = $fptr['result.statistics.postCount'];
+        $postCountTypeFacebook[] = $fptr['result.statistics.postCount'];
+        $engagementScorePostTypeFacebook[] = $fptr['result.scores.engagement_index_score'];
       }
 
       $chartArrayPostType ["chart"] = array (
@@ -691,7 +710,7 @@ class welcomeController extends Controller
 
       $arrayFB = [];
       for($i=0; $i< count($namaPostTypeFacebook); $i ++) {
-          $arrayFB[$i] = [$namaPostTypeFacebook[$i], $engagementScorePostTypeFacebook[$i]];
+          $arrayFB[$i] = [$namaPostTypeFacebook[$i], $postCountTypeFacebook[$i]];
       }
 
       $chartArrayPostType ["series"] [] = array (
@@ -700,21 +719,71 @@ class welcomeController extends Controller
         "data" => $arrayFB,
       );
 
-      return view('facebook')->withChartArrayEmoji($chartArrayEmoji)->withChartArrayPostType($chartArrayPostType);
+      //engagement jenis pos
+      $chartArrayFacebookEngagementPostType ["chart"] = array (
+                "type" => "column"
+      );
+      $chartArrayFacebookEngagementPostType ["title"] = array (
+        "text" => "Engagement Score Post Type"
+      );
+      $chartArrayFacebookEngagementPostType ["credits"] = array (
+        "enabled" => true
+      );
+
+      for($i = 0; $i < count ( $namaPostTypeFacebook ); $i++) {
+        $chartArrayFacebookEngagementPostType ["xAxis"][] = array (
+        	   "categories" => $namaPostTypeFacebook
+        );
+      }
+
+      $chartArrayFacebookEngagementPostType ["tooltip"] = array (
+        "valueSuffix" => " Engagement Score"
+      );
+
+      $chartArrayFacebookEngagementPostType ["plotOptions"] = array (
+        "column" => [
+      	  "stacking" => 'normal',
+      	  "dataLabels" => [
+        		'enabled' => false,
+        		'color' => 'white'
+      		]
+      	]
+
+      );
+
+      $chartArrayFacebookEngagementPostType ["yAxis"] = array (
+        "min" => 0,
+        "title" => [
+      	  "text" => 'Score'
+        ],
+        "stackLabels" => [
+      	  "enabled" => true
+        ]
+      );
+
+      $chartArrayFacebookEngagementPostType ["series"] [] = array (
+        "showInLegend" => false,
+      	"name" => 'Facebook',
+      	"data" => $engagementScorePostTypeFacebook,
+      );
+
+      return view('facebook')->withChartArrayEmoji($chartArrayEmoji)->withChartArrayPostType($chartArrayPostType)->withChartArrayFacebookEngagementPostType($chartArrayFacebookEngagementPostType);
     }
 
     public function twitter() {
       $twitterPostTypeResult = twitterPostTypeResultModel::all();
       foreach ($twitterPostTypeResult as $tptr) {
         $namaPostTypeTwitter[] = $tptr['tweet_type'];
-        $engagementScorePostTypeTwitter[] = $tptr['result.statistics.tweetCount'];
+        $postCountPostTypeTwitter[] = $tptr['result.statistics.tweetCount'];
+        $engagementScorePostTypeTwitter[] = $tptr['result.scores.engagement_index_score'];
       }
 
       $arrayTW = [];
       for($i=0; $i< count($namaPostTypeTwitter); $i ++) {
-        $arrayTW[$i] = [$namaPostTypeTwitter[$i], $engagementScorePostTypeTwitter[$i]];
+        $arrayTW[$i] = [$namaPostTypeTwitter[$i], $postCountPostTypeTwitter[$i]];
       }
 
+      //tweet count
       $chartArrayTwitterType ["chart"] = array (
       	"type" => "pie",
       	"plotBackgroundColor" => null,
@@ -751,8 +820,59 @@ class welcomeController extends Controller
       	"colorByPoint" => true,
       	"data" => $arrayTW,
       );
-      return view('twitter')->withChartArrayTwitterType($chartArrayTwitterType);
+
+      //engagement score twitter
+      $chartArrayTwitterEngagementPostType ["chart"] = array (
+                "type" => "column"
+      );
+      $chartArrayTwitterEngagementPostType ["title"] = array (
+        "text" => "Engagement Score Post Type Twitter"
+      );
+      $chartArrayTwitterEngagementPostType ["credits"] = array (
+        "enabled" => true
+      );
+
+      for($i = 0; $i < count ( $namaPostTypeTwitter ); $i++) {
+        $chartArrayTwitterEngagementPostType ["xAxis"][] = array (
+             "categories" => $namaPostTypeTwitter
+        );
+      }
+
+      $chartArrayTwitterEngagementPostType ["tooltip"] = array (
+        "valueSuffix" => " Engagement Score"
+      );
+
+      $chartArrayTwitterEngagementPostType ["plotOptions"] = array (
+        "column" => [
+          "stacking" => 'normal',
+          "dataLabels" => [
+            'enabled' => false,
+            'color' => 'white'
+          ]
+        ]
+
+      );
+
+      $chartArrayTwitterEngagementPostType ["yAxis"] = array (
+        "min" => 0,
+        "title" => [
+          "text" => 'Score'
+        ],
+        "stackLabels" => [
+          "enabled" => true
+        ]
+      );
+
+      $chartArrayTwitterEngagementPostType ["series"] [] = array (
+        "showInLegend" => false,
+        "name" => 'Facebook',
+        "data" => $engagementScorePostTypeTwitter,
+      );
+
+      return view('twitter')->withChartArrayTwitterType($chartArrayTwitterType)->withChartArrayTwitterEngagementPostType($chartArrayTwitterEngagementPostType);
     }
+
+
 
     public function youtube() {
       $listPemda = listPemdaModel::all();
@@ -767,17 +887,32 @@ class welcomeController extends Controller
 
       }
 
-      $top10pemdaRating = $listPemda->sortByDesc('rating')->take(30);
+      $top10pemdaRating = $listPemda->sortByDesc('rating')->take(20);
       foreach ($top10pemdaRating as $tr) {
         $namaPemdaRating[] = $tr['name'];
-        $ratingScore[] = $tr['rating'];
+        $ratingScore[] = round($tr['rating'],2);
+      }
+
+      for($i = 0; $i < count($namaPemdaRating); $i++) {
+          if (strpos($namaPemdaRating[$i], "PROVINSI") !== false) {
+              $colors [] = ("red");
+          }
+          elseif (strpos($namaPemdaRating[$i], "KOTA") !== false) {
+            $colors [] = ("blue");
+          }
+          elseif (strpos($namaPemdaRating[$i], "KAB.") !== false) {
+              $colors [] = ("green");
+          }
+          else{
+              $colors [] = ("grey");
+          }
       }
 
       $chartArrayRating ["chart"] = array (
           "type" => "column"
       );
       $chartArrayRating ["title"] = array (
-        "text" => "Top 30 Rating Youtube"
+        "text" => "Top 20 Rating Youtube"
       );
       $chartArrayRating ["credits"] = array (
         "enabled" => true
@@ -790,27 +925,29 @@ class welcomeController extends Controller
       }
 
       $chartArrayRating ["tooltip"] = array (
-        "valueSuffix" => " Rating Score"
+        "valueSuffix" => " %"
       );
 
       $chartArrayRating ["plotOptions"] = array (
-        "column" => [
-      	  "stacking" => 'normal',
-      	]
-
+        "series" => [
+          "dataLabels" => [
+            "enabled" => true,
+            "format" => '{y} %'
+            ],
+            "colors" => $colors,
+            "colorByPoint" => true,
+          ],
       );
 
       $chartArrayRating ["yAxis"] = array (
         "min" => 0,
         "title" => [
       	  "text" => 'Rating Score'
-        ],
-        "stackLabels" => [
-      	  "enabled" => true
         ]
       );
 
       $chartArrayRating ["series"] [] = array (
+        "showInLegend" => false,
       	"name" => 'Youtube',
       	"data" => $ratingScore,
         "color" => '#90ed7d'
