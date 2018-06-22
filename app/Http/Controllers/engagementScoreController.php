@@ -104,6 +104,7 @@ class engagementScoreController extends Controller
         $lp['dislikeCountYT'] = $postYT['result.statistics.dislikeCount'];
         $lp['ratingScoreYT'] = $postYT['result.scores.rating_score'];
         $lp['channel_subscriberCount'] = $postYT['channel_subscriberCount'];
+        $lp['viewCountYT'] = $postYT['result.statistics.viewCount'];
       }
 
 

@@ -57,9 +57,9 @@
             <th>Jumlah Favorite</th>
             <th>Jumlah Reply</th>
             <th>Jumlah Retweet</th>
-            <th>Persentase Post dengan Favorite</th>
-            <th>Persentase Post dengan Reply</th>
-            <th>Persentase Post dengan Retweet</th>
+            <th>Persentase Tweet dengan Favorite</th>
+            <th>Persentase Tweet dengan Reply</th>
+            <th>Persentase Tweet dengan Retweet</th>
             <th>Jumlah Follower</th>
             <th>Engagement Score</th>
           </tr>
@@ -94,9 +94,10 @@
             <th>Jumlah Video</th>
             <th>Jumlah Like</th>
             <th>Jumlah Komentar</th>
-            <th>Persentase Post dengan Like</th>
-            <th>Persentase Post dengan Komentar</th>
+            <th>Persentase Video dengan Like</th>
+            <th>Persentase Video dengan Komentar</th>
             <th>Jumlah Subscriber</th>
+            <th>Jumlah Viewer</th>
             <th>Engagement Score</th>
           </tr>
         </thead>
@@ -109,6 +110,7 @@
                   <td>{{$eg['persentaseVideoLikeYT']}} %</td>
                   <td>{{$eg['persentaseVideoKomentarYT']}} %</td>
                   <td>{{$eg['channel_subscriberCount']}}</td>
+                  <td>{{$eg['viewCountYT']}}</td>
                   <td>{{$eg['engagementYT']}}</td>
                 </tr>
           @endforeach
