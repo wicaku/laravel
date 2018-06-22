@@ -115,7 +115,7 @@ class engagementScoreController extends Controller
       $fbReactionTotal = [];
       foreach($sortFB as $sf) {
         $tanggalFacebook[] = $sf['result_createdDate'];
-        $engagementScoreFacebook[] = $sf['result.scores.engagement_index_score'];
+        $engagementScoreFacebook[] = $sf['result.scores.engagement_index_score_normalized'];
         $fbAlbum = round($sf['post_type_result.album.scores.engagement_index_score'],2);
         $fbLink = round($sf['post_type_result.link.scores.engagement_index_score'],2);
         $fbNote = round($sf['post_type_result.note.scores.engagement_index_score'],2);
@@ -182,7 +182,7 @@ class engagementScoreController extends Controller
     $tweetTypeScore = [];
     foreach($sortTW as $st) {
       $tanggalTwitter[] = $st['result_createdDate'];
-      $engagementScoreTwitter[] = $st['result.scores.engagement_index_score'];
+      $engagementScoreTwitter[] = $st['result.scores.engagement_index_score_normalized'];
 
       $twGif = round($st['post_type_result.animated_gif.scores.engagement_index_score'],2);
       $twPhoto = round($st['post_type_result.photo.scores.engagement_index_score'],2);
@@ -243,7 +243,7 @@ class engagementScoreController extends Controller
     $ratingScoreYT = [];
     foreach($sortYT as $sy) {
       $tanggalYoutube[] = $sy['result_createdDate'];
-      $engagementScoreYoutube[] = $sy['result.scores.engagement_index_score'];
+      $engagementScoreYoutube[] = $sy['result.scores.engagement_index_score_normalized'];
       $ratingScoreYT[] = $sy['result.scores.rating_score'];
     }
 
