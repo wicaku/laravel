@@ -4,7 +4,7 @@
 <div class="ui container">
   <div class="ui grid">
     <div class="two column row">
-      <div class="left floated column"><h5 class="ui header" style="margin-top:10px"><i class="home icon"></i>Data Opendata</h5></div>
+      <div class="left floated column"><h5 class="ui header" style="margin-top:10px"><i class="home icon"></i>Opendata</h5></div>
     </div>
   </div>
 
