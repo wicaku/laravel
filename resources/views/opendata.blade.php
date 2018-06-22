@@ -112,6 +112,7 @@ HOME
     $(document).ready(function () {
         $('.ui.dropdown').dropdown();
         $("#openData").addClass("active");
+        $("#top10Result").DataTable();
         $('#container-top10result').highcharts( <?php  echo json_encode($chartArrayTop10Result) ?>);
         $('#container-allresult').highcharts( <?php  echo json_encode($chartArrayAllResult) ?>);
         $('#container-allresultSTD').highcharts( <?php  echo json_encode($chartArrayAllResultSTD) ?>);

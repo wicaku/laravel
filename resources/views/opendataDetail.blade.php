@@ -33,16 +33,78 @@
           @foreach ($resultOpendata as $ro)
                 <tr>
                   <td>{{$ro['tanggal']}}</td>
-                  <td>{{$ro['aResult']}}</td>
-                  <td>{{$ro['bResult']}}</td>
-                  <td>{{$ro['cResult']}}</td>
-                  <td>{{$ro['dResult']}}</td>
-                  <td>{{$ro['eResult']}}</td>
-                  <td>{{$ro['fResult']}}</td>
-                  <td>{{$ro['gResult']}}</td>
-                  <td>{{$ro['hResult']}}</td>
-                  <td>{{$ro['iResult']}}</td>
-                  <td>{{$ro['jResult']}}</td>
+                  @php
+                    $aResult = $ro['aResult'];
+                    $bResult = $ro['bResult'];
+                    $cResult = $ro['cResult'];
+                    $dResult = $ro['dResult'];
+                    $eResult = $ro['eResult'];
+                    $fResult = $ro['fResult'];
+                    $gResult = $ro['gResult'];
+                    $hResult = $ro['hResult'];
+                    $iResult = $ro['iResult'];
+                    $jResult = $ro['jResult'];
+                    if ($aResult == 1) {
+                      echo "<td><img src='/img/ok.png' height='20' width='20'></td>";
+                    }
+                    else {
+                      echo "<td><img src='/img/remove.png' height='20' width='20'></td>";
+                    }
+                    if ($bResult == 1) {
+                      echo "<td><img src='/img/ok.png' height='20' width='20'></td>";
+                    }
+                    else {
+                      echo "<td><img src='/img/remove.png' height='20' width='20'></td>";
+                    }
+                    if ($cResult == 1) {
+                      echo "<td><img src='/img/ok.png' height='20' width='20'></td>";
+                    }
+                    else {
+                      echo "<td><img src='/img/remove.png' height='20' width='20'></td>";
+                    }
+                    if ($dResult == 1) {
+                      echo "<td><img src='/img/ok.png' height='20' width='20'></td>";
+                    }
+                    else {
+                      echo "<td><img src='/img/remove.png' height='20' width='20'></td>";
+                    }
+                    if ($eResult == 1) {
+                      echo "<td><img src='/img/ok.png' height='20' width='20'></td>";
+                    }
+                    else {
+                      echo "<td><img src='/img/remove.png' height='20' width='20'></td>";
+                    }
+                    if ($fResult == 1) {
+                      echo "<td><img src='/img/ok.png' height='20' width='20'></td>";
+                    }
+                    else {
+                      echo "<td><img src='/img/remove.png' height='20' width='20'></td>";
+                    }
+                    if ($gResult == 1) {
+                      echo "<td><img src='/img/ok.png' height='20' width='20'></td>";
+                    }
+                    else {
+                      echo "<td><img src='/img/remove.png' height='20' width='20'></td>";
+                    }
+                    if ($hResult == 1) {
+                      echo "<td><img src='/img/ok.png' height='20' width='20'></td>";
+                    }
+                    else {
+                      echo "<td><img src='/img/remove.png' height='20' width='20'></td>";
+                    }
+                    if ($iResult == 1) {
+                      echo "<td><img src='/img/ok.png' height='20' width='20'></td>";
+                    }
+                    else {
+                      echo "<td><img src='/img/remove.png' height='20' width='20'></td>";
+                    }
+                    if ($jResult == 1) {
+                      echo "<td><img src='/img/ok.png' height='20' width='20'></td>";
+                    }
+                    else {
+                      echo "<td><img src='/img/remove.png' height='20' width='20'></td>";
+                    }
+                  @endphp
                   <td>{{$ro['totalScore']}}</td>
                 </tr>
           @endforeach
@@ -66,7 +128,6 @@
 <script>
 	$(document).ready(function () {
         $('.ui.dropdown').dropdown();
-        // $("#klasifikasi").addClass("active");
         $('#container-resultOpendata').highcharts( <?php  echo json_encode($chartArrayOpendata) ?>);
         $('#container-subkategori').highcharts( <?php  echo json_encode($chartArraySubkategori) ?>);
     });
