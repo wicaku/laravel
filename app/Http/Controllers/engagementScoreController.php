@@ -69,7 +69,7 @@ class engagementScoreController extends Controller
         $lp['persentasePosLikeFB'] = round($postFB['result.scores.popularity_likeScore.popularity_likeScore_1'],4) * 100;
         $lp['persentasePosKomentarFB'] = round($postFB['result.scores.commitment_commentScore.commitment_commentScore_1'],4) * 100;
         $lp['persentasePosShareFB'] = round($postFB['result.scores.virality_shareScore.virality_shareScore_1'],4) * 100;
-        $lp['engagementFB'] = round($postFB['result.scores.engagement_index_score'],2);
+        $lp['engagementFB'] = round($postFB['result.scores.engagement_index_score_normalized'],2);
         $lp['haha'] = round($postFB['result.statistics.reactions.haha'],2);
         $lp['love'] = round($postFB['result.statistics.reactions.love'],2);
         $lp['like'] = round($postFB['result.statistics.reactions.like'],2);
@@ -89,7 +89,7 @@ class engagementScoreController extends Controller
         $lp['persentaseTweetLikeTW'] = round($postTW['result.scores.popularity_favoriteScore.popularity_favoriteScore_1'],4) * 100;
         $lp['persentaseTweetKomentarTW'] = round($postTW['result.scores.commitment_replyScore.commitment_replyScore_1'],4) * 100;
         $lp['persentaseTweetRetweetTW'] = round($postTW['result.scores.virality_retweetScore.virality_retweetScore_1'],4) * 100;
-        $lp['engagementTW'] = round($postTW['result.scores.engagement_index_score'],2);
+        $lp['engagementTW'] = round($postTW['result.scores.engagement_index_score_normalized'],2);
         $lp['account_followerCount'] = $postTW['account_followerCount'];
 
         $youtubeResmiLower = strtolower($lp['youtube_resmi']);
@@ -99,7 +99,7 @@ class engagementScoreController extends Controller
         $lp['jumlahKomentarYT'] = $postYT['result.statistics.commentCount'];
         $lp['persentaseVideoLikeYT'] = round($postYT['result.scores.popularity_likeScore.popularity_likeScore_1'],4) * 100;
         $lp['persentaseVideoKomentarYT'] = round($postYT['result.scores.commitment_commentScore.commitment_commentScore_1'],4) * 100;
-        $lp['engagementYT'] = round($postYT['result.scores.engagement_index_score'],2);
+        $lp['engagementYT'] = round($postYT['result.scores.engagement_index_score_normalized'],2);
         $lp['likeCountYT'] = $postYT['result.statistics.likeCount'];
         $lp['dislikeCountYT'] = $postYT['result.statistics.dislikeCount'];
         $lp['ratingScoreYT'] = $postYT['result.scores.rating_score'];
