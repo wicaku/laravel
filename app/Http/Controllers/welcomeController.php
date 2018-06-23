@@ -163,7 +163,7 @@ class welcomeController extends Controller
 
       $variance = 0.0;
 
-              // calculating mean using array_sum() method
+      // calculating mean using array_sum() method
       $average = array_sum($arr)/$num_of_elements;
 
       return round($average,2);
@@ -565,17 +565,6 @@ class welcomeController extends Controller
           "radius" => 12
           ],
       );
-      // $chartArrayKomentar ["series"] [] = array (
-      //   "type" => 'spline',
-      //   "name" => 'Rata-Rata',
-      // 	"data" => $rataArray,
-      //   "marker" => [
-      //     "lineWidth" => 2,
-      //     "lineColor" => 'green',
-      //     ]
-      // );
-
-      // dd($chartArrayKomentar);
 
 
      return view('komentar')->withChartArray($chartArray)->withChartArrayKomentar($chartArrayKomentar);
@@ -675,7 +664,7 @@ class welcomeController extends Controller
       $engagementScorePostTypeFacebook = [];
       $facebookPostTypeResult = facebookPostTypeResultModel::all();
       foreach ($facebookPostTypeResult as $fptr) {
-        $namaPostTypeFacebook[] = $fptr['post_type'];
+        $namaPostTypeFacebook[] = $fptr['_id'];
         $postCountTypeFacebook[] = $fptr['result.statistics.postCount'];
         $engagementScorePostTypeFacebook[] = $fptr['result.scores.engagement_index_score'];
       }
@@ -776,7 +765,7 @@ class welcomeController extends Controller
     public function twitter() {
       $twitterPostTypeResult = twitterPostTypeResultModel::all();
       foreach ($twitterPostTypeResult as $tptr) {
-        $namaPostTypeTwitter[] = $tptr['tweet_type'];
+        $namaPostTypeTwitter[] = $tptr['_id'];
         $postCountPostTypeTwitter[] = $tptr['result.statistics.tweetCount'];
         $engagementScorePostTypeTwitter[] = $tptr['result.scores.engagement_index_score'];
       }
