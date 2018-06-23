@@ -670,6 +670,9 @@ class welcomeController extends Controller
 
 
       //jenis pos facebook
+      $namaPostTypeFacebook = [];
+      $postCountTypeFacebook = [];
+      $engagementScorePostTypeFacebook = [];
       $facebookPostTypeResult = facebookPostTypeResultModel::all();
       foreach ($facebookPostTypeResult as $fptr) {
         $namaPostTypeFacebook[] = $fptr['post_type'];

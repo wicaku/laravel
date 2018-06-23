@@ -33,7 +33,7 @@ HOME - Facebook
         $("#home").addClass("active");
         $('#container-emoji').highcharts( <?php  echo json_encode($chartArrayEmoji) ?>);
         $('#container-post-count').highcharts( <?php  echo json_encode($chartArrayPostType) ?>);
-        $('#container-post-type').highcharts( <?php  echo json_encode($chartArrayEngagementPostType) ?>);
+        $('#container-post-type').highcharts( <?php  echo json_encode($chartArrayFacebookEngagementPostType) ?>);
         $('.menu .item')
           .tab()
         ;
