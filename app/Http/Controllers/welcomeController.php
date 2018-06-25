@@ -947,4 +947,7 @@ class welcomeController extends Controller
       return view('youtube')->withChartArrayRating($chartArrayRating);
     }
 
+    public function error() {
+      return view('error');
+    }
 }

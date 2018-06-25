@@ -65,8 +65,6 @@ class KategorisasiController extends Controller
 
       $top5dinas = $dinases->sortByDesc('total_komentar')->take(5);
 
-      // dd($top5dinas);
-
       foreach($top5dinas as $td) {
         $namaDinas[] = $td['nama_dinas'];
         $jumlahKomentarFacebookResmi[] = $komentarFacebookResmi->where('category', $td['nama_dinas'])->count();

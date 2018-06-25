@@ -39,9 +39,9 @@
 				Peringkat
 				<i class="dropdown icon"></i>
 				<div class="menu transition hidden" tabindex="-1">
-					<a id="web" class="item" href="{{ url('/peringkat/website') }}">Website </a>
-					<a id="socmed" class="item" href="{{ url('/peringkat/sosial-media') }}">Sosial Media</a>
-					<a id="vuln" class="item" href="{{ url('/peringkat/kerentanan') }}">Kerentanan</a>
+					<a id="web" class="item" href="{{ route('error') }}">Website </a>
+					<a id="socmed" class="item" href="{{ route('error') }}">Sosial Media</a>
+					<a id="vuln" class="item" href="{{ route('error') }}">Kerentanan</a>
 					<a id="engagement" class="item" href="{{ route('peringkat.engagement') }}">Engagement Score</a>
 
 				</div>
@@ -50,9 +50,9 @@
 				Data
 				<i class="dropdown icon"></i>
 				<div class="menu transition hidden" tabindex="-1">
-					<a id="dataweb" class="item" href="{{ url('/data/website') }}">Website</a>
-					<a id="datasocmed" class="item" href="{{ url('/data/sosial-media') }}">Sosial Media</a>
-					<a id="datavuln" class="item" href="{{ url('/data/kerentanan') }}">Kerentanan</a>
+					<a id="dataweb" class="item" href="{{ route('error') }}">Website</a>
+					<a id="datasocmed" class="item" href="{{ route('error') }}">Sosial Media</a>
+					<a id="datavuln" class="item" href="{{ route('error') }}">Kerentanan</a>
 					<a id="dataOpenData" class="item" href="{{ route('opendata.data') }}">Open Data</a>
 				</div>
 			</div>
@@ -60,9 +60,9 @@
 				Metodologi
 				<i class="dropdown icon"></i>
 				<div class="menu transition hidden" tabindex="-1">
-					<a id="meta1" class="item" href="{{ url('/metodologi/1') }}">EGOV Benchmark V1.0</a>
-					<a id="meta2" class="item" href="{{ url('/metodologi/2') }}">EGOV Benchmark V2.0</a>
-					<a id="meta3" class="item" href="{{ url('/metodologi/3') }}">EGOV Benchmark V3.0</a>
+					<a id="meta1" class="item" href="{{ route('error') }}">EGOV Benchmark V1.0</a>
+					<a id="meta2" class="item" href="{{ route('error') }}">EGOV Benchmark V2.0</a>
+					<a id="meta3" class="item" href="{{ route('error') }}">EGOV Benchmark V3.0</a>
 				</div>
 			</div>
 			<a id="klasifikasi" class="item" href="{{ route('klasifikasi') }}">Klasifikasi</a>

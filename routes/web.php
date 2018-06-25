@@ -16,6 +16,7 @@
 // });
 
 Route::get('/', 'welcomeController@index');
+Route::get('/error', 'welcomeController@error')->name('error');
 
 Route::get('/tentang', function () {
     return view('tentang');
