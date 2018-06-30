@@ -9,6 +9,7 @@ HOME
     font-weight: bold;
   }
 </style>
+
 <div class="ui container">
 
   <div class="ui cards grid">
@@ -91,7 +92,9 @@ HOME
 
 
 </div>
-
+<?php
+// echo("This page took ".  (microtime(true) - LARAVEL_START)  . "seconds to render");
+?>
 @endsection
 
 @section('script')

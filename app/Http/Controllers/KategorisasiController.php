@@ -48,9 +48,9 @@ class KategorisasiController extends Controller
       //twitter influencer
       $komentarTwitterInfluencer = twitter_replyModel::where('account_id', $pemda->twitter_influencer)->get();
       //youtube resmi
-      $komentarYoutubeResmi = youtubeCommentsModel::where('channel_id', $pemda->youtube_resmi)->get();
+      $komentarYoutubeResmi = youtubeCommentsModel::where('channel_id', strtolower($pemda->youtube_resmi))->get();
       //youtube influencer
-      $komentarYoutubeInfluencer = youtubeCommentsModel::where('channel_id', $pemda->youtube_influencer)->get();
+      $komentarYoutubeInfluencer = youtubeCommentsModel::where('channel_id', strtolower($pemda->youtube_influencer))->get();
 
       foreach($dinases as $dinas) {
         $namaDinas[] = $dinas['nama_dinas'];
@@ -64,9 +64,10 @@ class KategorisasiController extends Controller
       }
 
       $top5dinas = $dinases->sortByDesc('total_komentar')->take(5);
+      
 
       foreach($top5dinas as $td) {
-        $namaDinas[] = $td['nama_dinas'];
+        $namaDinas5[] = $td['nama_dinas'];
         $jumlahKomentarFacebookResmi[] = $komentarFacebookResmi->where('category', $td['nama_dinas'])->count();
         $jumlahKomentarFacebookInfluencer[] = $komentarFacebookInfluencer->where('category', $td['nama_dinas'])->count();
         $jumlahKomentarTwitterResmi[] = $komentarTwitterResmi->where('category', $td['nama_dinas'])->count();
@@ -80,15 +81,15 @@ class KategorisasiController extends Controller
           "type" => "column"
       );
       $chartArray ["title"] = array (
-          "text" => "Jumlah Kategorisasi Komentar"
+          "text" => "Top 5 Kategorisasi Komentar Dinas Terbanyak"
       );
       $chartArray ["credits"] = array (
           "enabled" => true
       );
 
-      for($i = 0; $i < count ( $namaDinas ); $i++) {
+      for($i = 0; $i < count ( $namaDinas5 ); $i++) {
         $chartArray ["xAxis"][] = array (
-               "categories" => $namaDinas
+               "categories" => $namaDinas5
         );
       }
 

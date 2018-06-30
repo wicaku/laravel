@@ -22,7 +22,7 @@ class KlasifikasiController extends Controller
     public function klasifikasiKomentarPemda($id) {
       $pemda = listPemdaModel::where('_id', (int)$id)->first();
 
-      $labelKlasifikasi = ['Berbagi Informasi', 'Meminta Informasi', 'Mengemukakan Pendapat', 'Apresiasi', 'Komplain Pelayanan'];
+      $labelKlasifikasi = ['Berbagi Informasi', 'Meminta Informasi', 'Mengemukakan Pendapat', 'Apresiasi', 'Komplain Layanan Pemerintahan'];
 
       //facebook resmi
       $komentarFacebookResmi = facebookCommentsModel::where('page_id', $pemda->facebook_resmi)->get();
@@ -53,14 +53,14 @@ class KlasifikasiController extends Controller
       }
 
       //youtube resmi
-      $komentarYoutubeResmi = youtubeCommentsModel::where('channel_id', $pemda->youtube_resmi)->get();
+      $komentarYoutubeResmi = youtubeCommentsModel::where('channel_id', strtolower($pemda->youtube_resmi))->get();
 
       foreach($labelKlasifikasi as $lk) {
         $jumlahKomentarYoutubeResmi[] = $komentarYoutubeResmi->where('class', $lk)->count();
       }
 
       //youtube influencer
-      $komentarYoutubeInfluencer = youtubeCommentsModel::where('channel_id', $pemda->youtube_influencer)->get();
+      $komentarYoutubeInfluencer = youtubeCommentsModel::where('channel_id', strtolower($pemda->youtube_influencer))->get();
 
       foreach($labelKlasifikasi as $lk) {
         $jumlahKomentarYoutubeInfluencer[] = $komentarYoutubeInfluencer->where('class', $lk)->count();
@@ -145,10 +145,10 @@ class KlasifikasiController extends Controller
      foreach ($tanggal as $tgl) {
        $hitungKomenFBResmi[] = facebookCommentsModel::where('comment_createdDate', $tgl)->where('page_id', $pemda->facebook_resmi)->count();
        $hitungKomenTWResmi[] = twitter_replyModel::where('tweet_createdDate', $tgl)->where('account_id', $pemda->twitter_resmi)->count();
-       $hitungKomenYTResmi[] = youtubeCommentsModel::where('comment_createdDate', $tgl)->where('channel_id', $pemda->youtube_resmi)->count();
+       $hitungKomenYTResmi[] = youtubeCommentsModel::where('comment_createdDate', $tgl)->where('channel_id', strtolower($pemda->youtube_resmi))->count();
        $hitungKomenFBInfluencer[] = facebookCommentsModel::where('comment_createdDate', $tgl)->where('page_id', $pemda->facebook_influencer)->count();
        $hitungKomenTWInfluencer[] = twitter_replyModel::where('tweet_createdDate', $tgl)->where('account_id', $pemda->twitter_influencer)->count();
-       $hitungKomenYTInfluencer[] = youtubeCommentsModel::where('comment_createdDate', $tgl)->where('channel_id', $pemda->youtube_influencer)->count();
+       $hitungKomenYTInfluencer[] = youtubeCommentsModel::where('comment_createdDate', $tgl)->where('channel_id', strtolower($pemda->youtube_influencer))->count();
      }
 
       $chartArrayTotalKomen ["chart"] = array (
@@ -252,7 +252,7 @@ class KlasifikasiController extends Controller
       }
 
       //youtube resmi
-      $postYoutubeResmi = youtubeCommentsModel::where('channel_id', $pemda->youtube_resmi)->get();
+      $postYoutubeResmi = youtubeCommentsModel::where('channel_id', strtolower($pemda->youtube_resmi))->get();
 
       foreach($labelKlasifikasiPost as $lk) {
         $jumlahPostYoutubeResmi[] = $postYoutubeResmi->where('class', $lk)->count();
@@ -325,7 +325,7 @@ class KlasifikasiController extends Controller
      foreach ($tanggal as $tgl) {
        $hitungPostFBResmi[] = facebookPostsModel::where('comment_createdDate', $tgl)->where('page_id', $pemda->facebook_resmi)->count();
        $hitungPostTWResmi[] = twitterPostsModel::where('tweet_createdDate', $tgl)->where('account_id', $pemda->twitter_resmi)->count();
-       $hitungPostYTResmi[] = youtubePostsModel::where('comment_createdDate', $tgl)->where('channel_id', $pemda->youtube_resmi)->count();
+       $hitungPostYTResmi[] = youtubePostsModel::where('comment_createdDate', $tgl)->where('channel_id', strtolower($pemda->youtube_resmi))->count();
      }
 
       $chartArrayTotalPost ["chart"] = array (
